@@ -14,28 +14,98 @@ import {
 } from "../GlobalStyles";
 
 export type OptionType = {
+  addTransaction?: string;
+
   /** Variant props */
   state?: string;
 
   /** Style props */
+  addTransactionBackgroundColor?: string;
+  addTransactionBorderStyle?: string;
+  addTransactionBorderColor?: string;
+  addTransactionBorderWidth?: number;
+  addTransactionPosition?: string;
+  addTransactionHeight?: number | string;
+  addTransactionTop?: number | string;
+  addTransactionRight?: number | string;
+  addTransactionBottom?: number | string;
+  addTransactionLeft?: number | string;
+  addTransactionAlignSelf?: string;
   addTransactionColor?: string;
+  addTransactionWidth?: number | string;
+  addTransactionHeight1?: number | string;
+  addTransactionFontSize?: number;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
   if (value === undefined) return;
   return { [key]: value === "unset" ? undefined : value };
 };
-const Option = ({ state = "Default", addTransactionColor }: OptionType) => {
+const Option = ({
+  state = "Default",
+  addTransactionBackgroundColor,
+  addTransactionBorderStyle,
+  addTransactionBorderColor,
+  addTransactionBorderWidth,
+  addTransactionPosition,
+  addTransactionHeight,
+  addTransactionTop,
+  addTransactionRight,
+  addTransactionBottom,
+  addTransactionLeft,
+  addTransactionAlignSelf,
+  addTransaction,
+  addTransactionColor,
+  addTransactionWidth,
+  addTransactionHeight1,
+  addTransactionFontSize,
+}: OptionType) => {
   const addTransactionStyle = useMemo(() => {
     return {
-      ...getStyleValue("color", addTransactionColor),
+      ...getStyleValue("backgroundColor", addTransactionBackgroundColor),
+      ...getStyleValue("borderStyle", addTransactionBorderStyle),
+      ...getStyleValue("borderColor", addTransactionBorderColor),
+      ...getStyleValue("borderWidth", addTransactionBorderWidth),
+      ...getStyleValue("position", addTransactionPosition),
+      ...getStyleValue("height", addTransactionHeight),
+      ...getStyleValue("top", addTransactionTop),
+      ...getStyleValue("right", addTransactionRight),
+      ...getStyleValue("bottom", addTransactionBottom),
+      ...getStyleValue("left", addTransactionLeft),
+      ...getStyleValue("alignSelf", addTransactionAlignSelf),
     };
-  }, [addTransactionColor]);
+  }, [
+    addTransactionBackgroundColor,
+    addTransactionBorderStyle,
+    addTransactionBorderColor,
+    addTransactionBorderWidth,
+    addTransactionPosition,
+    addTransactionHeight,
+    addTransactionTop,
+    addTransactionRight,
+    addTransactionBottom,
+    addTransactionLeft,
+    addTransactionAlignSelf,
+  ]);
+
+  const addTransaction1Style = useMemo(() => {
+    return {
+      ...getStyleValue("color", addTransactionColor),
+      ...getStyleValue("width", addTransactionWidth),
+      ...getStyleValue("height", addTransactionHeight1),
+      ...getStyleValue("fontSize", addTransactionFontSize),
+    };
+  }, [
+    addTransactionColor,
+    addTransactionWidth,
+    addTransactionHeight1,
+    addTransactionFontSize,
+  ]);
 
   return (
-    <View style={styles.buttonAddTransaction}>
-      <Text style={[styles.addTransaction, addTransactionStyle]}>
-        Add Transaction
+    <View style={[styles.buttonAddTransaction, addTransactionStyle]}>
+      <Text style={[styles.addTransaction, addTransaction1Style]}>
+        {addTransaction}
       </Text>
     </View>
   );

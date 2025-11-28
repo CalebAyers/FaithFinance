@@ -1,7 +1,14 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { StyleSheet, Text, View, ImageSourcePropType } from "react-native";
-import { FontSize, LineHeight, FontFamily, Color } from "../GlobalStyles";
+import {
+  Color,
+  Height,
+  Width,
+  FontSize,
+  LineHeight,
+  FontFamily,
+} from "../GlobalStyles";
 
 export type HomeType = {
   vector?: React.ReactNode;
@@ -10,12 +17,12 @@ export type HomeType = {
   state?: string;
 
   /** Style props */
-  activePosition?: string;
-  activeHeight?: number | string;
-  activeTop?: number | string;
-  activeRight?: number | string;
-  activeBottom?: number | string;
-  activeLeft?: number | string;
+  home2Height?: number | string;
+  home2Position?: string;
+  home2Top?: number | string;
+  home2Right?: number | string;
+  home2Bottom?: number | string;
+  home2Left?: number | string;
   homeColor?: string;
 };
 
@@ -25,31 +32,31 @@ const getStyleValue = (key: string, value: string | number | undefined) => {
 };
 const Home = ({
   state = "default",
-  activePosition,
-  activeHeight,
-  activeTop,
-  activeRight,
-  activeBottom,
-  activeLeft,
-  homeColor,
+  home2Height,
+  home2Position,
+  home2Top,
+  home2Right,
+  home2Bottom,
+  home2Left,
   vector,
+  homeColor,
 }: HomeType) => {
-  const activeStyle = useMemo(() => {
+  const home2Style = useMemo(() => {
     return {
-      ...getStyleValue("position", activePosition),
-      ...getStyleValue("height", activeHeight),
-      ...getStyleValue("top", activeTop),
-      ...getStyleValue("right", activeRight),
-      ...getStyleValue("bottom", activeBottom),
-      ...getStyleValue("left", activeLeft),
+      ...getStyleValue("height", home2Height),
+      ...getStyleValue("position", home2Position),
+      ...getStyleValue("top", home2Top),
+      ...getStyleValue("right", home2Right),
+      ...getStyleValue("bottom", home2Bottom),
+      ...getStyleValue("left", home2Left),
     };
   }, [
-    activePosition,
-    activeHeight,
-    activeTop,
-    activeRight,
-    activeBottom,
-    activeLeft,
+    home2Height,
+    home2Position,
+    home2Top,
+    home2Right,
+    home2Bottom,
+    home2Left,
   ]);
 
   const homeStyle = useMemo(() => {
@@ -59,22 +66,21 @@ const Home = ({
   }, [homeColor]);
 
   return (
-    <View style={[styles.active, activeStyle]}>
+    <View style={[styles.iconHome2, home2Style]}>
       {vector}
-      <Text style={[styles.home, homeStyle]}>Home</Text>
+      <Text style={[styles.home, styles.homeClr, homeStyle]}>Home</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  active: {
-    height: "100%",
-    width: "100%",
-    top: "0%",
-    right: "0%",
-    bottom: "0%",
-    left: "0%",
+  homeClr: {
+    color: Color.backgroundColorLightMode,
     position: "absolute",
+  },
+  iconHome2: {
+    height: Height.height_32,
+    width: Width.width_32,
   },
   home: {
     top: 34,
@@ -83,12 +89,10 @@ const styles = StyleSheet.create({
     lineHeight: LineHeight.lh_38,
     fontWeight: "600",
     fontFamily: FontFamily.instrumentSansSemiBold,
-    color: Color.goldButton,
     textAlign: "center",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
   },
 });
 

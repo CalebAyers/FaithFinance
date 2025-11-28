@@ -38,8 +38,8 @@ const Book = ({
   bookRight,
   bookBottom,
   bookLeft,
-  reflectionColor,
   vector,
+  reflectionColor,
 }: BookType) => {
   const bookStyle = useMemo(() => {
     return {

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useMemo } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import {
   Height,
@@ -7,7 +6,6 @@ import {
   BoxShadow,
   Border,
   Color,
-  Gap,
   FontSize,
   LineHeight,
   FontFamily,
@@ -16,43 +14,15 @@ import {
 export type TransactionTypeType = {
   /** Variant props */
   state?: string;
-
-  /** Style props */
-  frameViewBackgroundColor?: string;
-  frameViewBackgroundColor1?: string;
 };
 
-const getStyleValue = (key: string, value: string | number | undefined) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
-const TransactionType = ({
-  state = "Spending",
-  frameViewBackgroundColor,
-  frameViewBackgroundColor1,
-}: TransactionTypeType) => {
-  const frameViewStyle = useMemo(() => {
-    return {
-      ...getStyleValue("backgroundColor", frameViewBackgroundColor),
-    };
-  }, [frameViewBackgroundColor]);
-
-  const frameView1Style = useMemo(() => {
-    return {
-      ...getStyleValue("backgroundColor", frameViewBackgroundColor1),
-    };
-  }, [frameViewBackgroundColor1]);
-
+const TransactionType = ({ state = "Spending" }: TransactionTypeType) => {
   return (
     <View style={styles.incoming}>
-      <View
-        style={[styles.incomingWrapper, styles.wrapperLayout, frameViewStyle]}
-      >
+      <View style={[styles.incomingWrapper, styles.wrapperLayout]}>
         <Text style={styles.incoming2}>Incoming</Text>
       </View>
-      <View
-        style={[styles.spendingWrapper, styles.wrapperLayout, frameView1Style]}
-      >
+      <View style={[styles.spendingWrapper, styles.wrapperLayout]}>
         <Text style={styles.incoming2}>Spending</Text>
       </View>
     </View>
@@ -77,11 +47,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: Gap.gap_0,
+    gap: 0,
     overflow: "hidden",
   },
   incomingWrapper: {
-    width: Width.width_180,
+    width: 180,
     borderTopLeftRadius: Border.br_12,
     borderBottomLeftRadius: Border.br_12,
     backgroundColor: Color.mainRed,
@@ -100,10 +70,10 @@ const styles = StyleSheet.create({
     height: Height.height_38,
   },
   spendingWrapper: {
-    width: Width.width_188,
+    width: 188,
     borderTopRightRadius: Border.br_12,
     borderBottomRightRadius: Border.br_12,
-    backgroundColor: Color.colorRosybrown,
+    backgroundColor: Color.buttonUnpressed,
   },
 });
 

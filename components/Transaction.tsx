@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { StyleSheet, View, Text, ImageSourcePropType } from "react-native";
 import Money from "./Money";
 import {
   Gap,
@@ -17,21 +17,18 @@ import {
 
 export type TransactionType = {
   category?: string;
-  emptySpace?: string;
+  prop?: string;
   state1?: string;
+  vector?: ImageSourcePropType;
 
   /** Variant props */
   state?: string;
 
   /** Style props */
-  transactionDetailColor?: string;
-  transactionDetailTextAlign?: string;
-  transactionDetailDisplay?: string;
-  transactionDetailAlignItems?: string;
-  secondTransactionDetailWidth?: number | string;
+  frameViewWidth?: number | string;
   categoryWidth?: number | string;
   categoryColor?: string;
-  emptySpaceColor?: string;
+  textColor?: string;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -40,37 +37,20 @@ const getStyleValue = (key: string, value: string | number | undefined) => {
 };
 const Transaction = ({
   state = "Giving",
-  transactionDetailColor,
-  transactionDetailTextAlign,
-  transactionDetailDisplay,
-  transactionDetailAlignItems,
-  secondTransactionDetailWidth,
+  frameViewWidth,
   category,
   categoryWidth,
   categoryColor,
-  emptySpace,
-  emptySpaceColor,
+  prop,
+  textColor,
   state1,
+  vector,
 }: TransactionType) => {
-  const transactionDetailStyle = useMemo(() => {
+  const frameViewStyle = useMemo(() => {
     return {
-      ...getStyleValue("color", transactionDetailColor),
-      ...getStyleValue("textAlign", transactionDetailTextAlign),
-      ...getStyleValue("display", transactionDetailDisplay),
-      ...getStyleValue("alignItems", transactionDetailAlignItems),
+      ...getStyleValue("width", frameViewWidth),
     };
-  }, [
-    transactionDetailColor,
-    transactionDetailTextAlign,
-    transactionDetailDisplay,
-    transactionDetailAlignItems,
-  ]);
-
-  const secondTransactionDetailStyle = useMemo(() => {
-    return {
-      ...getStyleValue("width", secondTransactionDetailWidth),
-    };
-  }, [secondTransactionDetailWidth]);
+  }, [frameViewWidth]);
 
   const categoryStyle = useMemo(() => {
     return {
@@ -79,57 +59,45 @@ const Transaction = ({
     };
   }, [categoryWidth, categoryColor]);
 
-  const emptySpaceStyle = useMemo(() => {
+  const text1Style = useMemo(() => {
     return {
-      ...getStyleValue("color", emptySpaceColor),
+      ...getStyleValue("color", textColor),
     };
-  }, [emptySpaceColor]);
+  }, [textColor]);
 
   return (
-    <View style={styles.transaction}>
-      <View style={[styles.spendsDetail, styles.detailPosition]}>
-        <View style={styles.moneyDetailPair}>
-          <Money state={state1} />
+    <View style={styles.transactionIncome}>
+      <View style={[styles.frameParent, styles.framePosition]}>
+        <View style={styles.iconMoney2Wrapper}>
+          <Money state={state1} vector={vector} />
         </View>
-        <View style={styles.secondTransactionPair}>
-          <Text
-            style={[
-              styles.transactionDetail,
-              styles.oct172025FlexBox,
-              transactionDetailStyle,
-            ]}
-          >
+        <View style={styles.transactionDetailParent}>
+          <Text style={[styles.transactionDetail, styles.oct172025FlexBox]}>
             Transaction Detail
           </Text>
           <View
-            style={[
-              styles.secondTransactionDetail,
-              styles.detailPosition,
-              secondTransactionDetailStyle,
-            ]}
+            style={[styles.frameGroup, styles.framePosition, frameViewStyle]}
           >
-            <View style={styles.secondTransactionData}>
+            <View style={styles.oct172025Wrapper}>
               <Text style={[styles.oct172025, styles.categoryTypo]}>
                 Oct 17, 2025
               </Text>
             </View>
-            <Text style={[styles.category, styles.categoryClr, categoryStyle]}>
+            <Text style={[styles.category, styles.textClr, categoryStyle]}>
               {category}
             </Text>
           </View>
         </View>
       </View>
-      <View style={styles.emptySpaceWrapper}>
-        <Text style={[styles.emptySpace, styles.categoryClr, emptySpaceStyle]}>
-          {emptySpace}
-        </Text>
+      <View style={styles.wrapper}>
+        <Text style={[styles.text, styles.textClr, text1Style]}>{prop}</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  detailPosition: {
+  framePosition: {
     gap: Gap.gap_10,
     zIndex: 2,
     flexDirection: "row",
@@ -143,13 +111,13 @@ const styles = StyleSheet.create({
     fontSize: FontSize.fs_12,
     textAlign: "left",
   },
-  categoryClr: {
-    color: Color.gOLD3,
+  textClr: {
+    color: Color.successColor,
     alignItems: "center",
     display: "flex",
     lineHeight: LineHeight.lh_38,
   },
-  transaction: {
+  transactionIncome: {
     height: Height.height_80,
     width: Width.width_360,
     boxShadow: BoxShadow.shadow_drop,
@@ -163,18 +131,18 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
   },
-  spendsDetail: {
+  frameParent: {
     width: Width.width_267,
     zIndex: 2,
     height: Height.height_53,
   },
-  moneyDetailPair: {
+  iconMoney2Wrapper: {
     width: Width.width_39,
     height: Height.height_46,
     paddingTop: Padding.padding_7,
     zIndex: 2,
   },
-  secondTransactionPair: {
+  transactionDetailParent: {
     width: Width.width_218,
     zIndex: 1,
     height: Height.height_53,
@@ -183,7 +151,7 @@ const styles = StyleSheet.create({
     width: Width.width_221,
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
-    color: Color.colorBlack,
+    color: Color.vikafjellColorsGeneralLabels,
     textAlign: "left",
     display: "flex",
     lineHeight: LineHeight.lh_38,
@@ -191,14 +159,14 @@ const styles = StyleSheet.create({
     height: Height.height_38,
     zIndex: 1,
   },
-  secondTransactionDetail: {
-    width: Width.width_129_8,
+  frameGroup: {
+    width: Width.width_135_1,
     marginTop: -2,
     height: Height.height_17,
     zIndex: 2,
     alignItems: "flex-end",
   },
-  secondTransactionData: {
+  oct172025Wrapper: {
     width: Width.width_83,
     height: Height.height_15,
     paddingBottom: Padding.padding_1,
@@ -215,14 +183,14 @@ const styles = StyleSheet.create({
     fontSize: FontSize.fs_12,
   },
   category: {
-    width: Width.width_39_8,
+    width: Width.width_45_1,
     fontWeight: "700",
     fontFamily: FontFamily.interBold,
     fontSize: FontSize.fs_12,
     textAlign: "left",
     height: Height.height_17,
   },
-  emptySpaceWrapper: {
+  wrapper: {
     width: Width.width_98,
     height: Height.height_42,
     paddingBottom: Padding.padding_4,
@@ -230,7 +198,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     zIndex: 1,
   },
-  emptySpace: {
+  text: {
     width: Width.width_101,
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
@@ -238,7 +206,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     fontSize: FontSize.fs_16,
     height: Height.height_38,
-    color: Color.gOLD3,
+    color: Color.successColor,
   },
 });
 

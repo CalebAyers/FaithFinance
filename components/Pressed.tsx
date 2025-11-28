@@ -1,59 +1,101 @@
 import * as React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import Option from "./Option1";
+import Option from "./Option";
 import Add from "./Add";
+import Vector12 from "../assets/Vector12.svg";
 import { Height, Width } from "../GlobalStyles";
 
 export type PressedType = {
   state?: string;
+  addTransaction?: string;
+  addTransactionBackgroundColor?: string;
+  addTransactionBorderStyle?: string;
+  addTransactionBorderColor?: string;
+  addTransactionBorderWidth?: number;
+  addTransactionPosition?: string;
+  addTransactionHeight?: string;
+  addTransactionTop?: string;
+  addTransactionRight?: string;
+  addTransactionBottom?: string;
+  addTransactionLeft?: string;
+  addTransactionAlignSelf?: string;
   addTransactionColor?: string;
+  addTransactionWidth?: string;
+  addTransactionFontSize?: number;
   state1?: string;
   addHeight?: string;
+  addWidth?: string;
   addTop?: string;
   addBottom?: string;
+  addLeft?: string;
   addMarginTop?: string;
+  vectorIconWidth?: string;
+  vectorIconRight?: string;
+  vectorIconLeft?: string;
 };
 
 const Pressed = ({
   state,
+  addTransaction,
+  addTransactionBackgroundColor,
+  addTransactionBorderStyle,
+  addTransactionBorderColor,
+  addTransactionBorderWidth,
+  addTransactionPosition,
+  addTransactionHeight,
+  addTransactionTop,
+  addTransactionRight,
+  addTransactionBottom,
+  addTransactionLeft,
+  addTransactionAlignSelf,
   addTransactionColor,
+  addTransactionWidth,
+  addTransactionFontSize,
   state1,
   addHeight,
+  addWidth,
   addTop,
   addBottom,
+  addLeft,
   addMarginTop,
+  vectorIconWidth,
+  vectorIconRight,
+  vectorIconLeft,
 }: PressedType) => {
   return (
     <Pressable style={[styles.buttonAddTransaction, styles.buttonLayout]}>
       <View style={styles.buttonLayout}>
         <Option
           state={state}
+          addTransactionBackgroundColor={addTransactionBackgroundColor}
+          addTransactionBorderStyle={addTransactionBorderStyle}
+          addTransactionBorderColor={addTransactionBorderColor}
+          addTransactionBorderWidth={addTransactionBorderWidth}
+          addTransactionPosition={addTransactionPosition}
+          addTransactionHeight={addTransactionHeight}
+          addTransactionTop={addTransactionTop}
+          addTransactionRight={addTransactionRight}
+          addTransactionBottom={addTransactionBottom}
+          addTransactionLeft={addTransactionLeft}
+          addTransactionAlignSelf={addTransactionAlignSelf}
+          addTransaction={addTransaction}
           addTransactionColor={addTransactionColor}
-          addTransactionPosition="absolute"
-          addTransactionHeight="100%"
-          addTransactionTop="0%"
-          addTransactionRight="0%"
-          addTransactionBottom="0%"
-          addTransactionLeft="0%"
-          addTransactionBackgroundColor="#8b0000"
-          addTransactionBorderStyle="unset"
-          addTransactionBorderColor="unset"
-          addTransaction="Add Transaction"
+          addTransactionWidth={addTransactionWidth}
           addTransactionHeight1={38}
-          addTransactionWidth={129}
-          addTransactionFontSize={16}
+          addTransactionFontSize={addTransactionFontSize}
         />
         <Add
           state={state1}
           addHeight={addHeight}
+          addWidth={addWidth}
           addTop={addTop}
           addBottom={addBottom}
+          addLeft={addLeft}
           addMarginTop={addMarginTop}
-          addWidth="7.22%"
-          addLeft="23.06%"
-          vectorIconWidth="58.46%"
-          vectorIconRight="20.77%"
-          vectorIconLeft="20.77%"
+          vector={<Vector12 width={58} height={58} />}
+          vectorIconWidth={vectorIconWidth}
+          vectorIconRight={vectorIconRight}
+          vectorIconLeft={vectorIconLeft}
         />
       </View>
     </Pressable>

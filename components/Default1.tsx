@@ -1,100 +1,147 @@
 import * as React from "react";
-import { useMemo } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Image } from "expo-image";
+import { StyleSheet, View, ImageSourcePropType } from "react-native";
+import Home from "./Home";
+import Vector5 from "../assets/Vector5.svg";
+import Dashboard from "./Dashboard";
+import Book from "./Book";
+import Vector1 from "../assets/Vector1.svg";
 import Profile from "./Profile";
-import Vector7 from "../assets/Vector7.svg";
+import Vector4 from "../assets/Vector4.svg";
 import {
   Width,
   Height,
+  BoxShadow,
+  Border,
   Color,
   Padding,
   Gap,
-  FontSize,
-  LineHeight,
-  FontFamily,
 } from "../GlobalStyles";
 
 export type Default1Type = {
+  iconMoney3?: ImageSourcePropType;
   state?: string;
-  profilePosition?: string;
+  home2Height?: string;
+  home2Position?: string;
+  home2Top?: string;
+  home2Right?: string;
+  home2Bottom?: string;
+  home2Left?: string;
+  homeColor?: string;
+  state1?: string;
+  state2?: string;
+  bookHeight?: string;
+  bookPosition?: string;
+  bookTop?: string;
+  bookRight?: string;
+  bookBottom?: string;
+  bookLeft?: string;
+  reflectionColor?: string;
+  state3?: string;
+  profileHeight?: string;
   profileTop?: string;
   profileLeft?: string;
-  profileHeight?: string;
   profileRight?: string;
   profileBottom?: string;
+  profilePosition?: string;
   profileColor?: string;
-
-  /** Style props */
-  defaultMarginTop?: number | string;
 };
 
-const getStyleValue = (key: string, value: string | number | undefined) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
 const Default1 = ({
-  defaultMarginTop,
+  iconMoney3,
   state,
-  profilePosition,
+  home2Height,
+  home2Position,
+  home2Top,
+  home2Right,
+  home2Bottom,
+  home2Left,
+  homeColor,
+  state1,
+  state2,
+  bookHeight,
+  bookPosition,
+  bookTop,
+  bookRight,
+  bookBottom,
+  bookLeft,
+  reflectionColor,
+  state3,
+  profileHeight,
   profileTop,
   profileLeft,
-  profileHeight,
   profileRight,
   profileBottom,
+  profilePosition,
   profileColor,
 }: Default1Type) => {
-  const defaultStyle = useMemo(() => {
-    return {
-      ...getStyleValue("marginTop", defaultMarginTop),
-    };
-  }, [defaultMarginTop]);
-
   return (
-    <View style={[styles.headerBarDefault, defaultStyle]}>
-      <Text style={styles.faithfinance}>FaithFinance</Text>
-      <Profile
+    <View style={styles.navigationBarDefault}>
+      <Home
         state={state}
-        profilePosition={profilePosition}
+        home2Height={home2Height}
+        home2Position={home2Position}
+        home2Top={home2Top}
+        home2Right={home2Right}
+        home2Bottom={home2Bottom}
+        home2Left={home2Left}
+        vector={<Vector5 width={67} height={73} />}
+        homeColor={homeColor}
+      />
+      <Image style={styles.iconMoney3} contentFit="cover" source={iconMoney3} />
+      <View style={styles.iconDashboard}>
+        <Dashboard state={state1} />
+      </View>
+      <Book
+        state={state2}
+        bookHeight={bookHeight}
+        bookPosition={bookPosition}
+        bookTop={bookTop}
+        bookRight={bookRight}
+        bookBottom={bookBottom}
+        bookLeft={bookLeft}
+        vector={<Vector1 width={67} height={73} />}
+        reflectionColor={reflectionColor}
+      />
+      <Profile
+        state={state3}
+        profileHeight={profileHeight}
         profileTop={profileTop}
         profileLeft={profileLeft}
-        profileHeight={profileHeight}
         profileRight={profileRight}
         profileBottom={profileBottom}
+        profilePosition={profilePosition}
+        vector={<Vector4 width={83} height={83} />}
         profileColor={profileColor}
-        vector={<Vector7 width={83} height={83} />}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  headerBarDefault: {
-    marginLeft: -3,
-    width: Width.width_400,
-    height: Height.height_90,
+  navigationBarDefault: {
+    marginRight: -1,
+    width: Width.width_394,
+    height: Height.height_100,
+    boxShadow: BoxShadow.shadow_drop3,
+    elevation: 6,
+    borderRadius: Border.br_6,
     backgroundColor: Color.mainRed,
     overflow: "hidden",
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: Padding.padding_16,
-    paddingTop: Padding.padding_14,
-    paddingBottom: Padding.padding_8,
-    gap: Gap.gap_10,
-    zIndex: 2,
-    marginTop: -1200,
+    justifyContent: "center",
+    paddingTop: Padding.padding_12,
+    paddingBottom: Padding.padding_13,
+    gap: Gap.gap_45,
+    zIndex: 3,
   },
-  faithfinance: {
-    height: Height.height_47,
-    width: Width.width_375,
-    fontSize: FontSize.fs_18,
-    lineHeight: LineHeight.lh_38,
-    fontStyle: "italic",
-    fontWeight: "500",
-    fontFamily: FontFamily.interMedium,
-    color: Color.backgroundColorLightMode,
-    textAlign: "left",
-    zIndex: 0,
+  iconMoney3: {
+    height: Height.height_32_23,
+    width: Width.width_32_23,
+  },
+  iconDashboard: {
+    height: Height.height_32,
+    width: Width.width_32,
   },
 });
 

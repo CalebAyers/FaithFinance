@@ -6,15 +6,17 @@ import SpendingGivingIncome from "../components/SpendingGivingIncome";
 import BibleVerses from "../components/BibleVerses";
 import Pressed from "../components/Pressed";
 import Transaction from "../components/Transaction";
-import Home from "../components/Home";
-import Vector from "../assets/Vector.svg";
-import Dashboard from "../components/Dashboard";
-import Vector8 from "../assets/Vector8.svg";
-import Book from "../components/Book";
-import Vector9 from "../assets/Vector9.svg";
-import Profile from "../components/Profile";
 import Vector11 from "../assets/Vector11.svg";
+import Vector9 from "../assets/Vector9.svg";
+import Home from "../components/Home";
+import Vector7 from "../assets/Vector7.svg";
+import Dashboard from "../components/Dashboard";
+import Book from "../components/Book";
+import Vector6 from "../assets/Vector6.svg";
+import Profile from "../components/Profile";
+import Vector8 from "../assets/Vector8.svg";
 import IPhoneBezel from "../components/IPhoneBezel";
+import Vector10 from "../assets/Vector10.svg";
 import {
   Color,
   LineHeight,
@@ -22,8 +24,8 @@ import {
   Height,
   Width,
   Padding,
-  Gap,
   FontFamily,
+  Gap,
   BoxShadow,
   Border,
 } from "../GlobalStyles";
@@ -41,17 +43,39 @@ const HomePageReset = () => {
               <View style={styles.frameWrapper}>
                 <View style={styles.frameContainer}>
                   <View style={styles.spendingGivingIncomeWrapper}>
-                    <SpendingGivingIncome />
+                    <SpendingGivingIncome
+                      iconMoney2State="default"
+                      iconMoney2State1="default"
+                      iconMoney2State2="default"
+                    />
                   </View>
                   <BibleVerses />
                   <Pressed
                     state="Default"
+                    addTransaction="Add Transaction"
+                    addTransactionBackgroundColor="#8b0000"
+                    addTransactionBorderStyle="unset"
+                    addTransactionBorderColor="unset"
+                    addTransactionPosition="absolute"
+                    addTransactionHeight="100%"
+                    addTransactionTop="0%"
+                    addTransactionRight="0%"
+                    addTransactionBottom="0%"
+                    addTransactionLeft="0%"
+                    addTransactionAlignSelf="unset"
                     addTransactionColor="#e1ad01"
+                    addTransactionWidth="129"
+                    addTransactionFontSize={16}
                     state1="default"
                     addHeight="26"
+                    addWidth="7.22%"
                     addTop="50%"
                     addBottom="unset"
+                    addLeft="23.06%"
                     addMarginTop="-13"
+                    vectorIconWidth="58.46%"
+                    vectorIconRight="20.77%"
+                    vectorIconLeft="20.77%"
                   />
                 </View>
               </View>
@@ -60,70 +84,63 @@ const HomePageReset = () => {
               >
                 Recent Transactions
               </Text>
-              <View style={styles.transactions}>
-                <View style={styles.incomeDisplayLayout}>
+              <View style={styles.transactionEntriesParent}>
+                <View style={styles.transactionLayout}>
                   <Transaction
                     state="Giving"
-                    transactionDetailColor="#000"
-                    transactionDetailTextAlign="left"
-                    transactionDetailDisplay="flex"
-                    transactionDetailAlignItems="center"
-                    secondTransactionDetailWidth={130}
+                    frameViewWidth={130}
                     category="Giving"
                     categoryWidth={40}
                     categoryColor="#e1ad01"
-                    emptySpace="-$100.00"
-                    emptySpaceColor="#e1ad01"
+                    prop="-$100.00"
+                    textColor="#e1ad01"
                     state1="default"
+                    vector={<Vector11 width={89} height={89} />}
                   />
                 </View>
-                <View style={styles.incomeDisplayLayout}>
-                  <View style={styles.transactionLayout}>
+                <View style={styles.transactionLayout}>
+                  <View style={styles.transactionLayout1}>
                     <Transaction
                       state="Giving"
-                      transactionDetailColor="#000"
-                      transactionDetailTextAlign="left"
-                      transactionDetailDisplay="flex"
-                      transactionDetailAlignItems="center"
-                      secondTransactionDetailWidth={148}
+                      frameViewWidth={148}
                       category="Spending"
                       categoryWidth={58}
                       categoryColor="#720404"
-                      emptySpace="-$100.00"
-                      emptySpaceColor="#720404"
+                      prop="-$100.00"
+                      textColor="#720404"
                       state1="default"
+                      vector={<Vector9 width={89} height={89} />}
                     />
                   </View>
                 </View>
-                <View style={styles.transactionDisplay}>
-                  <View style={[styles.transaction2, styles.transactionLayout]}>
+                <View style={styles.transactionParent}>
+                  <View
+                    style={[styles.transaction2, styles.transactionLayout1]}
+                  >
                     <Transaction
                       state="Giving"
-                      transactionDetailColor="#000"
-                      transactionDetailTextAlign="left"
-                      transactionDetailDisplay="flex"
-                      transactionDetailAlignItems="center"
-                      secondTransactionDetailWidth={148}
+                      frameViewWidth={148}
                       category="Spending"
                       categoryWidth={58}
                       categoryColor="#720404"
-                      emptySpace="-$100.00"
-                      emptySpaceColor="#720404"
+                      prop="-$100.00"
+                      textColor="#720404"
                       state1="default"
+                      vector={<Vector9 width={89} height={89} />}
                     />
                   </View>
                   <View style={[styles.navigationBarDefault, styles.barBg]}>
                     <View style={styles.iconLayout}>
                       <Home
                         state="default"
-                        activePosition="absolute"
-                        activeHeight="100%"
-                        activeTop="0%"
-                        activeRight="0%"
-                        activeBottom="0%"
-                        activeLeft="0%"
+                        home2Height="100%"
+                        home2Position="absolute"
+                        home2Top="0%"
+                        home2Right="0%"
+                        home2Bottom="0%"
+                        home2Left="0%"
+                        vector={<Vector7 width={67} height={73} />}
                         homeColor="#c99700"
-                        vector={<Vector width={67} height={73} />}
                       />
                     </View>
                     <Image
@@ -132,17 +149,7 @@ const HomePageReset = () => {
                       source={require("../assets/active.png")}
                     />
                     <View style={styles.iconLayout}>
-                      <Dashboard
-                        state="default"
-                        dashboardHeight="100%"
-                        dashboardPosition="absolute"
-                        dashboardTop="0%"
-                        dashboardRight="0%"
-                        dashboardBottom="0%"
-                        dashboardLeft="0%"
-                        insightsColor="#c99700"
-                        vector={<Vector8 width={58} height={67} />}
-                      />
+                      <Dashboard state="default" />
                     </View>
                     <View style={styles.iconLayout}>
                       <Book
@@ -153,21 +160,21 @@ const HomePageReset = () => {
                         bookRight="0%"
                         bookBottom="0%"
                         bookLeft="0%"
+                        vector={<Vector6 width={67} height={73} />}
                         reflectionColor="#c99700"
-                        vector={<Vector9 width={67} height={73} />}
                       />
                     </View>
                     <View style={styles.iconLayout}>
                       <Profile
                         state="default"
-                        profilePosition="absolute"
+                        profileHeight="100%"
                         profileTop="0%"
                         profileLeft="0%"
-                        profileHeight="100%"
                         profileRight="0%"
                         profileBottom="0%"
+                        profilePosition="absolute"
+                        vector={<Vector8 width={83} height={83} />}
                         profileColor="#c99700"
-                        vector={<Vector11 width={83} height={83} />}
                       />
                     </View>
                   </View>
@@ -179,39 +186,33 @@ const HomePageReset = () => {
                 iPhone16={require("../assets/iPhone-16.png")}
               />
             </View>
-            <View style={[styles.incomeDisplay, styles.incomeDisplayLayout]}>
-              <View style={styles.transactionLayout}>
+            <View style={[styles.transactionWrapper, styles.transactionLayout]}>
+              <View style={styles.transactionLayout1}>
                 <Transaction
                   state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={135}
+                  frameViewWidth={135}
                   category="Income"
                   categoryWidth={45}
                   categoryColor="#27ae60"
-                  emptySpace="+$100.00"
-                  emptySpaceColor="#27ae60"
+                  prop="+$100.00"
+                  textColor="#27ae60"
                   state1="default"
+                  vector={<Vector10 width={89} height={89} />}
                 />
               </View>
             </View>
           </View>
-          <View style={styles.expenseDisplay}>
+          <View style={styles.transactionContainer}>
             <Transaction
               state="Giving"
-              transactionDetailColor="#000"
-              transactionDetailTextAlign="left"
-              transactionDetailDisplay="flex"
-              transactionDetailAlignItems="center"
-              secondTransactionDetailWidth={130}
+              frameViewWidth={130}
               category="Giving"
               categoryWidth={40}
               categoryColor="#e1ad01"
-              emptySpace="-$100.00"
-              emptySpaceColor="#e1ad01"
+              prop="-$100.00"
+              textColor="#e1ad01"
               state1="default"
+              vector={<Vector11 width={89} height={89} />}
             />
           </View>
         </ScrollView>
@@ -222,14 +223,14 @@ const HomePageReset = () => {
           <View style={[styles.iconProfile2, styles.iconLayout]}>
             <Profile
               state="default"
-              profilePosition="absolute"
+              profileHeight="100%"
               profileTop="0%"
               profileLeft="0%"
-              profileHeight="100%"
               profileRight="0%"
               profileBottom="0%"
+              profilePosition="absolute"
+              vector={<Vector8 width={83} height={83} />}
               profileColor="#c99700"
-              vector={<Vector11 width={83} height={83} />}
             />
           </View>
         </View>
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
     lineHeight: LineHeight.lh_38,
     fontSize: FontSize.fs_18,
   },
-  transactionLayout: {
+  transactionLayout1: {
     height: Height.height_80,
     width: Width.width_360,
     flexDirection: "row",
@@ -271,9 +272,9 @@ const styles = StyleSheet.create({
     backgroundColor: Color.mainRed,
     flexDirection: "row",
   },
-  incomeDisplayLayout: {
+  transactionLayout: {
     paddingRight: Padding.padding_16,
-    width: Width.width_376,
+    width: 376,
     justifyContent: "flex-end",
     height: Height.height_80,
     flexDirection: "row",
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
   view: {
     width: "100%",
     height: 1075,
-    paddingTop: 0,
+    paddingTop: Padding.padding_0,
     overflow: "hidden",
   },
   componentsFrame: {
@@ -309,14 +310,14 @@ const styles = StyleSheet.create({
     width: Width.width_393,
   },
   frameWrapper: {
-    width: Width.width_377,
+    width: 377,
     paddingLeft: Padding.padding_17,
     flexDirection: "row",
     height: 360,
   },
   frameContainer: {
     zIndex: 1,
-    gap: Gap.gap_30,
+    gap: 30,
     width: Width.width_360,
     height: 360,
   },
@@ -333,21 +334,21 @@ const styles = StyleSheet.create({
     bottom: 332,
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
-    color: Color.colorBlack,
+    color: Color.vikafjellColorsGeneralLabels,
     display: "flex",
     alignItems: "center",
     position: "absolute",
   },
-  transactions: {
+  transactionEntriesParent: {
     height: 305,
     paddingRight: Padding.padding_1,
     gap: Gap.gap_20,
     alignItems: "flex-end",
     width: Width.width_394,
   },
-  transactionDisplay: {
+  transactionParent: {
     marginRight: -1,
-    height: Height.height_105,
+    height: 105,
     width: Width.width_394,
   },
   transaction2: {
@@ -373,11 +374,11 @@ const styles = StyleSheet.create({
     height: Height.height_32_23,
     width: Width.width_32_23,
   },
-  incomeDisplay: {
+  transactionWrapper: {
     marginTop: -26,
   },
-  expenseDisplay: {
-    width: 374,
+  transactionContainer: {
+    width: Width.width_374,
     paddingRight: Padding.padding_14,
     justifyContent: "flex-end",
     height: Height.height_80,

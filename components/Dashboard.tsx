@@ -1,101 +1,52 @@
 import * as React from "react";
-import { useMemo } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  ImageSourcePropType,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import Vector3 from "../assets/Vector3.svg";
 import {
   Color,
-  Height,
-  Width,
-  BoxShadow,
   FontSize,
   LineHeight,
   FontFamily,
+  Width,
 } from "../GlobalStyles";
 
 export type DashboardType = {
-  vector?: React.ReactNode;
-
   /** Variant props */
   state?: string;
-
-  /** Style props */
-  dashboardHeight?: number | string;
-  dashboardPosition?: string;
-  dashboardElevation?: number | string;
-  dashboardTop?: number | string;
-  dashboardRight?: number | string;
-  dashboardBottom?: number | string;
-  dashboardLeft?: number | string;
-  insightsColor?: string;
 };
 
-const getStyleValue = (key: string, value: string | number | undefined) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
-const Dashboard = ({
-  state = "default",
-  dashboardHeight,
-  dashboardPosition,
-  dashboardElevation,
-  dashboardTop,
-  dashboardRight,
-  dashboardBottom,
-  dashboardLeft,
-  insightsColor,
-  vector,
-}: DashboardType) => {
-  const dashboardStyle = useMemo(() => {
-    return {
-      ...getStyleValue("height", dashboardHeight),
-      ...getStyleValue("position", dashboardPosition),
-      ...getStyleValue("elevation", dashboardElevation),
-      ...getStyleValue("top", dashboardTop),
-      ...getStyleValue("right", dashboardRight),
-      ...getStyleValue("bottom", dashboardBottom),
-      ...getStyleValue("left", dashboardLeft),
-    };
-  }, [
-    dashboardHeight,
-    dashboardPosition,
-    dashboardElevation,
-    dashboardTop,
-    dashboardRight,
-    dashboardBottom,
-    dashboardLeft,
-  ]);
-
-  const insightsStyle = useMemo(() => {
-    return {
-      ...getStyleValue("color", insightsColor),
-    };
-  }, [insightsColor]);
-
+const Dashboard = ({ state = "default" }: DashboardType) => {
   return (
-    <Pressable style={[styles.iconDashboard, dashboardStyle]}>
-      {vector}
-      <Text style={[styles.insights, styles.insightsClr, insightsStyle]}>
-        Insights
-      </Text>
-    </Pressable>
+    <View style={styles.active}>
+      <Vector3 style={[styles.vectorIcon, styles.insightsClr]} />
+      <Text style={[styles.insights, styles.insightsClr]}>Insights</Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   insightsClr: {
-    color: Color.backgroundColorLightMode,
+    color: Color.goldButton,
     position: "absolute",
   },
-  iconDashboard: {
-    height: Height.height_32,
-    width: Width.width_32,
-    boxShadow: BoxShadow.shadow_drop4,
-    elevation: 4,
+  active: {
+    height: "100%",
+    width: "100%",
+    top: "0%",
+    right: "0%",
+    bottom: "0%",
+    left: "0%",
+    position: "absolute",
+  },
+  vectorIcon: {
+    height: "66.56%",
+    width: "58.44%",
+    top: "16.56%",
+    right: "20.63%",
+    bottom: "16.88%",
+    left: "20.94%",
+    maxWidth: "100%",
+    overflow: "hidden",
+    maxHeight: "100%",
   },
   insights: {
     top: 20,

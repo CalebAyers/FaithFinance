@@ -1,20 +1,21 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { StyleSheet, View } from "react-native";
-import Vector6 from "../assets/Vector6.svg";
-import { BoxShadow, Color } from "../GlobalStyles";
+import { StyleSheet, View, ImageSourcePropType } from "react-native";
+import { BoxShadow } from "../GlobalStyles";
 
 export type AddType = {
+  vector?: React.ReactNode;
+
   /** Variant props */
   state?: string;
 
   /** Style props */
   addHeight?: number | string;
+  addWidth?: number | string;
   addTop?: number | string;
   addBottom?: number | string;
-  addMarginTop?: number | string;
-  addWidth?: number | string;
   addLeft?: number | string;
+  addMarginTop?: number | string;
   vectorIconWidth?: number | string;
   vectorIconRight?: number | string;
   vectorIconLeft?: number | string;
@@ -27,11 +28,12 @@ const getStyleValue = (key: string, value: string | number | undefined) => {
 const Add = ({
   state = "default",
   addHeight,
+  addWidth,
   addTop,
   addBottom,
-  addMarginTop,
-  addWidth,
   addLeft,
+  addMarginTop,
+  vector,
   vectorIconWidth,
   vectorIconRight,
   vectorIconLeft,
@@ -39,13 +41,13 @@ const Add = ({
   const addStyle = useMemo(() => {
     return {
       ...getStyleValue("height", addHeight),
+      ...getStyleValue("width", addWidth),
       ...getStyleValue("top", addTop),
       ...getStyleValue("bottom", addBottom),
-      ...getStyleValue("marginTop", addMarginTop),
-      ...getStyleValue("width", addWidth),
       ...getStyleValue("left", addLeft),
+      ...getStyleValue("marginTop", addMarginTop),
     };
-  }, [addHeight, addTop, addBottom, addMarginTop, addWidth, addLeft]);
+  }, [addHeight, addWidth, addTop, addBottom, addLeft, addMarginTop]);
 
   const vectorIconStyle = useMemo(() => {
     return {
@@ -55,37 +57,19 @@ const Add = ({
     };
   }, [vectorIconWidth, vectorIconRight, vectorIconLeft]);
 
-  return (
-    <View style={[styles.iconAdd, addStyle]}>
-      <Vector6 style={[styles.vectorIcon, vectorIconStyle]} />
-    </View>
-  );
+  return <View style={[styles.iconAdd, addStyle]}>{vector}</View>;
 };
 
 const styles = StyleSheet.create({
   iconAdd: {
     height: "52%",
-    width: "7.22%",
+    width: "7.21%",
     top: "24%",
     right: "69.72%",
     bottom: "24%",
-    left: "23.06%",
+    left: "23.07%",
     boxShadow: BoxShadow.shadow_inner,
     elevation: 4,
-    zIndex: 1,
-    position: "absolute",
-  },
-  vectorIcon: {
-    height: "58.46%",
-    width: "58.46%",
-    top: "20.77%",
-    right: "20.77%",
-    bottom: "20.77%",
-    left: "20.77%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    maxHeight: "100%",
-    color: Color.backgroundColorLightMode,
     position: "absolute",
   },
 });

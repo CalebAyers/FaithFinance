@@ -39,7 +39,7 @@ const IPhoneBezel = ({
 const styles = StyleSheet.create({
   iphoneBezel: {
     width: Width.width_394,
-    height: 875,
+    height: Height.height_854,
     top: -2,
     right: -1,
     zIndex: 2,

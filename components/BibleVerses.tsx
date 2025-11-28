@@ -1,5 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
 import IconBible from "../assets/Icon-Bible.svg";
 import UnorderedList from "./UnorderedList";
 import ListItem from "./ListItem";
@@ -23,8 +25,10 @@ export type BibleVersesType = {
 };
 
 const BibleVerses = ({ onBibleVersesPress }: BibleVersesType) => {
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+
   return (
-    <View style={styles.bibleVerses} onPress={onBibleVersesPress}>
+    <Pressable style={styles.bibleVerses} onPress={onBibleVersesPress}>
       <View style={styles.iconBibleWrapper}>
         <IconBible
           style={styles.iconBible}
@@ -45,7 +49,7 @@ const BibleVerses = ({ onBibleVersesPress }: BibleVersesType) => {
           </Text>
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -59,8 +63,8 @@ const styles = StyleSheet.create({
     width: Width.width_290,
   },
   bibleVerses: {
-    width: Width.width_360,
     height: Height.height_150,
+    width: Width.width_360,
     boxShadow: BoxShadow.shadow_drop1,
     elevation: 20,
     borderRadius: Border.br_12,
@@ -75,7 +79,6 @@ const styles = StyleSheet.create({
     paddingRight: Padding.padding_5,
     paddingBottom: Padding.padding_5,
     gap: Gap.gap_11,
-    zIndex: 3,
   },
   iconBibleWrapper: {
     height: Height.height_53,
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     height: Height.height_75,
     fontSize: FontSize.fs_13,
     lineHeight: LineHeight.lh_25,
-    color: Color.colorBlack,
+    color: Color.vikafjellColorsGeneralLabels,
     textAlign: "center",
     justifyContent: "center",
   },

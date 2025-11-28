@@ -17,12 +17,12 @@ export type ProfileType = {
   state?: string;
 
   /** Style props */
-  profilePosition?: string;
+  profileHeight?: number | string;
   profileTop?: number | string;
   profileLeft?: number | string;
-  profileHeight?: number | string;
   profileRight?: number | string;
   profileBottom?: number | string;
+  profilePosition?: string;
   profileColor?: string;
 };
 
@@ -32,31 +32,31 @@ const getStyleValue = (key: string, value: string | number | undefined) => {
 };
 const Profile = ({
   state = "default",
-  profilePosition,
+  profileHeight,
   profileTop,
   profileLeft,
-  profileHeight,
   profileRight,
   profileBottom,
-  profileColor,
+  profilePosition,
   vector,
+  profileColor,
 }: ProfileType) => {
   const profileStyle = useMemo(() => {
     return {
-      ...getStyleValue("position", profilePosition),
+      ...getStyleValue("height", profileHeight),
       ...getStyleValue("top", profileTop),
       ...getStyleValue("left", profileLeft),
-      ...getStyleValue("height", profileHeight),
       ...getStyleValue("right", profileRight),
       ...getStyleValue("bottom", profileBottom),
+      ...getStyleValue("position", profilePosition),
     };
   }, [
-    profilePosition,
+    profileHeight,
     profileTop,
     profileLeft,
-    profileHeight,
     profileRight,
     profileBottom,
+    profilePosition,
   ]);
 
   const profile1Style = useMemo(() => {
@@ -83,6 +83,10 @@ const styles = StyleSheet.create({
   iconProfile: {
     height: Height.height_32,
     width: Width.width_32,
+    top: 29,
+    left: 349,
+    zIndex: 1,
+    position: "absolute",
   },
   profile: {
     top: 30,
