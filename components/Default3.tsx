@@ -1,10 +1,13 @@
 import * as React from "react";
-import { View, StyleSheet, ImageSourcePropType } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Image } from "expo-image";
-import Home1 from "./Home1";
-import Dashboard1 from "./Dashboard1";
+import Home from "./Home";
+import Vector6 from "../assets/Vector6.svg";
+import Dashboard from "./Dashboard";
+import Vector7 from "../assets/Vector7.svg";
 import Book1 from "./Book1";
-import Profile1 from "./Profile1";
+import Profile from "./Profile";
+import Vector8 from "../assets/Vector8.svg";
 import {
   Height,
   Width,
@@ -15,8 +18,7 @@ import {
   Gap,
 } from "../GlobalStyles";
 
-export type Default1Type = {
-  iconMoney3?: ImageSourcePropType;
+export type Default3Type = {
   state?: string;
   activePosition?: string;
   activeHeight?: string;
@@ -34,14 +36,6 @@ export type Default1Type = {
   activeLeft1?: string;
   insightsColor?: string;
   state2?: string;
-  bookPosition?: string;
-  bookHeight?: string;
-  bookTop?: string;
-  bookRight?: string;
-  bookBottom?: string;
-  bookLeft?: string;
-  reflectionColor?: string;
-  state3?: string;
   profileHeight?: string;
   profileTop?: string;
   profileRight?: string;
@@ -51,8 +45,7 @@ export type Default1Type = {
   profileColor?: string;
 };
 
-const Default1 = ({
-  iconMoney3,
+const Default3 = ({
   state,
   activePosition,
   activeHeight,
@@ -70,14 +63,6 @@ const Default1 = ({
   activeLeft1,
   insightsColor,
   state2,
-  bookPosition,
-  bookHeight,
-  bookTop,
-  bookRight,
-  bookBottom,
-  bookLeft,
-  reflectionColor,
-  state3,
   profileHeight,
   profileTop,
   profileRight,
@@ -85,22 +70,57 @@ const Default1 = ({
   profileLeft,
   profilePosition,
   profileColor,
-}: Default1Type) => {
+}: Default3Type) => {
   return (
     <View style={styles.navigationBarDefault}>
-      <Home1 state="active" />
-      <Image style={styles.iconMoney3} contentFit="cover" source={iconMoney3} />
-      <Dashboard1 state="active" state1="default" />
-      <Book1 state="active" state2="default" />
-      <Profile1
+      <Home
+        state={state}
+        activePosition={activePosition}
+        activeHeight={activeHeight}
+        activeTop={activeTop}
+        activeRight={activeRight}
+        activeBottom={activeBottom}
+        activeLeft={activeLeft}
+        vector={<Vector6 width={67} height={73} />}
+        homeColor={homeColor}
+      />
+      <Image
+        style={styles.iconMoney3}
+        contentFit="cover"
+        source={require("../assets/Icon-money-31.png")}
+      />
+      <Dashboard
+        state={state1}
+        activePosition={activePosition1}
+        activeHeight={activeHeight1}
+        activeTop={activeTop1}
+        activeRight={activeRight1}
+        activeBottom={activeBottom1}
+        activeLeft={activeLeft1}
+        vector={<Vector7 width={58} height={67} />}
+        insightsColor={insightsColor}
+      />
+      <Book1
         state="active"
-        profilePosition="relative"
-        profileTop="unset"
-        profileLeft="unset"
-        profileHeight="100%"
-        profileRight="0%"
-        profileBottom="0%"
-        profileColor="#c99700"
+        state2="default"
+        bookPosition="absolute"
+        bookHeight="100%"
+        bookTop="0%"
+        bookRight="0%"
+        bookBottom="0%"
+        bookLeft="0%"
+        reflectionColor="#c99700"
+      />
+      <Profile
+        state={state2}
+        profileHeight={profileHeight}
+        profileTop={profileTop}
+        profileRight={profileRight}
+        profileBottom={profileBottom}
+        profileLeft={profileLeft}
+        profilePosition={profilePosition}
+        vector={<Vector8 width={83} height={83} />}
+        profileColor={profileColor}
       />
     </View>
   );
@@ -131,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Default1;
+export default Default3;

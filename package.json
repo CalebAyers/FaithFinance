@@ -21,7 +21,6 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.9",
-    "react-native-dropdown-picker": "^5.4.2",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-pager-view": "6.5.1",
     "react-native-reanimated": "~3.16.1",
@@ -35,7 +34,7 @@
     "react-native-svg-transformer": "^1.5.0"
   },
   "main": "expo/AppEntry.js",
-  "name": "FaithFinanceHighFidelityPrototype",
+  "name": "faithfinance_-_high_fidelity_prototype",
   "private": true,
   "scripts": {
     "android": "expo start --android",

@@ -1,14 +1,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { StyleSheet, Text, View, ImageSourcePropType } from "react-native";
-import {
-  Color,
-  Height,
-  Width,
-  FontSize,
-  LineHeight,
-  FontFamily,
-} from "../GlobalStyles";
+import { Color, FontSize, LineHeight, FontFamily } from "../GlobalStyles";
 
 export type ProfileType = {
   vector?: React.ReactNode;
@@ -19,9 +12,9 @@ export type ProfileType = {
   /** Style props */
   profileHeight?: number | string;
   profileTop?: number | string;
-  profileLeft?: number | string;
   profileRight?: number | string;
   profileBottom?: number | string;
+  profileLeft?: number | string;
   profilePosition?: string;
   profileColor?: string;
 };
@@ -34,9 +27,9 @@ const Profile = ({
   state = "default",
   profileHeight,
   profileTop,
-  profileLeft,
   profileRight,
   profileBottom,
+  profileLeft,
   profilePosition,
   vector,
   profileColor,
@@ -45,17 +38,17 @@ const Profile = ({
     return {
       ...getStyleValue("height", profileHeight),
       ...getStyleValue("top", profileTop),
-      ...getStyleValue("left", profileLeft),
       ...getStyleValue("right", profileRight),
       ...getStyleValue("bottom", profileBottom),
+      ...getStyleValue("left", profileLeft),
       ...getStyleValue("position", profilePosition),
     };
   }, [
     profileHeight,
     profileTop,
-    profileLeft,
     profileRight,
     profileBottom,
+    profileLeft,
     profilePosition,
   ]);
 
@@ -77,15 +70,16 @@ const Profile = ({
 
 const styles = StyleSheet.create({
   profileClr: {
-    color: Color.backgroundColorLightMode,
+    color: Color.goldButton,
     position: "absolute",
   },
   iconProfile: {
-    height: Height.height_32,
-    width: Width.width_32,
-    top: 29,
-    left: 349,
-    zIndex: 1,
+    height: "100%",
+    width: "100%",
+    top: "0%",
+    right: "0%",
+    bottom: "0%",
+    left: "0%",
     position: "absolute",
   },
   profile: {

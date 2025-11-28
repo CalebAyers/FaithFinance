@@ -1,93 +1,77 @@
 import * as React from "react";
-import { Pressable, StyleSheet } from "react-native";
-import Option from "./Option";
-import IconBible2 from "../assets/Icon-Bible2.svg";
+import { Pressable, StyleSheet, ImageSourcePropType } from "react-native";
+import Option from "./Option1";
 import { Width, Height } from "../GlobalStyles";
 
 export type SettingFaithGoalType = {
+  iconBible?: React.ReactNode;
   state1?: string;
   addTransaction?: string;
-  addTransactionBackgroundColor?: string;
-  addTransactionBorderStyle?: string;
-  addTransactionBorderColor?: string;
-  addTransactionBorderWidth?: number;
-  addTransactionPosition?: string;
+  settingFaithGoalPosition?: string;
+  settingFaithGoalHeight?: string;
+  settingFaithGoalTop?: string;
+  settingFaithGoalRight?: string;
+  settingFaithGoalBottom?: string;
+  settingFaithGoalLeft?: string;
+  settingFaithGoalAlignSelf?: string;
+  settingFaithGoalBackground?: string;
+  settingFaithGoalBorderColor?: string;
   addTransactionHeight?: string;
-  addTransactionTop?: string;
-  addTransactionRight?: string;
-  addTransactionBottom?: string;
-  addTransactionLeft?: string;
-  addTransactionAlignSelf?: string;
-  addTransactionColor?: string;
   addTransactionWidth?: string;
   addTransactionFontSize?: number;
+  addTransactionColor?: string;
 
   /** Variant props */
-  state?: string;
+  state?: "Default" | "Active";
 };
 
 const SettingFaithGoal = ({
   state = "Default",
+  iconBible,
   state1,
   addTransaction,
-  addTransactionBackgroundColor,
-  addTransactionBorderStyle,
-  addTransactionBorderColor,
-  addTransactionBorderWidth,
-  addTransactionPosition,
+  settingFaithGoalPosition,
+  settingFaithGoalHeight,
+  settingFaithGoalTop,
+  settingFaithGoalRight,
+  settingFaithGoalBottom,
+  settingFaithGoalLeft,
+  settingFaithGoalAlignSelf,
+  settingFaithGoalBackground,
+  settingFaithGoalBorderColor,
   addTransactionHeight,
-  addTransactionTop,
-  addTransactionRight,
-  addTransactionBottom,
-  addTransactionLeft,
-  addTransactionAlignSelf,
-  addTransactionColor,
   addTransactionWidth,
   addTransactionFontSize,
+  addTransactionColor,
 }: SettingFaithGoalType) => {
   return (
-    <Pressable style={styles.settingFaithGoal}>
+    <Pressable style={styles.root}>
       <Option
         state={state1}
-        addTransactionBackgroundColor={addTransactionBackgroundColor}
-        addTransactionBorderStyle={addTransactionBorderStyle}
-        addTransactionBorderColor={addTransactionBorderColor}
-        addTransactionBorderWidth={addTransactionBorderWidth}
-        addTransactionPosition={addTransactionPosition}
-        addTransactionHeight={addTransactionHeight}
-        addTransactionTop={addTransactionTop}
-        addTransactionRight={addTransactionRight}
-        addTransactionBottom={addTransactionBottom}
-        addTransactionLeft={addTransactionLeft}
-        addTransactionAlignSelf={addTransactionAlignSelf}
+        settingFaithGoalPosition={settingFaithGoalPosition}
+        settingFaithGoalHeight={settingFaithGoalHeight}
+        settingFaithGoalTop={settingFaithGoalTop}
+        settingFaithGoalRight={settingFaithGoalRight}
+        settingFaithGoalBottom={settingFaithGoalBottom}
+        settingFaithGoalLeft={settingFaithGoalLeft}
+        settingFaithGoalAlignSelf={settingFaithGoalAlignSelf}
+        settingFaithGoalBackgroundColor={settingFaithGoalBackground}
+        settingFaithGoalBorderColor={settingFaithGoalBorderColor}
         addTransaction={addTransaction}
-        addTransactionColor={addTransactionColor}
+        addTransactionHeight={addTransactionHeight}
         addTransactionWidth={addTransactionWidth}
-        addTransactionHeight1={38}
         addTransactionFontSize={addTransactionFontSize}
+        addTransactionColor={addTransactionColor}
       />
-      <IconBible2 style={styles.iconBible} />
+      {iconBible}
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  settingFaithGoal: {
+  root: {
     width: Width.width_360,
     height: Height.height_50,
-  },
-  iconBible: {
-    position: "absolute",
-    height: "52%",
-    width: "7.22%",
-    top: "24%",
-    right: "71.94%",
-    bottom: "24%",
-    left: "20.83%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    maxHeight: "100%",
-    zIndex: 1,
   },
 });
 

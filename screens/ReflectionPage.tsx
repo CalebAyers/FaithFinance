@@ -1,24 +1,33 @@
 import * as React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import Default from "../components/Default";
+import Default2 from "../components/Default2";
 import GivingGoal from "../components/GivingGoal";
 import SettingFaithGoal from "../components/SettingFaithGoal";
-import IconBible from "../assets/Icon-Bible.svg";
+import IconBible3 from "../assets/Icon-Bible3.svg";
 import BibleVerses from "../components/BibleVerses";
 import AddToFavorite from "../components/AddToFavorite";
 import RefreshButton from "../components/RefreshButton";
-import Default1 from "../components/Default1";
+import Default3 from "../components/Default3";
 import IPhoneBezel from "../components/IPhoneBezel";
 import { Width, Color, Padding, Gap, Height } from "../GlobalStyles";
 
-const ReflectionPageReset = () => {
+const ReflectionPage = () => {
   return (
     <ScrollView
-      style={styles.reflectionPageReset}
-      contentContainerStyle={styles.reflectionPageResetContent}
+      style={styles.reflectionPage}
+      contentContainerStyle={styles.reflectionPageContent}
     >
-      <Default state="default" />
-      <View style={styles.reflectionPageResetInner}>
+      <Default2
+        state="default"
+        profileHeight="32"
+        profileTop="29"
+        profileRight="unset"
+        profileBottom="unset"
+        profileLeft="349"
+        profilePosition="absolute"
+        profileColor="#e5e5e5"
+      />
+      <View style={styles.reflectionPageInner}>
         <View style={[styles.frameParent, styles.frameLayout]}>
           <View style={[styles.frameWrapper, styles.frameLayout]}>
             <View style={styles.givingGoalParent}>
@@ -27,14 +36,29 @@ const ReflectionPageReset = () => {
                 givingGoalGiven="Giving Goal"
                 givingSeparator="$200.00"
                 givingGoalSeparator="$2,245.00"
+                givingGivenColor="#000"
                 givingGoalGivenColor="#e1ad01"
+                givingSeparatorColor="#333"
                 givingGoalSeparatorColor="#e1ad01"
               />
               <SettingFaithGoal
-                state="Active"
-                iconBible={<IconBible width={7} height={52} />}
+                state="Default"
+                iconBible={<IconBible3 width={7} height={52} />}
                 state1="Default"
                 addTransaction="Setting Faith Goal"
+                settingFaithGoalPosition="absolute"
+                settingFaithGoalHeight="100%"
+                settingFaithGoalTop="0%"
+                settingFaithGoalRight="0%"
+                settingFaithGoalBottom="0%"
+                settingFaithGoalLeft="0%"
+                settingFaithGoalAlignSelf="unset"
+                settingFaithGoalBackground="#fff9e6"
+                settingFaithGoalBorderColor="#e1ad01"
+                addTransactionHeight="38"
+                addTransactionWidth="140"
+                addTransactionFontSize={16}
+                addTransactionColor="#e1ad01"
               />
             </View>
           </View>
@@ -42,17 +66,7 @@ const ReflectionPageReset = () => {
             <BibleVerses />
             <View style={styles.addToFavoriteParent}>
               <AddToFavorite
-                state="Active"
-                addToFavoriteHeight="unset"
-                bibleIconHeight="52%"
-                bibleIconWidth="7.2%"
-                bibleIconPosition="absolute"
-                bibleIconTop="24%"
-                bibleIconRight="72%"
-                bibleIconBottom="24%"
-                bibleIconLeft="20.8%"
-                bibleIconOverflow="hidden"
-                bibleIconMaxHeight="100%"
+                state="Default"
                 state1="Default"
                 addTransaction="Add to Favorite"
                 settingFaithGoalPosition="unset"
@@ -61,16 +75,16 @@ const ReflectionPageReset = () => {
                 settingFaithGoalRight="unset"
                 settingFaithGoalBottom="unset"
                 settingFaithGoalLeft="unset"
-                settingFaithGoalAlignSelf="stretch"
-                settingFaithGoalBackground="#e1ad01"
-                settingFaithGoalBorderColor="#fff9e6"
+                settingFaithGoalAlignSelf="unset"
+                settingFaithGoalBackground="#fff9e6"
+                settingFaithGoalBorderColor="#e1ad01"
                 addTransactionHeight="unset"
                 addTransactionWidth="unset"
                 addTransactionFontSize={12}
-                addTransactionColor="#fff9e6"
+                addTransactionColor="#e1ad01"
               />
               <RefreshButton
-                state="Active"
+                state="Default"
                 state1="Default"
                 addTransaction="Refresh"
                 settingFaithGoalPosition="unset"
@@ -80,30 +94,42 @@ const ReflectionPageReset = () => {
                 settingFaithGoalBottom="unset"
                 settingFaithGoalLeft="unset"
                 settingFaithGoalAlignSelf="unset"
-                settingFaithGoalBackground="#e1ad01"
-                settingFaithGoalBorderColor="#fff9e6"
+                settingFaithGoalBackground="#fff9e6"
+                settingFaithGoalBorderColor="#e1ad01"
                 addTransactionHeight="unset"
                 addTransactionWidth="unset"
                 addTransactionFontSize={12}
-                addTransactionColor="#fff9e6"
+                addTransactionColor="#e1ad01"
               />
             </View>
           </View>
         </View>
       </View>
-      <Default1
-        iconMoney3={require("../assets/active.png")}
+      <Default3
         state="default"
+        activePosition="relative"
+        activeHeight="32"
+        activeTop="unset"
+        activeRight="unset"
+        activeBottom="unset"
+        activeLeft="unset"
+        homeColor="#e5e5e5"
         state1="default"
+        activePosition1="relative"
+        activeHeight1="32"
+        activeTop1="unset"
+        activeRight1="unset"
+        activeBottom1="unset"
+        activeLeft1="unset"
+        insightsColor="#e5e5e5"
         state2="default"
-        state3="default"
-        profileHeight="100%"
-        profileTop="0%"
-        profileRight="0%"
-        profileBottom="0%"
-        profileLeft="0%"
-        profilePosition="absolute"
-        profileColor="#c99700"
+        profileHeight="32"
+        profileTop="unset"
+        profileRight="unset"
+        profileBottom="unset"
+        profileLeft="unset"
+        profilePosition="relative"
+        profileColor="#e5e5e5"
       />
       <IPhoneBezel
         type="iPhone 16"
@@ -114,7 +140,7 @@ const ReflectionPageReset = () => {
 };
 
 const styles = StyleSheet.create({
-  reflectionPageResetContent: {
+  reflectionPageContent: {
     flexDirection: "row",
     paddingTop: 0,
     paddingBottom: 356,
@@ -127,13 +153,13 @@ const styles = StyleSheet.create({
     zIndex: null,
     width: Width.width_362,
   },
-  reflectionPageReset: {
+  reflectionPage: {
     width: "100%",
     backgroundColor: Color.backgroundColorLightMode,
     flex: 1,
     maxWidth: "100%",
   },
-  reflectionPageResetInner: {
+  reflectionPageInner: {
     height: 498,
     paddingTop: 104,
     marginLeft: -379,
@@ -167,4 +193,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReflectionPageReset;
+export default ReflectionPage;

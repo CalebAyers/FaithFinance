@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, ImageSourcePropType } from "react-native";
+import IconBible5 from "../assets/Icon-Bible5.svg";
 import Option from "./Option1";
-import IconBible2 from "../assets/Icon-Bible2.svg";
-import { Gap, Height, Width } from "../GlobalStyles";
+import { Width, Height } from "../GlobalStyles";
 
-export type AddToFavoriteType = {
+export type FavoriteVersesType = {
+  iconBible?: React.ReactNode;
+  showBibleIcon?: boolean;
   state1?: string;
   addTransaction?: string;
   settingFaithGoalPosition?: string;
@@ -26,10 +28,11 @@ export type AddToFavoriteType = {
   state?: "Default" | "Active";
 
   /** Style props */
-  addToFavoriteHeight?: number | string;
+  favoriteVersesFlexDirection?: string;
+  favoriteVersesAlignItems?: string;
+  bibleIconPosition?: string;
   bibleIconHeight?: number | string;
   bibleIconWidth?: number | string;
-  bibleIconPosition?: string;
   bibleIconTop?: number | string;
   bibleIconRight?: number | string;
   bibleIconBottom?: number | string;
@@ -38,25 +41,19 @@ export type AddToFavoriteType = {
   bibleIconMaxHeight?: number | string;
 };
 
-const getAddToFavoriteStyle = (styleKey: string) => {
-  switch (styleKey) {
-    case "Active":
-      return {
-        flexDirection: null,
-        gap: Gap.gap_10,
-      };
-  }
-};
 const getStyleValue = (key: string, value: string | number | undefined) => {
   if (value === undefined) return;
   return { [key]: value === "unset" ? undefined : value };
 };
-const AddToFavorite = ({
+const FavoriteVerses = ({
   state = "Default",
-  addToFavoriteHeight,
+  favoriteVersesFlexDirection,
+  favoriteVersesAlignItems,
+  iconBible,
+  showBibleIcon,
+  bibleIconPosition,
   bibleIconHeight,
   bibleIconWidth,
-  bibleIconPosition,
   bibleIconTop,
   bibleIconRight,
   bibleIconBottom,
@@ -78,20 +75,19 @@ const AddToFavorite = ({
   addTransactionWidth,
   addTransactionFontSize,
   addTransactionColor,
-}: AddToFavoriteType) => {
-  const variantKey = `${state}`;
-
-  const addToFavoriteStyle = useMemo(() => {
+}: FavoriteVersesType) => {
+  const favoriteVersesStyle = useMemo(() => {
     return {
-      ...getStyleValue("height", addToFavoriteHeight),
+      ...getStyleValue("flexDirection", favoriteVersesFlexDirection),
+      ...getStyleValue("alignItems", favoriteVersesAlignItems),
     };
-  }, [addToFavoriteHeight]);
+  }, [favoriteVersesFlexDirection, favoriteVersesAlignItems]);
 
-  const bibleIconStyle = useMemo(() => {
+  const bibleIcon1Style = useMemo(() => {
     return {
+      ...getStyleValue("position", bibleIconPosition),
       ...getStyleValue("height", bibleIconHeight),
       ...getStyleValue("width", bibleIconWidth),
-      ...getStyleValue("position", bibleIconPosition),
       ...getStyleValue("top", bibleIconTop),
       ...getStyleValue("right", bibleIconRight),
       ...getStyleValue("bottom", bibleIconBottom),
@@ -100,9 +96,9 @@ const AddToFavorite = ({
       ...getStyleValue("maxHeight", bibleIconMaxHeight),
     };
   }, [
+    bibleIconPosition,
     bibleIconHeight,
     bibleIconWidth,
-    bibleIconPosition,
     bibleIconTop,
     bibleIconRight,
     bibleIconBottom,
@@ -112,13 +108,7 @@ const AddToFavorite = ({
   ]);
 
   return (
-    <Pressable
-      style={[
-        styles.root,
-        getAddToFavoriteStyle(variantKey),
-        addToFavoriteStyle,
-      ]}
-    >
+    <Pressable style={[styles.root, favoriteVersesStyle]}>
       <Option
         state={state1}
         settingFaithGoalPosition={settingFaithGoalPosition}
@@ -136,27 +126,16 @@ const AddToFavorite = ({
         addTransactionFontSize={addTransactionFontSize}
         addTransactionColor={addTransactionColor}
       />
-      <IconBible2
-        style={[styles.iconBible, bibleIconStyle]}
-        width={Width.width_9_03}
-        height={Height.height_20_8}
-      />
+      {!!showBibleIcon && iconBible}
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    height: Height.height_40,
-    width: Width.width_125,
-    flexDirection: "row",
-    zIndex: 2,
-  },
-  iconBible: {
-    height: Height.height_20_8,
-    width: Width.width_9_03,
-    display: "none",
+    width: Width.width_360,
+    height: Height.height_45,
   },
 });
 
-export default AddToFavorite;
+export default FavoriteVerses;

@@ -7,7 +7,6 @@ import {
   Color,
   Padding,
   Height,
-  Width,
   FontSize,
   LineHeight,
   FontFamily,
@@ -20,20 +19,19 @@ export type OptionType = {
   state?: string;
 
   /** Style props */
-  addTransactionColor?: string;
-  addTransactionPosition?: string;
+  settingFaithGoalPosition?: string;
+  settingFaithGoalHeight?: number | string;
+  settingFaithGoalTop?: number | string;
+  settingFaithGoalRight?: number | string;
+  settingFaithGoalBottom?: number | string;
+  settingFaithGoalLeft?: number | string;
+  settingFaithGoalAlignSelf?: string;
+  settingFaithGoalBackgroundColor?: string;
+  settingFaithGoalBorderColor?: string;
   addTransactionHeight?: number | string;
-  addTransactionTop?: number | string;
-  addTransactionRight?: number | string;
-  addTransactionBottom?: number | string;
-  addTransactionLeft?: number | string;
-  addTransactionBackgroundColor?: string;
-  addTransactionBorderStyle?: string;
-  addTransactionBorderColor?: string;
-  addTransactionBorderWidth?: number;
-  addTransactionHeight1?: number | string;
   addTransactionWidth?: number | string;
   addTransactionFontSize?: number;
+  addTransactionColor?: string;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -42,64 +40,61 @@ const getStyleValue = (key: string, value: string | number | undefined) => {
 };
 const Option = ({
   state = "Default",
-  addTransactionColor,
-  addTransactionPosition,
-  addTransactionHeight,
-  addTransactionTop,
-  addTransactionRight,
-  addTransactionBottom,
-  addTransactionLeft,
-  addTransactionBackgroundColor,
-  addTransactionBorderStyle,
-  addTransactionBorderColor,
-  addTransactionBorderWidth,
+  settingFaithGoalPosition,
+  settingFaithGoalHeight,
+  settingFaithGoalTop,
+  settingFaithGoalRight,
+  settingFaithGoalBottom,
+  settingFaithGoalLeft,
+  settingFaithGoalAlignSelf,
+  settingFaithGoalBackgroundColor,
+  settingFaithGoalBorderColor,
   addTransaction,
-  addTransactionHeight1,
+  addTransactionHeight,
   addTransactionWidth,
   addTransactionFontSize,
+  addTransactionColor,
 }: OptionType) => {
-  const addTransactionStyle = useMemo(() => {
+  const settingFaithGoalStyle = useMemo(() => {
     return {
-      ...getStyleValue("color", addTransactionColor),
-      ...getStyleValue("height", addTransactionHeight1),
-      ...getStyleValue("width", addTransactionWidth),
-      ...getStyleValue("fontSize", addTransactionFontSize),
+      ...getStyleValue("position", settingFaithGoalPosition),
+      ...getStyleValue("height", settingFaithGoalHeight),
+      ...getStyleValue("top", settingFaithGoalTop),
+      ...getStyleValue("right", settingFaithGoalRight),
+      ...getStyleValue("bottom", settingFaithGoalBottom),
+      ...getStyleValue("left", settingFaithGoalLeft),
+      ...getStyleValue("alignSelf", settingFaithGoalAlignSelf),
+      ...getStyleValue("backgroundColor", settingFaithGoalBackgroundColor),
+      ...getStyleValue("borderColor", settingFaithGoalBorderColor),
     };
   }, [
-    addTransactionColor,
-    addTransactionHeight1,
-    addTransactionWidth,
-    addTransactionFontSize,
+    settingFaithGoalPosition,
+    settingFaithGoalHeight,
+    settingFaithGoalTop,
+    settingFaithGoalRight,
+    settingFaithGoalBottom,
+    settingFaithGoalLeft,
+    settingFaithGoalAlignSelf,
+    settingFaithGoalBackgroundColor,
+    settingFaithGoalBorderColor,
   ]);
 
-  const addTransaction1Style = useMemo(() => {
+  const addTransactionStyle = useMemo(() => {
     return {
-      ...getStyleValue("position", addTransactionPosition),
       ...getStyleValue("height", addTransactionHeight),
-      ...getStyleValue("top", addTransactionTop),
-      ...getStyleValue("right", addTransactionRight),
-      ...getStyleValue("bottom", addTransactionBottom),
-      ...getStyleValue("left", addTransactionLeft),
-      ...getStyleValue("backgroundColor", addTransactionBackgroundColor),
-      ...getStyleValue("borderStyle", addTransactionBorderStyle),
-      ...getStyleValue("borderColor", addTransactionBorderColor),
-      ...getStyleValue("borderWidth", addTransactionBorderWidth),
+      ...getStyleValue("width", addTransactionWidth),
+      ...getStyleValue("fontSize", addTransactionFontSize),
+      ...getStyleValue("color", addTransactionColor),
     };
   }, [
-    addTransactionPosition,
     addTransactionHeight,
-    addTransactionTop,
-    addTransactionRight,
-    addTransactionBottom,
-    addTransactionLeft,
-    addTransactionBackgroundColor,
-    addTransactionBorderStyle,
-    addTransactionBorderColor,
-    addTransactionBorderWidth,
+    addTransactionWidth,
+    addTransactionFontSize,
+    addTransactionColor,
   ]);
 
   return (
-    <View style={[styles.buttonAddTransaction, addTransaction1Style]}>
+    <View style={[styles.buttonSettingFaithGoal, settingFaithGoalStyle]}>
       <Text style={[styles.addTransaction, addTransactionStyle]}>
         {addTransaction}
       </Text>
@@ -108,7 +103,7 @@ const Option = ({
 };
 
 const styles = StyleSheet.create({
-  buttonAddTransaction: {
+  buttonSettingFaithGoal: {
     position: "absolute",
     height: "100%",
     width: "100%",
@@ -116,10 +111,13 @@ const styles = StyleSheet.create({
     right: "0%",
     bottom: "0%",
     left: "0%",
-    boxShadow: BoxShadow.shadow_drop2,
+    boxShadow: BoxShadow.shadow_drop1,
     elevation: 12,
     borderRadius: Border.br_12,
-    backgroundColor: Color.mainRed,
+    backgroundColor: Color.gOLD3,
+    borderStyle: "solid",
+    borderColor: Color.componentsBackgrounf,
+    borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -128,12 +126,12 @@ const styles = StyleSheet.create({
   },
   addTransaction: {
     height: Height.height_38,
-    width: Width.width_129,
+    width: 140,
     fontSize: FontSize.fs_16,
     lineHeight: LineHeight.lh_38,
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
-    color: Color.backgroundColorLightMode,
+    color: Color.componentsBackgrounf,
     textAlign: "center",
   },
 });

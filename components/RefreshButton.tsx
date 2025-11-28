@@ -1,86 +1,86 @@
 import * as React from "react";
 import { Pressable, StyleSheet } from "react-native";
-import Option from "./Option";
-import IconBible3 from "../assets/Icon-Bible3.svg";
+import Option from "./Option1";
+import IconBible2 from "../assets/Icon-Bible2.svg";
 import { Height, Width } from "../GlobalStyles";
 
 export type RefreshButtonType = {
   state1?: string;
   addTransaction?: string;
-  addTransactionBackgroundColor?: string;
-  addTransactionBorderStyle?: string;
-  addTransactionBorderColor?: string;
-  addTransactionBorderWidth?: number;
-  addTransactionPosition?: string;
+  settingFaithGoalPosition?: string;
+  settingFaithGoalHeight?: string;
+  settingFaithGoalTop?: string;
+  settingFaithGoalRight?: string;
+  settingFaithGoalBottom?: string;
+  settingFaithGoalLeft?: string;
+  settingFaithGoalAlignSelf?: string;
+  settingFaithGoalBackground?: string;
+  settingFaithGoalBorderColor?: string;
   addTransactionHeight?: string;
-  addTransactionTop?: string;
-  addTransactionRight?: string;
-  addTransactionBottom?: string;
-  addTransactionLeft?: string;
-  addTransactionAlignSelf?: string;
-  addTransactionColor?: string;
   addTransactionWidth?: string;
   addTransactionFontSize?: number;
+  addTransactionColor?: string;
 
   /** Variant props */
-  state?: string;
+  state?: "Default" | "Active";
 };
 
 const RefreshButton = ({
   state = "Default",
   state1,
   addTransaction,
-  addTransactionBackgroundColor,
-  addTransactionBorderStyle,
-  addTransactionBorderColor,
-  addTransactionBorderWidth,
-  addTransactionPosition,
+  settingFaithGoalPosition,
+  settingFaithGoalHeight,
+  settingFaithGoalTop,
+  settingFaithGoalRight,
+  settingFaithGoalBottom,
+  settingFaithGoalLeft,
+  settingFaithGoalAlignSelf,
+  settingFaithGoalBackground,
+  settingFaithGoalBorderColor,
   addTransactionHeight,
-  addTransactionTop,
-  addTransactionRight,
-  addTransactionBottom,
-  addTransactionLeft,
-  addTransactionAlignSelf,
-  addTransactionColor,
   addTransactionWidth,
   addTransactionFontSize,
+  addTransactionColor,
 }: RefreshButtonType) => {
   return (
-    <Pressable style={styles.refreshButton}>
+    <Pressable style={styles.root}>
       <Option
         state={state1}
-        addTransactionBackgroundColor={addTransactionBackgroundColor}
-        addTransactionBorderStyle={addTransactionBorderStyle}
-        addTransactionBorderColor={addTransactionBorderColor}
-        addTransactionBorderWidth={addTransactionBorderWidth}
-        addTransactionPosition={addTransactionPosition}
-        addTransactionHeight={addTransactionHeight}
-        addTransactionTop={addTransactionTop}
-        addTransactionRight={addTransactionRight}
-        addTransactionBottom={addTransactionBottom}
-        addTransactionLeft={addTransactionLeft}
-        addTransactionAlignSelf={addTransactionAlignSelf}
+        settingFaithGoalPosition={settingFaithGoalPosition}
+        settingFaithGoalHeight={settingFaithGoalHeight}
+        settingFaithGoalTop={settingFaithGoalTop}
+        settingFaithGoalRight={settingFaithGoalRight}
+        settingFaithGoalBottom={settingFaithGoalBottom}
+        settingFaithGoalLeft={settingFaithGoalLeft}
+        settingFaithGoalAlignSelf={settingFaithGoalAlignSelf}
+        settingFaithGoalBackgroundColor={settingFaithGoalBackground}
+        settingFaithGoalBorderColor={settingFaithGoalBorderColor}
         addTransaction={addTransaction}
-        addTransactionColor={addTransactionColor}
+        addTransactionHeight={addTransactionHeight}
         addTransactionWidth={addTransactionWidth}
-        addTransactionHeight1="unset"
         addTransactionFontSize={addTransactionFontSize}
+        addTransactionColor={addTransactionColor}
       />
-      <IconBible3 style={styles.iconBible} width={9} height={21} />
+      <IconBible2
+        style={styles.iconBible}
+        width={Width.width_9_03}
+        height={Height.height_20_8}
+      />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  refreshButton: {
+  root: {
     height: Height.height_40,
     width: Width.width_125,
     flexDirection: "row",
     zIndex: 1,
   },
   iconBible: {
-    height: 21,
-    width: 9,
+    height: Height.height_20_8,
+    width: Width.width_9_03,
     display: "none",
   },
 });

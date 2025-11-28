@@ -1,103 +1,86 @@
 import * as React from "react";
-import { useMemo } from "react";
-import { Pressable, StyleSheet, ImageSourcePropType } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import Option from "./Option1";
-import { Height, Width } from "../GlobalStyles";
+import IconBible6 from "../assets/Icon-Bible6.svg";
+import { Height } from "../GlobalStyles";
 
 export type SmallEditButtonType = {
-  iconBible?: React.ReactNode;
   state1?: string;
   addTransaction?: string;
-  addTransactionColor?: string;
-  addTransactionPosition?: string;
+  settingFaithGoalPosition?: string;
+  settingFaithGoalHeight?: string;
+  settingFaithGoalTop?: string;
+  settingFaithGoalRight?: string;
+  settingFaithGoalBottom?: string;
+  settingFaithGoalLeft?: string;
+  settingFaithGoalAlignSelf?: string;
+  settingFaithGoalBackground?: string;
+  settingFaithGoalBorderColor?: string;
   addTransactionHeight?: string;
-  addTransactionTop?: string;
-  addTransactionRight?: string;
-  addTransactionBottom?: string;
-  addTransactionLeft?: string;
-  addTransactionBackgroundColor?: string;
-  addTransactionBorderStyle?: string;
-  addTransactionBorderColor?: string;
-  addTransactionBorderWidth?: number;
   addTransactionWidth?: string;
   addTransactionFontSize?: number;
+  addTransactionColor?: string;
 
   /** Variant props */
-  state?: "Default" | "Active";
-
-  /** Style props */
-  smallEditButtonWidth?: number | string;
-  bibleIconWidth?: number | string;
+  state?: string;
 };
 
-const getStyleValue = (key: string, value: string | number | undefined) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
 const SmallEditButton = ({
   state = "Default",
-  smallEditButtonWidth,
-  iconBible,
-  bibleIconWidth,
   state1,
   addTransaction,
-  addTransactionColor,
-  addTransactionPosition,
+  settingFaithGoalPosition,
+  settingFaithGoalHeight,
+  settingFaithGoalTop,
+  settingFaithGoalRight,
+  settingFaithGoalBottom,
+  settingFaithGoalLeft,
+  settingFaithGoalAlignSelf,
+  settingFaithGoalBackground,
+  settingFaithGoalBorderColor,
   addTransactionHeight,
-  addTransactionTop,
-  addTransactionRight,
-  addTransactionBottom,
-  addTransactionLeft,
-  addTransactionBackgroundColor,
-  addTransactionBorderStyle,
-  addTransactionBorderColor,
-  addTransactionBorderWidth,
   addTransactionWidth,
   addTransactionFontSize,
+  addTransactionColor,
 }: SmallEditButtonType) => {
-  const smallEditButtonStyle = useMemo(() => {
-    return {
-      ...getStyleValue("width", smallEditButtonWidth),
-    };
-  }, [smallEditButtonWidth]);
-
-  const bibleIconStyle = useMemo(() => {
-    return {
-      ...getStyleValue("width", bibleIconWidth),
-    };
-  }, [bibleIconWidth]);
-
   return (
-    <Pressable style={[styles.root, smallEditButtonStyle]}>
+    <Pressable style={styles.smallEditButton}>
       <Option
         state={state1}
-        addTransactionColor={addTransactionColor}
-        addTransactionPosition={addTransactionPosition}
-        addTransactionHeight={addTransactionHeight}
-        addTransactionTop={addTransactionTop}
-        addTransactionRight={addTransactionRight}
-        addTransactionBottom={addTransactionBottom}
-        addTransactionLeft={addTransactionLeft}
-        addTransactionBackgroundColor={addTransactionBackgroundColor}
-        addTransactionBorderStyle={addTransactionBorderStyle}
-        addTransactionBorderColor={addTransactionBorderColor}
-        addTransactionBorderWidth={addTransactionBorderWidth}
+        settingFaithGoalPosition={settingFaithGoalPosition}
+        settingFaithGoalHeight={settingFaithGoalHeight}
+        settingFaithGoalTop={settingFaithGoalTop}
+        settingFaithGoalRight={settingFaithGoalRight}
+        settingFaithGoalBottom={settingFaithGoalBottom}
+        settingFaithGoalLeft={settingFaithGoalLeft}
+        settingFaithGoalAlignSelf={settingFaithGoalAlignSelf}
+        settingFaithGoalBackgroundColor={settingFaithGoalBackground}
+        settingFaithGoalBorderColor={settingFaithGoalBorderColor}
         addTransaction={addTransaction}
-        addTransactionHeight1="unset"
+        addTransactionHeight={addTransactionHeight}
         addTransactionWidth={addTransactionWidth}
         addTransactionFontSize={addTransactionFontSize}
+        addTransactionColor={addTransactionColor}
       />
-      {iconBible}
+      <IconBible6
+        style={styles.iconBible}
+        width={8}
+        height={Height.height_20_8}
+      />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
+  smallEditButton: {
     height: Height.height_40,
-    width: Width.width_170,
+    width: 110,
     flexDirection: "row",
-    zIndex: 1,
+  },
+  iconBible: {
+    height: Height.height_20_8,
+    width: 8,
+    display: "none",
   },
 });
 

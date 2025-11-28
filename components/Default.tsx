@@ -1,10 +1,10 @@
 import * as React from "react";
+import { useMemo } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import Profile from "./Profile";
-import Vector4 from "../assets/Vector4.svg";
+import Profile1 from "./Profile1";
 import {
-  Width,
   Height,
+  Width,
   Color,
   Padding,
   Gap,
@@ -17,46 +17,50 @@ export type DefaultType = {
   state?: string;
   profileHeight?: string;
   profileTop?: string;
-  profileLeft?: string;
   profileRight?: string;
   profileBottom?: string;
+  profileLeft?: string;
   profilePosition?: string;
   profileColor?: string;
+
+  /** Style props */
+  defaultMarginLeft?: number | string;
 };
 
+const getStyleValue = (key: string, value: string | number | undefined) => {
+  if (value === undefined) return;
+  return { [key]: value === "unset" ? undefined : value };
+};
 const Default = ({
+  defaultMarginLeft,
   state,
   profileHeight,
   profileTop,
-  profileLeft,
   profileRight,
   profileBottom,
+  profileLeft,
   profilePosition,
   profileColor,
 }: DefaultType) => {
+  const defaultStyle = useMemo(() => {
+    return {
+      ...getStyleValue("marginLeft", defaultMarginLeft),
+    };
+  }, [defaultMarginLeft]);
+
   return (
-    <View style={styles.headerBarDefault}>
+    <View style={[styles.headerBarDefault, defaultStyle]}>
       <Text style={styles.faithfinance}>FaithFinance</Text>
-      <Profile
-        state={state}
-        profileHeight={profileHeight}
-        profileTop={profileTop}
-        profileLeft={profileLeft}
-        profileRight={profileRight}
-        profileBottom={profileBottom}
-        profilePosition={profilePosition}
-        vector={<Vector4 width={83} height={83} />}
-        profileColor={profileColor}
-      />
+      <Profile1 state="active" />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerBarDefault: {
-    marginLeft: -3,
-    width: Width.width_400,
+    marginLeft: -6,
     height: Height.height_90,
+    width: Width.width_400,
     backgroundColor: Color.mainRed,
     overflow: "hidden",
     flexDirection: "row",
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
     paddingTop: Padding.padding_14,
     paddingBottom: Padding.padding_8,
     gap: Gap.gap_10,
-    zIndex: 1,
+    zIndex: 2,
   },
   faithfinance: {
     height: Height.height_47,

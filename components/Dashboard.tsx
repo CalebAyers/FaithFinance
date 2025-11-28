@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Vector3 from "../assets/Vector3.svg";
+import { useMemo } from "react";
+import { StyleSheet, Text, View, ImageSourcePropType } from "react-native";
 import {
   Color,
   FontSize,
@@ -10,15 +10,66 @@ import {
 } from "../GlobalStyles";
 
 export type DashboardType = {
+  vector?: React.ReactNode;
+
   /** Variant props */
   state?: string;
+
+  /** Style props */
+  activePosition?: string;
+  activeHeight?: number | string;
+  activeTop?: number | string;
+  activeRight?: number | string;
+  activeBottom?: number | string;
+  activeLeft?: number | string;
+  insightsColor?: string;
 };
 
-const Dashboard = ({ state = "default" }: DashboardType) => {
+const getStyleValue = (key: string, value: string | number | undefined) => {
+  if (value === undefined) return;
+  return { [key]: value === "unset" ? undefined : value };
+};
+const Dashboard = ({
+  state = "default",
+  activePosition,
+  activeHeight,
+  activeTop,
+  activeRight,
+  activeBottom,
+  activeLeft,
+  vector,
+  insightsColor,
+}: DashboardType) => {
+  const active1Style = useMemo(() => {
+    return {
+      ...getStyleValue("position", activePosition),
+      ...getStyleValue("height", activeHeight),
+      ...getStyleValue("top", activeTop),
+      ...getStyleValue("right", activeRight),
+      ...getStyleValue("bottom", activeBottom),
+      ...getStyleValue("left", activeLeft),
+    };
+  }, [
+    activePosition,
+    activeHeight,
+    activeTop,
+    activeRight,
+    activeBottom,
+    activeLeft,
+  ]);
+
+  const insightsStyle = useMemo(() => {
+    return {
+      ...getStyleValue("color", insightsColor),
+    };
+  }, [insightsColor]);
+
   return (
-    <View style={styles.active}>
-      <Vector3 style={[styles.vectorIcon, styles.insightsClr]} />
-      <Text style={[styles.insights, styles.insightsClr]}>Insights</Text>
+    <View style={[styles.active, active1Style]}>
+      {vector}
+      <Text style={[styles.insights, styles.insightsClr, insightsStyle]}>
+        Insights
+      </Text>
     </View>
   );
 };
@@ -36,17 +87,6 @@ const styles = StyleSheet.create({
     bottom: "0%",
     left: "0%",
     position: "absolute",
-  },
-  vectorIcon: {
-    height: "66.56%",
-    width: "58.44%",
-    top: "16.56%",
-    right: "20.63%",
-    bottom: "16.88%",
-    left: "20.94%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    maxHeight: "100%",
   },
   insights: {
     top: 20,
