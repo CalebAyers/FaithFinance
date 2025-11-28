@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, View, Text, ImageSourcePropType } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import Money from "./Money";
 import {
   FontFamily,
@@ -17,14 +17,13 @@ export type SpendingType = {
   spending?: string;
   prop?: string;
   state?: string;
-  vector?: ImageSourcePropType;
 };
 
-const Spending = ({ spending, prop, state, vector }: SpendingType) => {
+const Spending = ({ spending, prop, state }: SpendingType) => {
   return (
     <View style={styles.spending}>
       <View style={styles.iconMoney2Wrapper}>
-        <Money state={state} vector={vector} />
+        <Money state={state} />
       </View>
       <Text style={[styles.spending2, styles.textFlexBox]}>{spending}</Text>
       <Text style={[styles.text, styles.textFlexBox]}>{prop}</Text>

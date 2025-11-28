@@ -45,7 +45,33 @@ const Page = () => {
               frameViewBackgroundColor="#b36c6c"
               frameViewBackgroundColor1="#8b0000"
             />
-            <AddTransaction />
+            <AddTransaction
+              state="Default"
+              addTransactionWidth={360}
+              state1="Default"
+              addTransaction="Add Transaction"
+              addTransactionColor="#e5e5e5"
+              addTransactionPosition="absolute"
+              addTransactionHeight="100%"
+              addTransactionTop="0%"
+              addTransactionRight="0%"
+              addTransactionBottom="0%"
+              addTransactionLeft="0%"
+              addTransactionBackgroundColor="#8b0000"
+              addTransactionBorderStyle="unset"
+              addTransactionBorderColor="unset"
+              addTransactionFontSize={16}
+              state2="default"
+              addHeight="52%"
+              addTop="24%"
+              addBottom="24%"
+              addMarginTop="unset"
+              addWidth="7.22%"
+              addLeft="23.06%"
+              vectorIconWidth="58.46%"
+              vectorIconRight="20.77%"
+              vectorIconLeft="20.77%"
+            />
           </View>
         </View>
         <View style={styles.navigationBarDefault}>
@@ -57,8 +83,8 @@ const Page = () => {
             activeRight="unset"
             activeBottom="unset"
             activeLeft="unset"
-            vector={<Vector12 width={67} height={73} />}
             homeColor="#e5e5e5"
+            vector={<Vector12 width={67} height={73} />}
           />
           <Image
             style={styles.iconMoney3}
@@ -73,8 +99,8 @@ const Page = () => {
             dashboardRight="unset"
             dashboardBottom="unset"
             dashboardLeft="unset"
-            vector={<Vector4 width={58} height={67} />}
             insightsColor="#e5e5e5"
+            vector={<Vector4 width={58} height={67} />}
           />
           <Book
             state="default"
@@ -84,8 +110,8 @@ const Page = () => {
             bookRight="unset"
             bookBottom="unset"
             bookLeft="unset"
-            vector={<Vector2 width={67} height={73} />}
             reflectionColor="#e5e5e5"
+            vector={<Vector2 width={67} height={73} />}
           />
           <Profile
             state="default"
@@ -95,8 +121,8 @@ const Page = () => {
             profileHeight={32}
             profileRight="unset"
             profileBottom="unset"
-            vector={<Vector7 width={83} height={83} />}
             profileColor="#e5e5e5"
+            vector={<Vector7 width={83} height={83} />}
           />
         </View>
         <IPhoneBezel

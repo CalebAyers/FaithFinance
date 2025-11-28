@@ -5,11 +5,8 @@ import SpendingGivingIncome from "../components/SpendingGivingIncome";
 import BibleVerses from "../components/BibleVerses";
 import AddTransaction from "../components/AddTransaction";
 import Transaction from "../components/Transaction";
-import Vector3 from "../assets/Vector3.svg";
-import Vector1 from "../assets/Vector1.svg";
 import Default from "../components/Default";
 import IPhoneBezel from "../components/IPhoneBezel";
-import Vector5 from "../assets/Vector5.svg";
 import Default1 from "../components/Default1";
 import {
   Color,
@@ -38,7 +35,12 @@ const HomePage = () => {
                     <SpendingGivingIncome />
                   </View>
                   <BibleVerses />
-                  <AddTransaction />
+                  <AddTransaction
+                    state="Default"
+                    state1="Default"
+                    addTransaction="Add Transaction"
+                    state2="default"
+                  />
                 </View>
               </View>
               <Text style={styles.recentTransactions}>Recent Transactions</Text>
@@ -49,7 +51,6 @@ const HomePage = () => {
                     category="Giving"
                     emptySpace="-$100.00"
                     state1="default"
-                    vector={<Vector3 width={89} height={89} />}
                   />
                 </View>
                 <View style={styles.transactionLayout}>
@@ -67,16 +68,12 @@ const HomePage = () => {
                       emptySpace="-$100.00"
                       emptySpaceColor="#720404"
                       state1="default"
-                      vector={<Vector1 width={89} height={89} />}
                     />
                   </View>
                 </View>
                 <View style={styles.transactionParent}>
                   <View
-                    style={[
-                      styles.homePageTransaction,
-                      styles.transactionLayout1,
-                    ]}
+                    style={[styles.transaction2, styles.transactionLayout1]}
                   >
                     <Transaction
                       state="Giving"
@@ -91,7 +88,6 @@ const HomePage = () => {
                       emptySpace="-$100.00"
                       emptySpaceColor="#720404"
                       state1="default"
-                      vector={<Vector1 width={89} height={89} />}
                     />
                   </View>
                   <Default
@@ -122,7 +118,6 @@ const HomePage = () => {
                   emptySpace="+$100.00"
                   emptySpaceColor="#27ae60"
                   state1="default"
-                  vector={<Vector5 width={89} height={89} />}
                 />
               </View>
             </View>
@@ -141,7 +136,6 @@ const HomePage = () => {
               emptySpace="-$100.00"
               emptySpaceColor="#e1ad01"
               state1="default"
-              vector={<Vector3 width={89} height={89} />}
             />
           </View>
         </ScrollView>
@@ -259,10 +253,10 @@ const styles = StyleSheet.create({
   },
   transactionParent: {
     marginRight: -1,
-    height: 105,
+    height: Height.height_105,
     width: Width.width_394,
   },
-  homePageTransaction: {
+  transaction2: {
     top: 0,
     left: 17,
     position: "absolute",

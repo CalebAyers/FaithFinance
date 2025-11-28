@@ -6,8 +6,6 @@ import SpendingGivingIncome from "../components/SpendingGivingIncome";
 import BibleVerses from "../components/BibleVerses";
 import Pressed from "../components/Pressed";
 import Transaction from "../components/Transaction";
-import Vector3 from "../assets/Vector3.svg";
-import Vector1 from "../assets/Vector1.svg";
 import Home from "../components/Home";
 import Vector from "../assets/Vector.svg";
 import Dashboard from "../components/Dashboard";
@@ -17,7 +15,6 @@ import Vector9 from "../assets/Vector9.svg";
 import Profile from "../components/Profile";
 import Vector11 from "../assets/Vector11.svg";
 import IPhoneBezel from "../components/IPhoneBezel";
-import Vector5 from "../assets/Vector5.svg";
 import {
   Color,
   LineHeight,
@@ -78,7 +75,6 @@ const HomePageReset = () => {
                     emptySpace="-$100.00"
                     emptySpaceColor="#e1ad01"
                     state1="default"
-                    vector={<Vector3 width={89} height={89} />}
                   />
                 </View>
                 <View style={styles.incomeDisplayLayout}>
@@ -96,17 +92,11 @@ const HomePageReset = () => {
                       emptySpace="-$100.00"
                       emptySpaceColor="#720404"
                       state1="default"
-                      vector={<Vector1 width={89} height={89} />}
                     />
                   </View>
                 </View>
                 <View style={styles.transactionDisplay}>
-                  <View
-                    style={[
-                      styles.homePageResetTransaction,
-                      styles.transactionLayout,
-                    ]}
-                  >
+                  <View style={[styles.transaction2, styles.transactionLayout]}>
                     <Transaction
                       state="Giving"
                       transactionDetailColor="#000"
@@ -120,7 +110,6 @@ const HomePageReset = () => {
                       emptySpace="-$100.00"
                       emptySpaceColor="#720404"
                       state1="default"
-                      vector={<Vector1 width={89} height={89} />}
                     />
                   </View>
                   <View style={[styles.navigationBarDefault, styles.barBg]}>
@@ -133,8 +122,8 @@ const HomePageReset = () => {
                         activeRight="0%"
                         activeBottom="0%"
                         activeLeft="0%"
-                        vector={<Vector width={67} height={73} />}
                         homeColor="#c99700"
+                        vector={<Vector width={67} height={73} />}
                       />
                     </View>
                     <Image
@@ -151,8 +140,8 @@ const HomePageReset = () => {
                         dashboardRight="0%"
                         dashboardBottom="0%"
                         dashboardLeft="0%"
-                        vector={<Vector8 width={58} height={67} />}
                         insightsColor="#c99700"
+                        vector={<Vector8 width={58} height={67} />}
                       />
                     </View>
                     <View style={styles.iconLayout}>
@@ -164,8 +153,8 @@ const HomePageReset = () => {
                         bookRight="0%"
                         bookBottom="0%"
                         bookLeft="0%"
-                        vector={<Vector9 width={67} height={73} />}
                         reflectionColor="#c99700"
+                        vector={<Vector9 width={67} height={73} />}
                       />
                     </View>
                     <View style={styles.iconLayout}>
@@ -177,8 +166,8 @@ const HomePageReset = () => {
                         profileHeight="100%"
                         profileRight="0%"
                         profileBottom="0%"
-                        vector={<Vector11 width={83} height={83} />}
                         profileColor="#c99700"
+                        vector={<Vector11 width={83} height={83} />}
                       />
                     </View>
                   </View>
@@ -205,7 +194,6 @@ const HomePageReset = () => {
                   emptySpace="+$100.00"
                   emptySpaceColor="#27ae60"
                   state1="default"
-                  vector={<Vector5 width={89} height={89} />}
                 />
               </View>
             </View>
@@ -224,7 +212,6 @@ const HomePageReset = () => {
               emptySpace="-$100.00"
               emptySpaceColor="#e1ad01"
               state1="default"
-              vector={<Vector3 width={89} height={89} />}
             />
           </View>
         </ScrollView>
@@ -232,7 +219,7 @@ const HomePageReset = () => {
           <Text style={[styles.faithfinance, styles.faithfinanceTypo]}>
             FaithFinance
           </Text>
-          <View style={[styles.homePageResetIconProfile, styles.iconLayout]}>
+          <View style={[styles.iconProfile2, styles.iconLayout]}>
             <Profile
               state="default"
               profilePosition="absolute"
@@ -241,8 +228,8 @@ const HomePageReset = () => {
               profileHeight="100%"
               profileRight="0%"
               profileBottom="0%"
-              vector={<Vector11 width={83} height={83} />}
               profileColor="#c99700"
+              vector={<Vector11 width={83} height={83} />}
             />
           </View>
         </View>
@@ -360,10 +347,10 @@ const styles = StyleSheet.create({
   },
   transactionDisplay: {
     marginRight: -1,
-    height: 105,
+    height: Height.height_105,
     width: Width.width_394,
   },
-  homePageResetTransaction: {
+  transaction2: {
     top: 0,
     left: 17,
     position: "absolute",
@@ -419,7 +406,7 @@ const styles = StyleSheet.create({
     color: Color.backgroundColorLightMode,
     zIndex: 0,
   },
-  homePageResetIconProfile: {
+  iconProfile2: {
     top: 29,
     left: 349,
     zIndex: 1,

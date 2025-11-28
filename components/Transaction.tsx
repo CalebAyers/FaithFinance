@@ -1,12 +1,6 @@
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageSourcePropType,
-  TextInput,
-} from "react-native";
+import { StyleSheet, View, Text, TextInput } from "react-native";
 import Money from "./Money";
 import {
   Gap,
@@ -25,7 +19,6 @@ export type TransactionType = {
   category?: string;
   emptySpace?: string;
   state1?: string;
-  vector?: ImageSourcePropType;
 
   /** Variant props */
   state?: string;
@@ -58,7 +51,6 @@ const Transaction = ({
   emptySpace,
   emptySpaceColor,
   state1,
-  vector,
 }: TransactionType) => {
   const transactionDetailStyle = useMemo(() => {
     return {
@@ -97,7 +89,7 @@ const Transaction = ({
     <View style={styles.transaction}>
       <View style={[styles.spendsDetail, styles.detailPosition]}>
         <View style={styles.moneyDetailPair}>
-          <Money state={state1} vector={vector} />
+          <Money state={state1} />
         </View>
         <View style={styles.secondTransactionPair}>
           <Text

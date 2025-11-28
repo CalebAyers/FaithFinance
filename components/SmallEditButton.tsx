@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useMemo } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, ImageSourcePropType } from "react-native";
 import Option from "./Option1";
-import Add from "./Add";
-import { Width, Height } from "../GlobalStyles";
+import { Height, Width } from "../GlobalStyles";
 
-export type AddTransactionType = {
+export type SmallEditButtonType = {
+  iconBible?: React.ReactNode;
   state1?: string;
   addTransaction?: string;
   addTransactionColor?: string;
@@ -19,36 +19,26 @@ export type AddTransactionType = {
   addTransactionBorderStyle?: string;
   addTransactionBorderColor?: string;
   addTransactionBorderWidth?: number;
+  addTransactionWidth?: string;
   addTransactionFontSize?: number;
-  state2?: string;
-  addHeight?: string;
-  addTop?: string;
-  addBottom?: string;
-  addMarginTop?: string;
-  addWidth?: string;
-  addLeft?: string;
-  vectorIconWidth?: string;
-  vectorIconRight?: string;
-  vectorIconLeft?: string;
 
   /** Variant props */
   state?: "Default" | "Active";
 
   /** Style props */
-  addTransactionWidth?: number | string;
-
-  /** Action props */
-  onAddTransactionPress?: () => void;
+  smallEditButtonWidth?: number | string;
+  bibleIconWidth?: number | string;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
   if (value === undefined) return;
   return { [key]: value === "unset" ? undefined : value };
 };
-const AddTransaction = ({
+const SmallEditButton = ({
   state = "Default",
-  onAddTransactionPress,
-  addTransactionWidth,
+  smallEditButtonWidth,
+  iconBible,
+  bibleIconWidth,
   state1,
   addTransaction,
   addTransactionColor,
@@ -62,29 +52,23 @@ const AddTransaction = ({
   addTransactionBorderStyle,
   addTransactionBorderColor,
   addTransactionBorderWidth,
+  addTransactionWidth,
   addTransactionFontSize,
-  state2,
-  addHeight,
-  addTop,
-  addBottom,
-  addMarginTop,
-  addWidth,
-  addLeft,
-  vectorIconWidth,
-  vectorIconRight,
-  vectorIconLeft,
-}: AddTransactionType) => {
-  const addTransaction2Style = useMemo(() => {
+}: SmallEditButtonType) => {
+  const smallEditButtonStyle = useMemo(() => {
     return {
-      ...getStyleValue("width", addTransactionWidth),
+      ...getStyleValue("width", smallEditButtonWidth),
     };
-  }, [addTransactionWidth]);
+  }, [smallEditButtonWidth]);
+
+  const bibleIconStyle = useMemo(() => {
+    return {
+      ...getStyleValue("width", bibleIconWidth),
+    };
+  }, [bibleIconWidth]);
 
   return (
-    <Pressable
-      style={[styles.root, addTransaction2Style]}
-      onPress={onAddTransactionPress}
-    >
+    <Pressable style={[styles.root, smallEditButtonStyle]}>
       <Option
         state={state1}
         addTransactionColor={addTransactionColor}
@@ -99,29 +83,22 @@ const AddTransaction = ({
         addTransactionBorderColor={addTransactionBorderColor}
         addTransactionBorderWidth={addTransactionBorderWidth}
         addTransaction={addTransaction}
+        addTransactionHeight1="unset"
+        addTransactionWidth={addTransactionWidth}
         addTransactionFontSize={addTransactionFontSize}
       />
-      <Add
-        state={state2}
-        addHeight={addHeight}
-        addTop={addTop}
-        addBottom={addBottom}
-        addMarginTop={addMarginTop}
-        addWidth={addWidth}
-        addLeft={addLeft}
-        vectorIconWidth={vectorIconWidth}
-        vectorIconRight={vectorIconRight}
-        vectorIconLeft={vectorIconLeft}
-      />
+      {iconBible}
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    width: Width.width_360,
-    height: Height.height_50,
+    height: Height.height_40,
+    width: Width.width_170,
+    flexDirection: "row",
+    zIndex: 1,
   },
 });
 
-export default AddTransaction;
+export default SmallEditButton;

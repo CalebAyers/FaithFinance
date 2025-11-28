@@ -34,8 +34,8 @@ const TransactionArea = () => {
           activeRight="unset"
           activeBottom="unset"
           activeLeft="unset"
-          vector={<Vector12 width={67} height={73} />}
           homeColor="#e5e5e5"
+          vector={<Vector12 width={67} height={73} />}
         />
         <Image
           style={styles.iconMoney3}
@@ -50,8 +50,8 @@ const TransactionArea = () => {
           dashboardRight="unset"
           dashboardBottom="unset"
           dashboardLeft="unset"
-          vector={<Vector4 width={58} height={67} />}
           insightsColor="#e5e5e5"
+          vector={<Vector4 width={58} height={67} />}
         />
         <Book
           state="default"
@@ -61,8 +61,8 @@ const TransactionArea = () => {
           bookRight="unset"
           bookBottom="unset"
           bookLeft="unset"
-          vector={<Vector2 width={67} height={73} />}
           reflectionColor="#e5e5e5"
+          vector={<Vector2 width={67} height={73} />}
         />
         <Profile
           state="default"
@@ -72,8 +72,8 @@ const TransactionArea = () => {
           profileHeight={32}
           profileRight="unset"
           profileBottom="unset"
-          vector={<Vector7 width={83} height={83} />}
           profileColor="#e5e5e5"
+          vector={<Vector7 width={83} height={83} />}
         />
       </View>
       <IPhoneBezel

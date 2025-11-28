@@ -101,8 +101,8 @@ const Default = ({
           activeRight={activeRight}
           activeBottom={activeBottom}
           activeLeft={activeLeft}
-          vector={<Vector width={67} height={73} />}
           homeColor={homeColor}
+          vector={<Vector width={67} height={73} />}
         />
       </View>
       <Image
@@ -119,8 +119,8 @@ const Default = ({
         dashboardRight={dashboardRight}
         dashboardBottom={dashboardBottom}
         dashboardLeft={dashboardLeft}
-        vector={<Vector4 width={58} height={67} />}
         insightsColor={insightsColor}
+        vector={<Vector4 width={58} height={67} />}
       />
       <Book
         state={state2}
@@ -130,8 +130,8 @@ const Default = ({
         bookRight={bookRight}
         bookBottom={bookBottom}
         bookLeft={bookLeft}
-        vector={<Vector2 width={67} height={73} />}
         reflectionColor={reflectionColor}
+        vector={<Vector2 width={67} height={73} />}
       />
       <Profile
         state={state3}
@@ -141,8 +141,8 @@ const Default = ({
         profileHeight={profileHeight}
         profileRight={profileRight}
         profileBottom={profileBottom}
-        vector={<Vector7 width={83} height={83} />}
         profileColor={profileColor}
+        vector={<Vector7 width={83} height={83} />}
       />
     </View>
   );

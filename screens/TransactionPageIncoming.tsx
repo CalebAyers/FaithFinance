@@ -1,227 +1,204 @@
 import * as React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Pressable,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet, View, Pressable } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Default1 from "../components/Default1";
 import TransactionArea from "../components/TransactionArea";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
 import Transaction from "../components/Transaction";
-import Vector5 from "../assets/Vector5.svg";
-import Vector1 from "../assets/Vector1.svg";
-import Vector3 from "../assets/Vector3.svg";
-import { Height, Color, Width, Padding } from "../GlobalStyles";
+import { Height, Color, Width, Padding, MaxWidth } from "../GlobalStyles";
 
 const TransactionPageIncoming = () => {
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+
   return (
-    <SafeAreaView
-      style={[styles.transactionPageIncoming, styles.scrollviewLayout]}
+    <KeyboardAwareScrollView
+      style={styles.transactionPageIncoming}
+      contentContainerStyle={styles.transactionPageIncomingContent}
     >
-      <KeyboardAvoidingView
-        style={[styles.keyboardavoidingview, styles.scrollviewLayout]}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
+      <View style={styles.headerBarDefaultParent}>
+        <Default1
+          defaultMarginTop="unset"
+          state="default"
+          profilePosition="absolute"
+          profileTop="29"
+          profileLeft="349"
+          profileHeight="32"
+          profileRight="unset"
+          profileBottom="unset"
+          profileColor="#e5e5e5"
+        />
+        <TransactionArea />
+      </View>
+      <View style={styles.transactionListArea}>
         <ScrollView
-          style={[styles.scrollview, styles.scrollviewLayout]}
-          contentContainerStyle={styles.transactionPageIncomingContent}
+          style={styles.transactionList}
+          contentContainerStyle={styles.transactionListContainerContent}
         >
-          <View style={styles.headerBarDefaultParent}>
-            <Default1
-              defaultMarginTop="unset"
-              state="default"
-              profilePosition="absolute"
-              profileTop="29"
-              profileLeft="349"
-              profileHeight="32"
-              profileRight="unset"
-              profileBottom="unset"
-              profileColor="#e5e5e5"
+          <Pressable
+            style={[styles.transaction, styles.transactionLayout]}
+            onPress={() =>
+              navigation.navigate("TransactionDetailedListSpendingReset")
+            }
+          >
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={135}
+              category="Income"
+              categoryWidth={45}
+              categoryColor="#27ae60"
+              emptySpace="+$100.00"
+              emptySpaceColor="#27ae60"
+              state1="default"
             />
-            <TransactionArea />
+          </Pressable>
+          <View style={[styles.transaction, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={135}
+              category="Income"
+              categoryWidth={45}
+              categoryColor="#27ae60"
+              emptySpace="+$100.00"
+              emptySpaceColor="#27ae60"
+              state1="default"
+            />
           </View>
-          <View style={styles.transactionListArea}>
-            <ScrollView
-              style={styles.transactionList}
-              contentContainerStyle={styles.transactionListContainerContent}
-            >
-              <Pressable
-                style={[styles.transaction, styles.transactionLayout]}
-                onPress={() => {}}
-              >
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={135}
-                  category="Income"
-                  categoryWidth={45}
-                  categoryColor="#27ae60"
-                  emptySpace="+$100.00"
-                  emptySpaceColor="#27ae60"
-                  state1="default"
-                  vector={<Vector5 width={89} height={89} />}
-                />
-              </Pressable>
-              <View style={[styles.transaction, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={135}
-                  category="Income"
-                  categoryWidth={45}
-                  categoryColor="#27ae60"
-                  emptySpace="+$100.00"
-                  emptySpaceColor="#27ae60"
-                  state1="default"
-                  vector={<Vector5 width={89} height={89} />}
-                />
-              </View>
-              <View style={[styles.transaction3, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={135}
-                  category="Income"
-                  categoryWidth={45}
-                  categoryColor="#27ae60"
-                  emptySpace="+$100.00"
-                  emptySpaceColor="#27ae60"
-                  state1="default"
-                  vector={<Vector5 width={89} height={89} />}
-                />
-              </View>
-              <View style={[styles.transaction3, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={148}
-                  category="Spending"
-                  categoryWidth={58}
-                  categoryColor="#720404"
-                  emptySpace="-$100.00"
-                  emptySpaceColor="#720404"
-                  state1="default"
-                  vector={<Vector1 width={89} height={89} />}
-                />
-              </View>
-              <View style={[styles.transaction3, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={148}
-                  category="Spending"
-                  categoryWidth={58}
-                  categoryColor="#720404"
-                  emptySpace="-$100.00"
-                  emptySpaceColor="#720404"
-                  state1="default"
-                  vector={<Vector1 width={89} height={89} />}
-                />
-              </View>
-              <Transaction
-                state="Giving"
-                transactionDetailColor="#000"
-                transactionDetailTextAlign="left"
-                transactionDetailDisplay="flex"
-                transactionDetailAlignItems="center"
-                secondTransactionDetailWidth={130}
-                category="Giving"
-                categoryWidth={40}
-                categoryColor="#e1ad01"
-                emptySpace="-$100.00"
-                emptySpaceColor="#e1ad01"
-                state1="default"
-                vector={<Vector3 width={89} height={89} />}
-              />
-              <View style={[styles.transaction3, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={148}
-                  category="Spending"
-                  categoryWidth={58}
-                  categoryColor="#720404"
-                  emptySpace="-$100.00"
-                  emptySpaceColor="#720404"
-                  state1="default"
-                  vector={<Vector1 width={89} height={89} />}
-                />
-              </View>
-              <View style={[styles.transaction3, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={148}
-                  category="Spending"
-                  categoryWidth={58}
-                  categoryColor="#720404"
-                  emptySpace="-$100.00"
-                  emptySpaceColor="#720404"
-                  state1="default"
-                  vector={<Vector1 width={89} height={89} />}
-                />
-              </View>
-              <Transaction
-                state="Giving"
-                transactionDetailColor="unset"
-                transactionDetailTextAlign="unset"
-                transactionDetailDisplay="unset"
-                transactionDetailAlignItems="unset"
-                secondTransactionDetailWidth={130}
-                category="Giving"
-                categoryWidth={40}
-                categoryColor="#e1ad01"
-                emptySpace="-$100.00"
-                emptySpaceColor="#e1ad01"
-                state1="default"
-                vector={<Vector3 width={89} height={89} />}
-              />
-              <View style={[styles.transaction, styles.transactionLayout]}>
-                <Transaction
-                  state="Giving"
-                  transactionDetailColor="#000"
-                  transactionDetailTextAlign="left"
-                  transactionDetailDisplay="flex"
-                  transactionDetailAlignItems="center"
-                  secondTransactionDetailWidth={148}
-                  category="Spending"
-                  categoryWidth={58}
-                  categoryColor="#720404"
-                  emptySpace="-$100.00"
-                  emptySpaceColor="#720404"
-                  state1="default"
-                  vector={<Vector1 width={89} height={89} />}
-                />
-              </View>
-            </ScrollView>
+          <View style={[styles.transaction3, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={135}
+              category="Income"
+              categoryWidth={45}
+              categoryColor="#27ae60"
+              emptySpace="+$100.00"
+              emptySpaceColor="#27ae60"
+              state1="default"
+            />
+          </View>
+          <View style={[styles.transaction3, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={148}
+              category="Spending"
+              categoryWidth={58}
+              categoryColor="#720404"
+              emptySpace="-$100.00"
+              emptySpaceColor="#720404"
+              state1="default"
+            />
+          </View>
+          <View style={[styles.transaction3, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={148}
+              category="Spending"
+              categoryWidth={58}
+              categoryColor="#720404"
+              emptySpace="-$100.00"
+              emptySpaceColor="#720404"
+              state1="default"
+            />
+          </View>
+          <Transaction
+            state="Giving"
+            transactionDetailColor="#000"
+            transactionDetailTextAlign="left"
+            transactionDetailDisplay="flex"
+            transactionDetailAlignItems="center"
+            secondTransactionDetailWidth={130}
+            category="Giving"
+            categoryWidth={40}
+            categoryColor="#e1ad01"
+            emptySpace="-$100.00"
+            emptySpaceColor="#e1ad01"
+            state1="default"
+          />
+          <View style={[styles.transaction3, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={148}
+              category="Spending"
+              categoryWidth={58}
+              categoryColor="#720404"
+              emptySpace="-$100.00"
+              emptySpaceColor="#720404"
+              state1="default"
+            />
+          </View>
+          <View style={[styles.transaction3, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={148}
+              category="Spending"
+              categoryWidth={58}
+              categoryColor="#720404"
+              emptySpace="-$100.00"
+              emptySpaceColor="#720404"
+              state1="default"
+            />
+          </View>
+          <Transaction
+            state="Giving"
+            transactionDetailColor="unset"
+            transactionDetailTextAlign="unset"
+            transactionDetailDisplay="unset"
+            transactionDetailAlignItems="unset"
+            secondTransactionDetailWidth={130}
+            category="Giving"
+            categoryWidth={40}
+            categoryColor="#e1ad01"
+            emptySpace="-$100.00"
+            emptySpaceColor="#e1ad01"
+            state1="default"
+          />
+          <View style={[styles.transaction, styles.transactionLayout]}>
+            <Transaction
+              state="Giving"
+              transactionDetailColor="#000"
+              transactionDetailTextAlign="left"
+              transactionDetailDisplay="flex"
+              transactionDetailAlignItems="center"
+              secondTransactionDetailWidth={148}
+              category="Spending"
+              categoryWidth={58}
+              categoryColor="#720404"
+              emptySpace="-$100.00"
+              emptySpaceColor="#720404"
+              state1="default"
+            />
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -241,21 +218,12 @@ const styles = StyleSheet.create({
     height: 1503,
     flex: 1,
   },
-  scrollviewLayout: {
-    width: "100%",
-    flex: 1,
-  },
   transactionLayout: {
     height: Height.height_80,
     flexDirection: "row",
   },
   transactionPageIncoming: {
-    flex: 1,
-  },
-  keyboardavoidingview: {
-    flex: 1,
-  },
-  scrollview: {
+    width: "100%",
     backgroundColor: Color.backgroundColorLightMode,
     maxWidth: "100%",
     flex: 1,
@@ -274,7 +242,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   transactionList: {
-    maxWidth: 360,
+    maxWidth: MaxWidth.max_w_360,
     width: Width.width_360,
     flex: 1,
   },

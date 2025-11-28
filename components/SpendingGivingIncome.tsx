@@ -2,31 +2,13 @@ import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Spending from "./Spending";
-import Vector1 from "../assets/Vector1.svg";
-import Vector3 from "../assets/Vector3.svg";
-import Vector5 from "../assets/Vector5.svg";
 import { Height, Gap } from "../GlobalStyles";
 
 const SpendingGivingIncome = () => {
   const [spendingItems] = useState([
-    {
-      spending: "Spending",
-      prop: "$1,230.00",
-      state: "default",
-      vector: <Vector1 width={89} height={89} />,
-    },
-    {
-      spending: "Giving",
-      prop: "$200.00",
-      state: "default",
-      vector: <Vector3 width={89} height={89} />,
-    },
-    {
-      spending: "Income",
-      prop: "$2,245.00",
-      state: "default",
-      vector: <Vector5 width={89} height={89} />,
-    },
+    { spending: "Spending", prop: "$1,230.00", state: "default" },
+    { spending: "Giving", prop: "$200.00", state: "default" },
+    { spending: "Income", prop: "$2,245.00", state: "default" },
   ]);
 
   return (
@@ -37,7 +19,6 @@ const SpendingGivingIncome = () => {
           spending={item.spending}
           prop={item.prop}
           state={item.state}
-          vector={item.vector}
         />
       ))}
     </View>

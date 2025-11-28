@@ -2,6 +2,7 @@
 export const FontFamily = {
   instrumentSansSemiBold: "InstrumentSans-SemiBold",
   interBold: "Inter-Bold",
+  interExtraLight: "Inter-ExtraLight",
   interMedium: "Inter-Medium",
   interRegular: "Inter-Regular",
   interSemiBold: "Inter-SemiBold",
@@ -9,6 +10,8 @@ export const FontFamily = {
 /* Font sizes */
 export const FontSize = {
   fs_12: 12,
+  fs_13: 13,
+  fs_14: 14,
   fs_16: 16,
   fs_18: 18,
 };
@@ -20,6 +23,7 @@ export const Color = {
   colorDarkslategray: "#333",
   colorGoldenrod100: "#d4af37",
   colorGoldenrod200: "#daa520",
+  colorGray: "#1d1b20",
   colorRosybrown: "#b36c6c",
   colorWhite: "#fff",
   componentsBackgrounf: "#fff9e6",
@@ -27,6 +31,7 @@ export const Color = {
   gOLD3: "#e1ad01",
   goldButton: "#c99700",
   mainRed: "#8b0000",
+  navBarDefault: "#ffd580",
   successColor: "#27ae60",
 };
 /* Gaps */
@@ -36,6 +41,8 @@ export const Gap = {
   gap_11: 11,
   gap_18: 18,
   gap_20: 20,
+  gap_28: 28,
+  gap_3: 3,
   gap_30: 30,
   gap_4: 4,
   gap_45: 45,
@@ -51,9 +58,11 @@ export const Padding = {
   padding_14: 14,
   padding_16: 16,
   padding_17: 17,
+  padding_18: 18,
   padding_20: 20,
   padding_21: 21,
   padding_22: 22,
+  padding_24: 24,
   padding_28: 28,
   padding_30: 30,
   padding_4: 4,
@@ -61,6 +70,10 @@ export const Padding = {
   padding_6: 6,
   padding_7: 7,
   padding_8: 8,
+};
+/* Margins */
+export const Margin = {
+  m_0: 0,
 };
 /* border radiuses */
 export const Border = {
@@ -81,19 +94,23 @@ export const Width = {
   width_100: 100,
   width_101: 101,
   width_103: 103,
+  width_12_28: 12,
   width_129: 129,
   width_129_8: 130,
   width_135_1: 135,
   width_147: 147,
   width_147_9: 148,
+  width_170: 170,
   width_180: 180,
   width_188: 188,
   width_218: 218,
   width_221: 221,
   width_267: 267,
   width_290: 290,
+  width_303: 303,
   width_32: 32,
   width_32_23: 32,
+  width_323: 323,
   width_360: 360,
   width_375: 375,
   width_376: 376,
@@ -110,20 +127,27 @@ export const Width = {
   width_69: 69,
   width_83: 83,
   width_86: 86,
+  width_90: 90,
   width_98: 98,
 };
 /* height */
 export const Height = {
   height_100: 100,
+  height_105: 105,
   height_111: 111,
+  height_117: 117,
   height_14: 14,
   height_15: 15,
+  height_150: 150,
   height_17: 17,
   height_19: 19,
+  height_20_8: 21,
   height_26: 26,
   height_28: 28,
+  height_30: 30,
   height_32: 32,
   height_32_23: 32,
+  height_36: 36,
   height_37: 37,
   height_38: 38,
   height_39: 39,
@@ -135,14 +159,21 @@ export const Height = {
   height_50: 50,
   height_53: 53,
   height_62: 62,
+  height_70: 70,
+  height_75: 75,
   height_80: 80,
   height_852: 852,
   height_854: 854,
   height_90: 90,
   height_912: 912,
 };
+/* max-width */
+export const MaxWidth = {
+  max_w_360: 360,
+};
 /* line-height */
 export const LineHeight = {
+  lh_25: 25,
   lh_28: 28,
   lh_38: 38,
 };

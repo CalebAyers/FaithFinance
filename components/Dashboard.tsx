@@ -47,8 +47,8 @@ const Dashboard = ({
   dashboardRight,
   dashboardBottom,
   dashboardLeft,
-  vector,
   insightsColor,
+  vector,
 }: DashboardType) => {
   const dashboardStyle = useMemo(() => {
     return {

@@ -1,24 +1,30 @@
 import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import IconBible from "../assets/Icon-Bible.svg";
 import UnorderedList from "./UnorderedList";
 import ListItem from "./ListItem";
 import {
   FontFamily,
   Width,
+  Height,
   BoxShadow,
   Border,
   Color,
   Padding,
   Gap,
-  Height,
   FontSize,
   LineHeight,
+  Margin,
 } from "../GlobalStyles";
 
-const BibleVerses = () => {
+export type BibleVersesType = {
+  /** Action props */
+  onBibleVersesPress?: () => void;
+};
+
+const BibleVerses = ({ onBibleVersesPress }: BibleVersesType) => {
   return (
-    <View style={styles.bibleVerses}>
+    <View style={styles.bibleVerses} onPress={onBibleVersesPress}>
       <View style={styles.iconBibleWrapper}>
         <IconBible
           style={styles.iconBible}
@@ -33,7 +39,7 @@ const BibleVerses = () => {
         </Text>
         <Text style={[styles.john112, styles.john112Typo]}>
           <Text style={styles.john112TxtContainer}>
-            <UnorderedList style={styles.bibleVersesJohn112}>
+            <UnorderedList style={styles.john1122}>
               <ListItem>John 1:12</ListItem>
             </UnorderedList>
           </Text>
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
   },
   bibleVerses: {
     width: Width.width_360,
-    height: 150,
+    height: Height.height_150,
     boxShadow: BoxShadow.shadow_drop1,
     elevation: 20,
     borderRadius: Border.br_12,
@@ -82,15 +88,15 @@ const styles = StyleSheet.create({
     width: Width.width_32,
   },
   yetToAllWhoDidReceiveHimParent: {
-    height: 117,
+    height: Height.height_117,
     gap: Gap.gap_4,
     zIndex: 1,
     width: Width.width_290,
   },
   yetToAll: {
-    height: 75,
-    fontSize: 13,
-    lineHeight: 25,
+    height: Height.height_75,
+    fontSize: FontSize.fs_13,
+    lineHeight: LineHeight.lh_25,
     color: Color.colorBlack,
     textAlign: "center",
     justifyContent: "center",
@@ -105,8 +111,8 @@ const styles = StyleSheet.create({
   john112TxtContainer: {
     width: "100%",
   },
-  bibleVersesJohn112: {
-    margin: 0,
+  john1122: {
+    margin: Margin.m_0,
     paddingLeft: Padding.padding_16,
   },
 });

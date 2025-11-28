@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import Option from "./Option";
+import Option from "./Option1";
 import Add from "./Add";
-import Vector10 from "../assets/Vector10.svg";
 import { Height, Width } from "../GlobalStyles";
 
 export type PressedType = {
@@ -27,14 +26,34 @@ const Pressed = ({
   return (
     <Pressable style={[styles.buttonAddTransaction, styles.buttonLayout]}>
       <View style={styles.buttonLayout}>
-        <Option state={state} addTransactionColor={addTransactionColor} />
+        <Option
+          state={state}
+          addTransactionColor={addTransactionColor}
+          addTransactionPosition="absolute"
+          addTransactionHeight="100%"
+          addTransactionTop="0%"
+          addTransactionRight="0%"
+          addTransactionBottom="0%"
+          addTransactionLeft="0%"
+          addTransactionBackgroundColor="#8b0000"
+          addTransactionBorderStyle="unset"
+          addTransactionBorderColor="unset"
+          addTransaction="Add Transaction"
+          addTransactionHeight1={38}
+          addTransactionWidth={129}
+          addTransactionFontSize={16}
+        />
         <Add
           state={state1}
           addHeight={addHeight}
           addTop={addTop}
           addBottom={addBottom}
           addMarginTop={addMarginTop}
-          vector={<Vector10 width={58} height={58} />}
+          addWidth="7.22%"
+          addLeft="23.06%"
+          vectorIconWidth="58.46%"
+          vectorIconRight="20.77%"
+          vectorIconLeft="20.77%"
         />
       </View>
     </Pressable>

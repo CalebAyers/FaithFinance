@@ -38,8 +38,8 @@ const Profile = ({
   profileHeight,
   profileRight,
   profileBottom,
-  vector,
   profileColor,
+  vector,
 }: ProfileType) => {
   const profileStyle = useMemo(() => {
     return {

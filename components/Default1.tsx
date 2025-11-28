@@ -60,8 +60,8 @@ const Default1 = ({
         profileHeight={profileHeight}
         profileRight={profileRight}
         profileBottom={profileBottom}
-        vector={<Vector7 width={83} height={83} />}
         profileColor={profileColor}
+        vector={<Vector7 width={83} height={83} />}
       />
     </View>
   );

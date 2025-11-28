@@ -31,8 +31,8 @@ const Home = ({
   activeRight,
   activeBottom,
   activeLeft,
-  vector,
   homeColor,
+  vector,
 }: HomeType) => {
   const activeStyle = useMemo(() => {
     return {
