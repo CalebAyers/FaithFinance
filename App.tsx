@@ -9,20 +9,37 @@ import TransactionDetailPage from "./screens/TransactionDetailPage";
 import ReflectionPage from "./screens/ReflectionPage";
 import ProfilePage from "./screens/ProfilePage";
 import FavoriteVersesPage from "./screens/FavoriteVersesPage";
+import LoadingScreen from "./components/LoadingScreen";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
 
 const App = () => {
-  const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
+  const [hideSplashScreen, setHideSplashScreen] = React.useState(false);
+  const [isAppReady, setIsAppReady] = React.useState(false);
 
   const [fontsLoaded, error] = useFonts({
     "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
     "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
   });
 
+  // Show loading screen for 2 seconds on app start
+  React.useEffect(() => {
+    if (fontsLoaded || error) {
+      setTimeout(() => {
+        setIsAppReady(true);
+        setHideSplashScreen(true);
+      }, 2000);
+    }
+  }, [fontsLoaded, error]);
+
+  // Show loading screen while fonts are loading or during initial delay
   if (!fontsLoaded && !error) {
     return null;
+  }
+
+  if (!isAppReady) {
+    return <LoadingScreen showSpinner={true} />;
   }
 
   return (
