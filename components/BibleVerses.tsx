@@ -1,8 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import IconBible1 from "../assets/Icon-Bible1.svg";
-import UnorderedList from "./UnorderedList";
-import ListItem from "./ListItem";
 import {
   FontFamily,
   Width,
@@ -62,11 +60,7 @@ const BibleVerses = ({
       {/* Verse reference - positioned at bottom right */}
       <View style={styles.referenceContainer}>
         <Text style={[styles.john112, styles.john112Typo]}>
-          <Text style={styles.john112TxtContainer}>
-            <UnorderedList style={styles.john1122}>
-              <ListItem>{verseReference}</ListItem>
-            </UnorderedList>
-          </Text>
+          {verseReference}
         </Text>
       </View>
     </View>
@@ -155,13 +149,6 @@ const styles = StyleSheet.create({
     lineHeight: LineHeight.lh_38,
     color: Color.gOLD3,
     textAlign: "right",
-  },
-  john112TxtContainer: {
-    width: "100%",
-  },
-  john1122: {
-    margin: Margin.m_0,
-    paddingLeft: Padding.padding_16,
   },
 });
 

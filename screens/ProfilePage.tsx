@@ -36,8 +36,8 @@ const ProfilePage = () => {
     // TODO: Implement actual password reset logic
   };
 
-  const handleResetMoochData = () => {
-    console.log("Reset Moch Data");
+  const handleResetMockData = () => {
+    console.log("Reset Mock Data");
     // TODO: implement reset data
   };
 
@@ -78,8 +78,8 @@ const ProfilePage = () => {
       <SectionContainer>
         <ProfileActionButton 
           iconName="refresh"
-          label="Reset Moch Data"
-          onPress={handleResetMoochData}
+          label="Reset Mock Data"
+          onPress={handleResetMockData}
         />
       </SectionContainer>
 
