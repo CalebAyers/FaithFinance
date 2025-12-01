@@ -1,6 +1,6 @@
 /* Fonts */
 export const FontFamily = {
-  instrumentSansSemiBold: "InstrumentSans-SemiBold",
+  instrumentSansSemiBold: "Inter-SemiBold",
   interMedium: "Inter-Medium",
   interSemiBold: "Inter-SemiBold",
 };
@@ -42,6 +42,7 @@ export const Gap = {
 };
 /* Paddings */
 export const Padding = {
+  padding_0: 0,
   padding_1: 1,
   padding_10: 10,
   padding_12: 12,
@@ -67,8 +68,10 @@ export const Margin = {
 };
 /* border radiuses */
 export const Border = {
-  br_12: 12,
+  br_4: 4,
   br_6: 6,
+  br_8: 8,
+  br_12: 12,
 };
 /* box shadows */
 export const BoxShadow = {
@@ -106,10 +109,12 @@ export const Width = {
 };
 /* height */
 export const Height = {
+  height_8: 8,
+  height_19: 19,
+  height_80: 80,
   height_100: 100,
   height_117: 117,
   height_150: 150,
-  height_19: 19,
   height_20_8: 21,
   height_23_4: 23,
   height_28: 28,
@@ -124,6 +129,7 @@ export const Height = {
   height_53: 53,
   height_60: 60,
   height_75: 75,
+  height_852: 852,
   height_854: 854,
   height_90: 90,
   height_912: 912,
@@ -133,4 +139,9 @@ export const LineHeight = {
   lh_25: 25,
   lh_28: 28,
   lh_38: 38,
+};
+/* max-width */
+export const MaxWidth = {
+  max_w_326: 326,
+  max_w_360: 360,
 };

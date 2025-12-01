@@ -1,7 +1,11 @@
 import * as React from "react";
-import { useMemo } from "react";
-import { StyleSheet, View, Text, ImageSourcePropType } from "react-native";
+import { useMemo, useState } from "react";
+import { StyleSheet, View, Text, ImageSourcePropType, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Money from "./Money";
+import VectorMoneyRed from "../assets/VectorMoneyRed.svg";
+import VectorMoneyGreen from "../assets/VectorMoneyGreen.svg";
+import Vector4 from "../assets/Vector4.svg";
 import {
   Gap,
   LineHeight,
@@ -15,9 +19,13 @@ import {
   FontFamily,
 } from "../GlobalStyles";
 
+// Individual transaction item - displays icon, date, category, and amount
+// Colors automatically based on category: Income=green, Spending=red, Giving=gold
+// Tapping opens transaction detail page
 export type TransactionType = {
   category?: string;
   prop?: string;
+  date?: string; // Transaction date to display
   state1?: string;
   vector?: ImageSourcePropType;
 
@@ -35,13 +43,57 @@ const getStyleValue = (key: string, value: string | number | undefined) => {
   if (value === undefined) return;
   return { [key]: value === "unset" ? undefined : value };
 };
+
+// Returns colors for transaction category (Income=green, Giving=gold, Spending=red)
+const getCategoryColors = (category: string) => {
+  const lowerCategory = category.toLowerCase();
+  if (lowerCategory === 'spending') {
+    return {
+      borderColor: Color.mainRed,
+      iconColor: Color.mainRed,
+      textColor: Color.mainRed,
+    };
+  } else if (lowerCategory === 'giving') {
+    return {
+      borderColor: Color.gOLD3,
+      iconColor: Color.gOLD3,
+      textColor: Color.gOLD3,
+    };
+  } else if (lowerCategory === 'income') {
+    return {
+      borderColor: Color.successColor,
+      iconColor: Color.successColor,
+      textColor: Color.successColor,
+    };
+  }
+  return {
+    borderColor: Color.gOLD3,
+    iconColor: Color.gOLD3,
+    textColor: Color.gOLD3,
+  };
+};
+
+// Returns appropriate money icon SVG for category
+const getCategoryIcon = (category: string) => {
+  const lowerCategory = category.toLowerCase();
+  if (lowerCategory === 'spending') {
+    return VectorMoneyRed;
+  } else if (lowerCategory === 'giving') {
+    return Vector4;
+  } else if (lowerCategory === 'income') {
+    return VectorMoneyGreen;
+  }
+  return Vector4;
+};
+
 const Transaction = ({
   state = "Giving",
   frameViewWidth,
-  category,
+  category = "Giving",
   categoryWidth,
   categoryColor,
   prop,
+  date = "Oct 17, 2025",
   textColor,
   state1,
   vector,
@@ -65,34 +117,54 @@ const Transaction = ({
     };
   }, [textColor]);
 
+  const colors = getCategoryColors(category);
+  const IconComponent = getCategoryIcon(category);
+  const navigation = useNavigation();
+  const [pressed, setPressed] = useState(false);
+
+  const containerStyle = useMemo(() => {
+    return {
+      ...styles.transactionIncome,
+      borderWidth: 1,
+      borderColor: colors.borderColor,
+    };
+  }, [category]);
+
+  const handlePress = () => {
+    console.log("Transaction pressed, navigating to detail page...");
+    navigation.navigate("TransactionDetailPage" as never);
+  };
+
   return (
-    <View style={styles.transactionIncome}>
+    <TouchableOpacity 
+      style={[containerStyle, pressed && { backgroundColor: 'rgba(225,173,1,0.08)' }]}
+      activeOpacity={0.8}
+      onPress={handlePress}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+    >
       <View style={[styles.frameParent, styles.framePosition]}>
         <View style={styles.iconMoney2Wrapper}>
-          <Money state={state1} vector={vector} />
+          <IconComponent width={35} height={35} />
         </View>
         <View style={styles.transactionDetailParent}>
-          <Text style={[styles.transactionDetail, styles.oct172025FlexBox]}>
+          <Text style={styles.transactionDetail}>
             Transaction Detail
           </Text>
-          <View
-            style={[styles.frameGroup, styles.framePosition, frameViewStyle]}
-          >
-            <View style={styles.oct172025Wrapper}>
-              <Text style={[styles.oct172025, styles.categoryTypo]}>
-                Oct 17, 2025
-              </Text>
-            </View>
-            <Text style={[styles.category, styles.textClr, categoryStyle]}>
+          <View style={styles.frameGroup}>
+            <Text style={styles.dateText}>
+              {date}
+            </Text>
+            <Text style={[styles.categoryText, { color: colors.textColor }]}>
               {category}
             </Text>
           </View>
         </View>
       </View>
       <View style={styles.wrapper}>
-        <Text style={[styles.text, styles.textClr, text1Style]}>{prop}</Text>
+        <Text style={[styles.text, text1Style, { color: colors.textColor, marginTop: 25 }]}>{prop}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -118,7 +190,7 @@ const styles = StyleSheet.create({
     lineHeight: LineHeight.lh_38,
   },
   transactionIncome: {
-    height: Height.height_80,
+    height: 85,
     width: Width.width_360,
     boxShadow: BoxShadow.shadow_drop,
     elevation: 8,
@@ -128,78 +200,62 @@ const styles = StyleSheet.create({
     paddingLeft: Padding.padding_8,
     paddingTop: Padding.padding_14,
     paddingBottom: Padding.padding_13,
-    alignItems: "flex-end",
+    alignItems: "center",
     flexDirection: "row",
   },
   frameParent: {
-    width: Width.width_267,
+    width: 267,
     zIndex: 2,
-    height: Height.height_53,
+    height: 53,
   },
   iconMoney2Wrapper: {
     width: Width.width_39,
-    height: Height.height_46,
-    paddingTop: Padding.padding_7,
+    height: 46,
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 2,
   },
   transactionDetailParent: {
-    width: Width.width_218,
+    width: 218,
     zIndex: 1,
-    height: Height.height_53,
+    height: 53,
   },
   transactionDetail: {
-    width: Width.width_221,
+    width: 221,
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
-    color: Color.vikafjellColorsGeneralLabels,
+    color: Color.colorBlack,
     textAlign: "left",
     display: "flex",
-    lineHeight: LineHeight.lh_38,
+    lineHeight: 38,
     fontSize: FontSize.fs_16,
-    height: Height.height_38,
+    height: 38,
     zIndex: 1,
   },
   frameGroup: {
-    width: Width.width_135_1,
-    marginTop: -2,
-    height: Height.height_17,
-    zIndex: 2,
-    alignItems: "flex-end",
+    flexDirection: "row",
+    gap: 20,
+    marginTop: 0,
   },
-  oct172025Wrapper: {
-    width: Width.width_83,
-    height: Height.height_15,
-    paddingBottom: Padding.padding_1,
-    justifyContent: "flex-end",
-  },
-  oct172025: {
-    width: Width.width_86,
-    height: Height.height_14,
-    fontFamily: FontFamily.interRegular,
-    color: Color.componentsNumbers,
-    alignItems: "center",
-    display: "flex",
-    lineHeight: LineHeight.lh_38,
+  dateText: {
+    fontFamily: FontFamily.interMedium,
+    color: Color.colorDarkslategray,
     fontSize: FontSize.fs_12,
   },
-  category: {
-    width: Width.width_45_1,
+  categoryText: {
     fontWeight: "700",
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.interSemiBold,
     fontSize: FontSize.fs_12,
-    textAlign: "left",
-    height: Height.height_17,
   },
   wrapper: {
-    width: Width.width_98,
-    height: Height.height_42,
-    paddingBottom: Padding.padding_4,
-    marginLeft: -13,
-    justifyContent: "flex-end",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    paddingRight: 15,
     zIndex: 1,
   },
   text: {
-    width: Width.width_101,
+    width: 100,
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
     textAlign: "center",

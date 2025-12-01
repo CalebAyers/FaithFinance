@@ -1,29 +1,28 @@
 import * as React from "react";
-import { Pressable, StyleSheet } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation, ParamListBase } from "@react-navigation/native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import Option from "./Option";
-import Add from "./Add";
-import Vector from "../assets/Vector.svg";
 import { Width, Height } from "../GlobalStyles";
 
-const AddTransaction = () => {
-  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+interface AddTransactionProps {
+  onPress?: () => void;
+}
 
+// Button to open add transaction modal
+const AddTransaction = ({ onPress }: AddTransactionProps) => {
   return (
-    <Pressable
+    <TouchableOpacity
       style={styles.root}
-      onPress={() => navigation.navigate("FrameComponent2")}
+      onPress={onPress}
+      activeOpacity={0.6}
     >
       <Option state="Default" addTransaction="Add Transaction" />
-      <Add state="default" vector={<Vector width={58} height={58} />} />
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    width: Width.width_323,
+    width: Width.width_360,
     height: Height.height_50,
     zIndex: 1,
   },

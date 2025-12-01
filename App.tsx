@@ -2,10 +2,12 @@ const Stack = createNativeStackNavigator();
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import HomePage from "./screens/HomePage";
+import InsightPage from "./screens/InsightPage";
+import TransactionPage from "./screens/TransactionPage";
+import TransactionDetailPage from "./screens/TransactionDetailPage";
 import ReflectionPage from "./screens/ReflectionPage";
-import ReflectionPageReset from "./screens/ReflectionPageReset";
-import ProfileProfilePageReset from "./screens/ProfileProfilePageReset";
-import ProfileProfilePage from "./screens/ProfileProfilePage";
+import ProfilePage from "./screens/ProfilePage";
 import FavoriteVersesPage from "./screens/FavoriteVersesPage";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,7 +17,6 @@ const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
 
   const [fontsLoaded, error] = useFonts({
-    "InstrumentSans-SemiBold": require("./assets/fonts/InstrumentSans-SemiBold.ttf"),
     "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
     "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
   });
@@ -29,31 +30,41 @@ const App = () => {
       <NavigationContainer>
         {hideSplashScreen ? (
           <Stack.Navigator
-            initialRouteName="AddToFavorite"
+            initialRouteName="HomePage"
             screenOptions={{ headerShown: false }}
           >
             <Stack.Screen
-              name="AddToFavorite"
+              name="HomePage"
+              component={HomePage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="InsightPage"
+              component={InsightPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TransactionPage"
+              component={TransactionPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TransactionDetailPage"
+              component={TransactionDetailPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ReflectionPage"
               component={ReflectionPage}
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="BibleVerses"
-              component={ReflectionPageReset}
+              name="ProfilePage"
+              component={ProfilePage}
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="Profile2"
-              component={ProfileProfilePageReset}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="FavoriteVerses"
-              component={ProfileProfilePage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Default4"
+              name="FavoriteVersesPage"
               component={FavoriteVersesPage}
               options={{ headerShown: false }}
             />

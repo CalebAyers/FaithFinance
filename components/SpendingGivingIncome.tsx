@@ -1,9 +1,9 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import Money from "./Money";
-import Vector9 from "../assets/Vector9.svg";
-import Vector11 from "../assets/Vector11.svg";
-import Vector10 from "../assets/Vector10.svg";
+import VectorMoneyRed from "../assets/VectorMoneyRed.svg";
+import VectorMoneyGreen from "../assets/VectorMoneyGreen.svg";
+import Vector4 from "../assets/Vector4.svg";
 import {
   FontFamily,
   Width,
@@ -17,6 +17,8 @@ import {
   LineHeight,
 } from "../GlobalStyles";
 
+// Three summary cards showing total Spending (red), Giving (gold), and Income (green)
+// TODO: Replace hardcoded amounts with real data
 export type SpendingGivingIncomeType = {
   iconMoney2State?: string;
   iconMoney2State1?: string;
@@ -30,35 +32,26 @@ const SpendingGivingIncome = ({
 }: SpendingGivingIncomeType) => {
   return (
     <View style={styles.spendingGivingIncome}>
-      <View style={styles.spending}>
+      <View style={[styles.spending, styles.spendingBorder]}>
         <View style={styles.iconMoney2Wrapper}>
-          <Money
-            state={iconMoney2State}
-            vector={<Vector9 width={89} height={89} />}
-          />
+          <VectorMoneyRed width={35} height={35} />
         </View>
         <Text style={[styles.spending2, styles.textFlexBox]}>Spending</Text>
-        <Text style={[styles.text, styles.textFlexBox]}>$1,230.00</Text>
+        <Text style={[styles.text, styles.textFlexBox, styles.spendingAmount]}>$1,230.00</Text>
       </View>
-      <View style={styles.spending}>
+      <View style={[styles.spending, styles.givingBorder]}>
         <View style={styles.iconMoney2Wrapper}>
-          <Money
-            state={iconMoney2State1}
-            vector={<Vector11 width={89} height={89} />}
-          />
+          <Vector4 width={35} height={35} />
         </View>
         <Text style={[styles.spending2, styles.textFlexBox]}>Giving</Text>
-        <Text style={[styles.text, styles.textFlexBox]}>$200.00</Text>
+        <Text style={[styles.text, styles.textFlexBox, styles.givingAmount]}>$200.00</Text>
       </View>
-      <View style={styles.spending}>
+      <View style={[styles.spending, styles.incomeBorder]}>
         <View style={styles.iconMoney2Wrapper}>
-          <Money
-            state={iconMoney2State2}
-            vector={<Vector10 width={89} height={89} />}
-          />
+          <VectorMoneyGreen width={35} height={35} />
         </View>
         <Text style={[styles.spending2, styles.textFlexBox]}>Income</Text>
-        <Text style={[styles.text, styles.textFlexBox]}>$2,245.00</Text>
+        <Text style={[styles.text, styles.textFlexBox, styles.incomeAmount]}>$2,245.00</Text>
       </View>
     </View>
   );
@@ -75,41 +68,60 @@ const styles = StyleSheet.create({
     width: Width.width_103,
   },
   spendingGivingIncome: {
-    width: 340,
+    width: Width.width_360,
     gap: Gap.gap_20,
     flexDirection: "row",
-    height: Height.height_100,
+    height: 120,
   },
   spending: {
-    width: Width.width_100,
+    width: 107,
     boxShadow: BoxShadow.shadow_drop,
     elevation: 8,
     borderRadius: Border.br_12,
     backgroundColor: Color.componentsBackgrounf,
     overflow: "hidden",
-    paddingTop: Padding.padding_6,
-    paddingBottom: Padding.padding_10,
-    height: Height.height_100,
+    paddingVertical: Padding.padding_10,
+    paddingHorizontal: Padding.padding_8,
+    height: 120,
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1,
+    borderStyle: "solid",
+  },
+  spendingBorder: {
+    borderColor: Color.mainRed,
+  },
+  givingBorder: {
+    borderColor: Color.gOLD3,
+  },
+  incomeBorder: {
+    borderColor: Color.successColor,
   },
   iconMoney2Wrapper: {
-    width: Width.width_69,
-    height: Height.height_37,
-    paddingLeft: Padding.padding_30,
-    zIndex: 2,
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "row",
   },
   spending2: {
-    height: Height.height_28,
-    fontSize: FontSize.fs_12,
+    fontSize: 14,
     lineHeight: LineHeight.lh_28,
-    color: Color.vikafjellColorsGeneralLabels,
-    zIndex: 1,
+    color: Color.colorDarkslategray,
   },
   text: {
-    height: Height.height_19,
-    fontSize: FontSize.fs_16,
-    lineHeight: LineHeight.lh_38,
-    color: Color.colorDarkslategray,
+    fontSize: 16,
+    lineHeight: LineHeight.lh_25,
+    fontWeight: "700",
+  },
+  spendingAmount: {
+    color: Color.mainRed,
+  },
+  givingAmount: {
+    color: Color.gOLD3,
+  },
+  incomeAmount: {
+    color: Color.successColor,
   },
 });
 

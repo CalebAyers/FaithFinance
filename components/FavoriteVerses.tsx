@@ -1,141 +1,76 @@
-import * as React from "react";
-import { useMemo } from "react";
-import { Pressable, StyleSheet, ImageSourcePropType } from "react-native";
-import IconBible5 from "../assets/Icon-Bible5.svg";
-import Option from "./Option1";
-import { Width, Height } from "../GlobalStyles";
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Color, FontFamily } from "../GlobalStyles";
 
-export type FavoriteVersesType = {
-  iconBible?: React.ReactNode;
-  showBibleIcon?: boolean;
-  state1?: string;
-  addTransaction?: string;
-  settingFaithGoalPosition?: string;
-  settingFaithGoalHeight?: string;
-  settingFaithGoalTop?: string;
-  settingFaithGoalRight?: string;
-  settingFaithGoalBottom?: string;
-  settingFaithGoalLeft?: string;
-  settingFaithGoalAlignSelf?: string;
-  settingFaithGoalBackground?: string;
-  settingFaithGoalBorderColor?: string;
-  addTransactionHeight?: string;
-  addTransactionWidth?: string;
-  addTransactionFontSize?: number;
-  addTransactionColor?: string;
+interface ProfileActionButtonProps {
+  label: string;
+  icon?: string;
+  onPress?: () => void;
+  variant?: "default" | "active";
+}
 
-  /** Variant props */
-  state?: "Default" | "Active";
-
-  /** Style props */
-  favoriteVersesFlexDirection?: string;
-  favoriteVersesAlignItems?: string;
-  bibleIconPosition?: string;
-  bibleIconHeight?: number | string;
-  bibleIconWidth?: number | string;
-  bibleIconTop?: number | string;
-  bibleIconRight?: number | string;
-  bibleIconBottom?: number | string;
-  bibleIconLeft?: number | string;
-  bibleIconOverflow?: string;
-  bibleIconMaxHeight?: number | string;
-};
-
-const getStyleValue = (key: string, value: string | number | undefined) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
-const FavoriteVerses = ({
-  state = "Default",
-  favoriteVersesFlexDirection,
-  favoriteVersesAlignItems,
-  iconBible,
-  showBibleIcon,
-  bibleIconPosition,
-  bibleIconHeight,
-  bibleIconWidth,
-  bibleIconTop,
-  bibleIconRight,
-  bibleIconBottom,
-  bibleIconLeft,
-  bibleIconOverflow,
-  bibleIconMaxHeight,
-  state1,
-  addTransaction,
-  settingFaithGoalPosition,
-  settingFaithGoalHeight,
-  settingFaithGoalTop,
-  settingFaithGoalRight,
-  settingFaithGoalBottom,
-  settingFaithGoalLeft,
-  settingFaithGoalAlignSelf,
-  settingFaithGoalBackground,
-  settingFaithGoalBorderColor,
-  addTransactionHeight,
-  addTransactionWidth,
-  addTransactionFontSize,
-  addTransactionColor,
-}: FavoriteVersesType) => {
-  const favoriteVersesStyle = useMemo(() => {
-    return {
-      ...getStyleValue("flexDirection", favoriteVersesFlexDirection),
-      ...getStyleValue("alignItems", favoriteVersesAlignItems),
-    };
-  }, [favoriteVersesFlexDirection, favoriteVersesAlignItems]);
-
-  const bibleIcon1Style = useMemo(() => {
-    return {
-      ...getStyleValue("position", bibleIconPosition),
-      ...getStyleValue("height", bibleIconHeight),
-      ...getStyleValue("width", bibleIconWidth),
-      ...getStyleValue("top", bibleIconTop),
-      ...getStyleValue("right", bibleIconRight),
-      ...getStyleValue("bottom", bibleIconBottom),
-      ...getStyleValue("left", bibleIconLeft),
-      ...getStyleValue("overflow", bibleIconOverflow),
-      ...getStyleValue("maxHeight", bibleIconMaxHeight),
-    };
-  }, [
-    bibleIconPosition,
-    bibleIconHeight,
-    bibleIconWidth,
-    bibleIconTop,
-    bibleIconRight,
-    bibleIconBottom,
-    bibleIconLeft,
-    bibleIconOverflow,
-    bibleIconMaxHeight,
-  ]);
+const ProfileActionButton = ({
+  label,
+  icon = "book-outline",
+  onPress,
+  variant = "default",
+}: ProfileActionButtonProps) => {
+  const isActive = variant === "active";
 
   return (
-    <Pressable style={[styles.root, favoriteVersesStyle]}>
-      <Option
-        state={state1}
-        settingFaithGoalPosition={settingFaithGoalPosition}
-        settingFaithGoalHeight={settingFaithGoalHeight}
-        settingFaithGoalTop={settingFaithGoalTop}
-        settingFaithGoalRight={settingFaithGoalRight}
-        settingFaithGoalBottom={settingFaithGoalBottom}
-        settingFaithGoalLeft={settingFaithGoalLeft}
-        settingFaithGoalAlignSelf={settingFaithGoalAlignSelf}
-        settingFaithGoalBackgroundColor={settingFaithGoalBackground}
-        settingFaithGoalBorderColor={settingFaithGoalBorderColor}
-        addTransaction={addTransaction}
-        addTransactionHeight={addTransactionHeight}
-        addTransactionWidth={addTransactionWidth}
-        addTransactionFontSize={addTransactionFontSize}
-        addTransactionColor={addTransactionColor}
+    <TouchableOpacity
+      style={[
+        styles.button,
+        isActive ? styles.buttonActive : styles.buttonDefault,
+      ]}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
+      <Ionicons
+        name={icon as any}
+        size={20}
+        color={isActive ? Color.gOLD3 : Color.colorBlack}
       />
-      {!!showBibleIcon && iconBible}
-    </Pressable>
+      <Text
+        style={[styles.label, isActive ? styles.labelActive : styles.labelDefault]}
+      >
+        {label}
+      </Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
-    width: Width.width_360,
-    height: Height.height_45,
+  button: {
+    width: "100%",
+    height: 45,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 12,
+  },
+  buttonDefault: {
+    backgroundColor: "#fff9e6",
+    borderColor: Color.colorBlack,
+  },
+  buttonActive: {
+    backgroundColor: Color.colorBlack,
+    borderColor: Color.colorBlack,
+  },
+  label: {
+    fontSize: 16,
+    fontFamily: FontFamily.interSemiBold,
+    fontWeight: "600",
+  },
+  labelDefault: {
+    color: Color.colorBlack,
+  },
+  labelActive: {
+    color: Color.gOLD3,
   },
 });
 
-export default FavoriteVerses;
+export default ProfileActionButton;

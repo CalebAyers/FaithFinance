@@ -1,141 +1,66 @@
 import * as React from "react";
-import { ScrollView, Text, StyleSheet, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation, ParamListBase } from "@react-navigation/native";
-import Default4 from "../components/Default4";
-import SmallEditButton from "../components/SmallEditButton";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import AppLayout from "../components/AppLayout";
 import BibleVerses from "../components/BibleVerses";
-import FrameComponent from "../components/FrameComponent";
-import IPhoneBezel from "../components/IPhoneBezel";
-import {
-  Padding,
-  Height,
-  Color,
-  Gap,
-  FontSize,
-  LineHeight,
-  FontFamily,
-} from "../GlobalStyles";
+import EditButton from "../components/EditButton";
 
+// Favorite Verses page - displays saved bible verses
 const FavoriteVersesPage = () => {
-  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+  const navigation = useNavigation();
+
+  const handleEdit = () => {
+    console.log("Edit verses");
+    // TODO: implement edit mode
+  };
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
 
   return (
-    <ScrollView
-      style={styles.favoriteVersesPage}
-      contentContainerStyle={styles.favoriteVersesPageContent}
+    <AppLayout 
+      title="Favorite Bible Verses" 
+      navigation={navigation}
+      currentScreen="FavoriteVersesPage"
+      showBackButton={true}
+      onBackPress={handleBackPress}
     >
-      <View style={styles.favoriteBibleVersesParent}>
-        <Text style={styles.favoriteBibleVerses}>Favorite Bible Verses</Text>
-        <Default4
-          state="Default"
-          state1="default"
-          profileHeight="100%"
-          profileTop="0%"
-          profileRight="0%"
-          profileBottom="0%"
-          profileLeft="0%"
-          profilePosition="absolute"
-          profileColor="#c99700"
-        />
-        <View style={styles.smallEditButtonWrapper}>
-          <SmallEditButton
-            state="Default"
-            state1="Default"
-            addTransaction="Edit"
-            settingFaithGoalPosition="unset"
-            settingFaithGoalHeight="40"
-            settingFaithGoalTop="unset"
-            settingFaithGoalRight="unset"
-            settingFaithGoalBottom="unset"
-            settingFaithGoalLeft="unset"
-            settingFaithGoalAlignSelf="unset"
-            settingFaithGoalBackground="#fff9e6"
-            settingFaithGoalBorderColor="#e1ad01"
-            addTransactionHeight="unset"
-            addTransactionWidth="unset"
-            addTransactionFontSize={14}
-            addTransactionColor="#e1ad01"
-          />
-        </View>
-        <View style={styles.frameViewLayout}>
-          <BibleVerses
-            onBibleVersesPress={() => navigation.navigate("BibleVerses")}
-          />
-        </View>
-        <View style={styles.frameViewLayout}>
-          <BibleVerses />
-        </View>
-        <View style={styles.frameViewLayout}>
-          <BibleVerses />
-        </View>
-        <FrameComponent />
-        <IPhoneBezel
-          type="iPhone 16"
-          iPhone16={require("../assets/iPhone-16.png")}
+      {/* Verses List - using BibleVerses component */}
+      <View style={styles.verseContainer}>
+        <BibleVerses 
+          verseText="For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life"
+          verseReference="John 3:16"
         />
       </View>
-      <View style={[styles.frameView, styles.frameViewLayout]}>
-        <BibleVerses />
+      <View style={styles.verseContainer}>
+        <BibleVerses 
+          verseText="Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight"
+          verseReference="Proverbs 3:5-6"
+        />
       </View>
-    </ScrollView>
+      <View style={styles.verseContainer}>
+        <BibleVerses 
+          verseText="I can do all this through him who gives me strength"
+          verseReference="Philippians 4:13"
+        />
+      </View>
+      <View style={styles.verseContainer}>
+        <BibleVerses 
+          verseText="The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul"
+          verseReference="Psalm 23:1-3"
+        />
+      </View>
+
+      {/* Edit Button at the end */}
+      <EditButton onPress={handleEdit} />
+    </AppLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  favoriteVersesPageContent: {
-    flexDirection: "column",
-    paddingBottom: 214,
-    alignItems: "flex-end",
-    justifyContent: "flex-start",
-    height: 1152,
-    flex: 1,
-  },
-  frameViewLayout: {
-    paddingRight: Padding.padding_16,
-    height: Height.height_150,
-    width: 376,
-    justifyContent: "flex-end",
-    flexDirection: "row",
-  },
-  favoriteVersesPage: {
-    width: "100%",
-    backgroundColor: Color.backgroundColorLightMode,
-    flex: 1,
-    maxWidth: "100%",
-  },
-  favoriteBibleVersesParent: {
-    width: 393,
-    height: 852,
-    zIndex: 2,
-    alignItems: "flex-end",
-    paddingTop: 0,
-    gap: Gap.gap_10,
-  },
-  favoriteBibleVerses: {
-    width: 343,
-    position: "absolute",
-    top: 98,
-    right: 23,
-    fontSize: FontSize.fs_18,
-    lineHeight: LineHeight.lh_38,
-    fontWeight: "600",
-    fontFamily: FontFamily.interSemiBold,
-    color: Color.colorBlack,
-    textAlign: "left",
-    display: "flex",
-    alignItems: "center",
-    height: Height.height_40,
-  },
-  smallEditButtonWrapper: {
-    width: 135,
-    paddingRight: 25,
-    justifyContent: "flex-end",
-    flexDirection: "row",
-    height: Height.height_40,
-  },
-  frameView: {
-    marginTop: -64,
+  verseContainer: {
+    marginBottom: 12,
   },
 });
 
