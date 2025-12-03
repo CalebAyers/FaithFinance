@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Color, FontFamily } from "../GlobalStyles";
+import { formatCurrency } from "../utils/transactionUtils";
 
 interface TotalGivingCardProps {
   amount: number;
@@ -16,7 +17,7 @@ const TotalGivingCard = ({ amount }: TotalGivingCardProps) => {
           <Ionicons name="trending-up" size={24} color={Color.gOLD3} />
           <Text style={styles.givingLabel}>Total Giving</Text>
         </View>
-        <Text style={styles.givingValue}>${amount.toFixed(2)}</Text>
+        <Text style={styles.givingValue}>{formatCurrency(amount)}</Text>
       </View>
     </View>
   );

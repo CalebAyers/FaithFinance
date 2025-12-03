@@ -5,7 +5,11 @@ import AppLayout from "../components/AppLayout";
 import BibleVerses from "../components/BibleVerses";
 import EditButton from "../components/EditButton";
 
-// Favorite Verses page - displays saved bible verses
+/**
+ * FavoriteVersesPage - Saved Bible verses collection
+ * Displays: User's curated list of favorite Bible verses for spiritual guidance
+ * Features: Edit mode to add/remove verses, back navigation
+ */
 const FavoriteVersesPage = () => {
   const navigation = useNavigation();
 

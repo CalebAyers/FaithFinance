@@ -1,17 +1,29 @@
 import * as React from "react";
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
 import AppLayout from "../components/AppLayout";
 import SectionContainer from "../components/SectionContainer";
 import ProfileActionButton from "../components/ProfileActionButton";
 import ProfileUserCard from "../components/ProfileUserCard";
 import ResetPasswordModal from "../components/ResetPasswordModal";
+import { useData } from "../context/DataContext";
+import { formatCurrency } from "../utils/transactionUtils";
 
-// Profile page - user info and account settings
+/**
+ * ProfilePage - User profile and account management screen
+ * Displays: User info card with total income/giving, profile picture
+ * Features: Edit profile, favorite verses, reset password, reset mock data (dev tool)
+ */
 const ProfilePage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const { loadMockData, getTotalByType } = useData();
+  
+  // Get actual income and giving totals
+  const totalIncome = getTotalByType('income');
+  const totalGiving = getTotalByType('giving');
 
   const handleEditImage = () => {
     console.log("Edit profile image");
@@ -36,9 +48,37 @@ const ProfilePage = () => {
     // TODO: Implement actual password reset logic
   };
 
-  const handleResetMockData = () => {
-    console.log("Reset Mock Data");
-    // TODO: implement reset data
+  // Reset all transactions to mock data (for testing)
+  const handleResetMockData = async () => {
+    try {
+      console.log("Resetting to mock data...");
+      await loadMockData();
+      console.log("Mock data loaded successfully");
+      
+      // Force a full app refresh to update all screens
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'HomePage' as never }],
+        })
+      );
+      
+      Alert.alert(
+        "Success",
+        "All transactions have been reset to mock data!",
+        [{ text: "OK" }]
+      );
+    } catch (error) {
+      console.error("Error loading mock data:", error);
+      Alert.alert(
+        "Error",
+        "Failed to reset mock data. Please try again.",
+        [{ text: "OK" }]
+      );
+    }
+  };
+
+  const handleManageAccount = () => {
   };
 
   const handleLogout = () => {
@@ -55,7 +95,11 @@ const ProfilePage = () => {
     >
       {/* User Info Card */}
       <SectionContainer>
-        <ProfileUserCard onEditImage={handleEditImage} />
+        <ProfileUserCard 
+          onEditImage={handleEditImage}
+          incomeAmount={formatCurrency(totalIncome)}
+          givingAmount={formatCurrency(totalGiving)}
+        />
       </SectionContainer>
 
       {/* Action Buttons */}

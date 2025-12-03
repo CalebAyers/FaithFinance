@@ -9,11 +9,23 @@ import BibleVerses from "../components/BibleVerses";
 import PrimaryButton from "../components/PrimaryButton";
 import ActionButton from "../components/ActionButton";
 import SetFaithGoalModal from "../components/SetFaithGoalModal";
+import { useData } from "../context/DataContext";
+import { formatCurrency } from "../utils/transactionUtils";
 
-// Reflection page - shows giving progress, bible verses, and faith goal management
+/**
+ * ReflectionPage - Faith-based giving and reflection screen
+ * Displays: Giving summary, progress toward faith goal, inspirational Bible verses
+ * Features: Set/edit faith goal, view favorite verses, spiritual reflection prompts
+ */
 const ReflectionPage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const { getTotalByType } = useData();
+  
+  // Get total giving amount
+  const totalGiving = getTotalByType('giving');
+  // TODO: Store and retrieve faith goal from storage
+  const faithGoal = 2245.00;
 
   const handleSetFaithGoal = () => {
     setModalVisible(true);
@@ -43,8 +55,8 @@ const ReflectionPage = () => {
       {/* Giving Summary Cards */}
       <SectionContainer>
         <GivingSummaryCards 
-          givenAmount="$200.00"
-          goalAmount="$2,245.00"
+          givenAmount={formatCurrency(totalGiving)}
+          goalAmount={formatCurrency(faithGoal)}
         />
       </SectionContainer>
 

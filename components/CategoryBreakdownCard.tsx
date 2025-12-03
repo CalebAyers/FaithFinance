@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Color, FontFamily } from "../GlobalStyles";
+import { formatCurrency } from "../utils/transactionUtils";
 
 interface CategoryItem {
   name: string;
@@ -20,7 +21,7 @@ const CategoryBreakdownCard = ({ categories }: CategoryBreakdownCardProps) => {
         <React.Fragment key={index}>
           <View style={styles.categoryItem}>
             <Text style={styles.categoryLabel}>{category.name}</Text>
-            <Text style={styles.categoryValue}>${category.value.toFixed(2)}</Text>
+            <Text style={styles.categoryValue}>{formatCurrency(category.value)}</Text>
           </View>
           <View style={styles.progressBarContainer}>
             <View 

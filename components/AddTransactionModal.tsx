@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Color, FontFamily } from "../GlobalStyles";
+import { TRANSACTION_CATEGORIES } from "../utils/transactionUtils";
 
 interface AddTransactionModalProps {
   visible: boolean;
@@ -23,42 +24,6 @@ interface AddTransactionModalProps {
     date: string;
   }) => void;
 }
-
-// Spending categories for college students and professors
-const SPENDING_CATEGORIES = [
-  "Dining out",
-  "Groceries",
-  "Coffee & Snacks",
-  "Transportation",
-  "Gas",
-  "Parking",
-  "Housing",
-  "Rent",
-  "Utilities",
-  "Internet",
-  "Textbooks",
-  "School Supplies",
-  "Tuition",
-  "Health & Wellness",
-  "Gym Membership",
-  "Healthcare",
-  "Pharmacy",
-  "Entertainment",
-  "Movies & Streaming",
-  "Concerts & Events",
-  "Hobbies",
-  "Shopping",
-  "Clothing",
-  "Electronics",
-  "Personal Care",
-  "Software & Apps",
-  "Phone Bill",
-  "Internet Services",
-  "Office Supplies",
-  "Professional Development",
-  "Conferences",
-  "Other",
-];
 
 const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalProps) => {
   const [type, setType] = useState<"Spending" | "Income" | "Giving" | null>("Giving");
@@ -101,15 +66,18 @@ const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalPr
   };
 
   const handleSave = () => {
-    if (!type || !amount || (type === "Spending" && !category)) {
+    if (!type || !amount || !category) {
       alert("Please fill in all required fields");
       return;
     }
 
+    // Convert type to lowercase to match backend expectations
+    const transactionType = type.toLowerCase() as 'income' | 'spending' | 'giving';
+
     onSave({
-      type,
+      type: transactionType,
       amount: parseFloat(amount),
-      category: type === "Spending" ? category : type,
+      category: category,
       description,
       date,
     });
@@ -122,7 +90,6 @@ const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalPr
     setDate(new Date().toISOString().split('T')[0]);
     setTypeDropdownOpen(false);
     setCategoryDropdownOpen(false);
-    onClose();
   };
 
   return (
@@ -173,9 +140,7 @@ const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalPr
                       onPress={() => {
                         setType(item as "Spending" | "Income" | "Giving");
                         setTypeDropdownOpen(false);
-                        if (item !== "Spending") {
-                          setCategory("");
-                        }
+                        setCategory(""); // Reset category when type changes
                       }}
                     >
                       <Text style={styles.dropdownItemText}>{item}</Text>
@@ -185,8 +150,8 @@ const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalPr
               )}
             </View>
 
-            {/* Category Dropdown (only for Spending) */}
-            {type === "Spending" && (
+            {/* Category Dropdown - Show for all types */}
+            {type && (
               <View style={styles.fieldContainer}>
                 <Text style={styles.label}>Category:</Text>
                 <TouchableOpacity
@@ -194,7 +159,7 @@ const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalPr
                   onPress={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
                 >
                   <Text style={styles.dropdownText}>
-                    {category || "Select spending category"}
+                    {category || `Select ${type.toLowerCase()} category`}
                   </Text>
                   <Ionicons
                     name={categoryDropdownOpen ? "chevron-up" : "chevron-down"}
@@ -205,7 +170,9 @@ const AddTransactionModal = ({ visible, onClose, onSave }: AddTransactionModalPr
 
                 {categoryDropdownOpen && (
                   <ScrollView style={styles.dropdownMenuScrollable} nestedScrollEnabled>
-                    {SPENDING_CATEGORIES.map((item) => (
+                    {(type === "Spending" ? TRANSACTION_CATEGORIES.spending : 
+                      type === "Income" ? TRANSACTION_CATEGORIES.income : 
+                      TRANSACTION_CATEGORIES.giving).map((item) => (
                       <TouchableOpacity
                         key={item}
                         style={styles.dropdownItem}
