@@ -50,11 +50,12 @@ const TransactionDetailPage = ({ navigation }: any) => {
       filtered = filtered.filter(t => t.category === selectedCategory);
     }
     
-    // Filter by search query
-    if (searchQuery.trim()) {
+    // Filter by search query - works with just 1 character
+    if (searchQuery.trim().length > 0) {
+      const searchLower = searchQuery.trim().toLowerCase();
       filtered = filtered.filter(t => 
-        t.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        t.description.toLowerCase().includes(searchQuery.toLowerCase())
+        t.category.toLowerCase().includes(searchLower) ||
+        t.description.toLowerCase().includes(searchLower)
       );
     }
     
