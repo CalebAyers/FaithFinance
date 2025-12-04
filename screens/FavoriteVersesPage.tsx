@@ -1,9 +1,12 @@
 import * as React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AppLayout from "../components/AppLayout";
 import BibleVerses from "../components/BibleVerses";
 import EditButton from "../components/EditButton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCallback } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * FavoriteVersesPage - Saved Bible verses collection
@@ -12,6 +15,56 @@ import EditButton from "../components/EditButton";
  */
 const FavoriteVersesPage = () => {
   const navigation = useNavigation();
+
+  const [favorites, setFavorites] = React.useState<{ verseText: string; verseReference: string }[]>([]);
+  const [editMode, setEditMode] = React.useState(false);
+
+  const FAVORITES_KEY = '@ff:favorites';
+
+  const loadFavorites = async () => {
+    try {
+      const raw = await AsyncStorage.getItem(FAVORITES_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      setFavorites(parsed);
+    } catch (e) {
+      console.warn('Failed to load favorites', e);
+    }
+  };
+
+  const saveFavorites = async (next: { verseText: string; verseReference: string }[]) => {
+    try {
+      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
+      setFavorites(next);
+    } catch (e) {
+      console.warn('Failed to save favorites', e);
+    }
+  };
+
+  const handleToggleEdit = () => {
+    setEditMode(v => !v);
+  };
+
+  const handleRemove = (idx: number) => {
+    const verse = favorites[idx];
+    Alert.alert(
+      'Remove favorite',
+      `Remove "${verse.verseReference}" from favorites?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Remove', style: 'destructive', onPress: () => {
+          const next = favorites.filter((_, i) => i !== idx);
+          saveFavorites(next);
+        } }
+      ]
+    );
+  };
+
+  // Reload favorites when this screen gains focus
+  useFocusEffect(
+    useCallback(() => {
+      loadFavorites();
+    }, [])
+  );
 
   const handleEdit = () => {
     console.log("Edit verses");
@@ -30,34 +83,26 @@ const FavoriteVersesPage = () => {
       showBackButton={true}
       onBackPress={handleBackPress}
     >
-      {/* Verses List - using BibleVerses component */}
-      <View style={styles.verseContainer}>
-        <BibleVerses 
-          verseText="For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life"
-          verseReference="John 3:16"
-        />
-      </View>
-      <View style={styles.verseContainer}>
-        <BibleVerses 
-          verseText="Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight"
-          verseReference="Proverbs 3:5-6"
-        />
-      </View>
-      <View style={styles.verseContainer}>
-        <BibleVerses 
-          verseText="I can do all this through him who gives me strength"
-          verseReference="Philippians 4:13"
-        />
-      </View>
-      <View style={styles.verseContainer}>
-        <BibleVerses 
-          verseText="The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul"
-          verseReference="Psalm 23:1-3"
-        />
-      </View>
+      {/* Verses List - using persisted favorites if available */}
+      {favorites.length === 0 ? (
+        <View style={styles.verseContainer}>
+          <Text style={{ color: '#666' }}>You have no favorite verses yet. Add one from the Reflection page.</Text>
+        </View>
+      ) : (
+        favorites.map((v, idx) => (
+          <View style={styles.verseContainer} key={`${v.verseReference}-${idx}`}>
+            <BibleVerses verseText={v.verseText} verseReference={v.verseReference} />
+            {editMode && (
+              <TouchableOpacity style={styles.removeButton} onPress={() => handleRemove(idx)}>
+                <Text style={styles.removeText}>Remove</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        ))
+      )}
 
       {/* Edit Button at the end */}
-      <EditButton onPress={handleEdit} />
+      <EditButton onPress={handleToggleEdit} label={editMode ? 'Done' : 'Edit'} />
     </AppLayout>
   );
 };
@@ -65,6 +110,20 @@ const FavoriteVersesPage = () => {
 const styles = StyleSheet.create({
   verseContainer: {
     marginBottom: 12,
+    position: 'relative',
+  },
+  removeButton: {
+    position: 'absolute',
+    right: 12,
+    top: 8,
+    backgroundColor: 'rgba(220,220,220,0.9)',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+  },
+  removeText: {
+    color: '#b00020',
+    fontWeight: '600',
   },
 });
 

@@ -9,13 +9,15 @@ type ProfileUserCardProps = {
   incomeAmount?: string;
   givingAmount?: string;
   onEditImage: () => void;
+  onEditName?: () => void;
 };
 
 const ProfileUserCard = ({ 
   userName = "First and Last Name",
   incomeAmount = "$2,245.00",
   givingAmount = "$200.00",
-  onEditImage 
+  onEditImage,
+  onEditName
 }: ProfileUserCardProps) => {
   return (
     <View style={styles.userCard}>
@@ -28,7 +30,14 @@ const ProfileUserCard = ({
             <Text style={styles.editImageText}>Edit Image</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.userName}>{userName}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Text style={styles.userName}>{userName}</Text>
+          {typeof onEditName === 'function' && (
+            <TouchableOpacity onPress={onEditName}>
+              <Text style={[styles.editImageText, styles.editNameText]}>Edit</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       <View style={styles.statsRow}>
@@ -82,6 +91,11 @@ const styles = StyleSheet.create({
     fontSize: FontSize.fs_12,
     fontFamily: FontFamily.interMedium,
     color: Color.colorBlack,
+  },
+  editNameText: {
+    fontSize: FontSize.fs_14 || 14,
+    color: Color.gOLD3,
+    fontFamily: FontFamily.interMedium,
   },
   userName: {
     fontSize: FontSize.fs_18,
