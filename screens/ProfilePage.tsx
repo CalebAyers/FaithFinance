@@ -92,6 +92,16 @@ const ProfilePage = () => {
   const handleResetMockData = async () => {
     try {
       console.log("Resetting to mock data...");
+      
+      // Clear favorite verses
+      await AsyncStorage.removeItem('@ff:favorites');
+      console.log("Favorite verses cleared");
+      
+      // Clear faith goal
+      await AsyncStorage.removeItem('@ff:faithGoal');
+      console.log("Faith goal cleared");
+      
+      // Reset transactions
       await loadMockData();
       console.log("Mock data loaded successfully");
       
@@ -105,7 +115,7 @@ const ProfilePage = () => {
       
       Alert.alert(
         "Success",
-        "All transactions have been reset to mock data!",
+        "All data has been reset to defaults!",
         [{ text: "OK" }]
       );
     } catch (error) {

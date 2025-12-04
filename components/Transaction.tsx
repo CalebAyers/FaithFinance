@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import VectorMoneyRed from "../assets/VectorMoneyRed.svg";
 import VectorMoneyGreen from "../assets/VectorMoneyGreen.svg";
 import Vector4 from "../assets/Vector4.svg";
+import { scale } from "../utils/responsive";
 import {
   Gap,
   LineHeight,
@@ -226,15 +227,15 @@ const styles = StyleSheet.create({
     color: Color.colorBlack,
     textAlign: "left",
     display: "flex",
-    lineHeight: 38,
-    fontSize:18,
+    lineHeight: LineHeight.lh_38,
+    fontSize: FontSize.fs_18,
     height: 38,
     zIndex: 1,
     flexShrink: 1,
   },
   frameGroup: {
     flexDirection: "row",
-    gap: 20,
+    gap: Gap.gap_20,
     marginTop: 0,
   },
   dateText: {
@@ -250,16 +251,16 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: "center",
     alignItems: "flex-end",
-    paddingRight: 8,
+    paddingRight: Padding.padding_8,
     zIndex: 1,
-    minWidth: 90,
-    maxWidth: 120,
+    minWidth: scale(90),
+    maxWidth: scale(120),
   },
   text: {
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
     textAlign: "right",
-    fontSize: 18,
+    fontSize: FontSize.fs_18,
     color: Color.successColor,
   },
 });
