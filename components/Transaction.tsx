@@ -2,7 +2,6 @@ import * as React from "react";
 import { useMemo, useState } from "react";
 import { StyleSheet, View, Text, ImageSourcePropType, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Money from "./Money";
 import VectorMoneyRed from "../assets/VectorMoneyRed.svg";
 import VectorMoneyGreen from "../assets/VectorMoneyGreen.svg";
 import Vector4 from "../assets/Vector4.svg";
