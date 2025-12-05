@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     color: Color.colorBlack,
     textAlign: "left",
     display: "flex",
-    lineHeight: LineHeight.lh_38,
+    lineHeight: LineHeight.lh_28,
     fontSize: FontSize.fs_16,
     height: 38,
     zIndex: 1,
