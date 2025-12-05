@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     width: 60,
   },
   navLabel: {
-    fontSize: scaleFont(9),
+    fontSize: scaleFont(8),
     color: Color.backgroundColorLightMode,
     fontFamily: FontFamily.interMedium,
     marginTop: 4,
