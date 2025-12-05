@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   userHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 40,
+    gap: 20,
     marginBottom: 20,
   },
   avatarSection: {
@@ -88,17 +88,17 @@ const styles = StyleSheet.create({
     borderColor: Color.colorDarkslategray,
   },
   editImageText: {
-    fontSize: FontSize.fs_12,
+    fontSize: scaleFont(11),
     fontFamily: FontFamily.interMedium,
     color: Color.colorBlack,
   },
   editNameText: {
-    fontSize: FontSize.fs_14 || 14,
+    fontSize: scaleFont(12),
     color: Color.gOLD3,
     fontFamily: FontFamily.interMedium,
   },
   userName: {
-    fontSize: FontSize.fs_18,
+    fontSize: scaleFont(16),
     fontFamily: FontFamily.interSemiBold,
     fontWeight: '600',
     color: Color.colorBlack,
@@ -114,19 +114,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statLabel: {
-    fontSize: 16,
+    fontSize: scaleFont(14),
     fontFamily: FontFamily.interMedium,
     color: Color.colorBlack,
     marginBottom: 4,
   },
   statValueIncome: {
-    fontSize: 18,
+    fontSize: scaleFont(16),
     fontFamily: FontFamily.interSemiBold,
     fontWeight: '700',
     color: Color.successColor,
   },
   statValueGiving: {
-    fontSize: 18,
+    fontSize: scaleFont(16),
     fontFamily: FontFamily.interSemiBold,
     fontWeight: '700',
     color: Color.gOLD3,

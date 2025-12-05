@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { scaleFont } from "../utils/responsive";
 import { Color, FontFamily } from "../GlobalStyles";
 
 interface ResetPasswordModalProps {
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   title: {
-    fontSize: 26,
+    fontSize: scaleFont(22),
     fontWeight: "bold",
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   label: {
-    fontSize: 16,
+    fontSize: scaleFont(14),
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 16,
-    fontSize: 16,
+    fontSize: scaleFont(14),
     color: Color.colorBlack,
     fontFamily: FontFamily.interMedium,
   },
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: scaleFont(16),
     fontWeight: "500",
     fontFamily: FontFamily.interSemiBold,
   },

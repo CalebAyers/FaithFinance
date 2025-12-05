@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   transactionIncome: {
     height: 85,
-    width: Width.width_360,
+    width: '100%',
     boxShadow: BoxShadow.shadow_drop,
     elevation: 8,
     borderRadius: Border.br_12,
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     display: "flex",
     lineHeight: LineHeight.lh_38,
-    fontSize: FontSize.fs_18,
+    fontSize: FontSize.fs_16,
     height: 38,
     zIndex: 1,
     flexShrink: 1,
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
     textAlign: "right",
-    fontSize: FontSize.fs_18,
+    fontSize: FontSize.fs_16,
     color: Color.successColor,
   },
 });

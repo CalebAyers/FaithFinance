@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { scaleFont } from "../utils/responsive";
 import { Color, FontFamily, Border, Padding, Gap, FontSize } from "../GlobalStyles";
 import { formatCurrency } from "../utils/transactionUtils";
 
@@ -43,13 +44,13 @@ const styles = StyleSheet.create({
     gap: Gap.gap_10,
   },
   givingLabel: {
-    fontSize: FontSize.fs_18,
+    fontSize: FontSize.fs_16,
     fontWeight: '600',
     fontFamily: FontFamily.interSemiBold,
     color: Color.gOLD3,
   },
   givingValue: {
-    fontSize: FontSize.fs_18,
+    fontSize: FontSize.fs_16,
     fontWeight: '700',
     fontFamily: FontFamily.interSemiBold,
     color: Color.gOLD3,

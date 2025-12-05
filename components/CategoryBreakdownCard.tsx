@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { scaleFont } from "../utils/responsive";
 import { Color, FontFamily, Border, Padding, Gap, FontSize, Height } from "../GlobalStyles";
 import { formatCurrency } from "../utils/transactionUtils";
 

@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   
   // Title text styling
   titleText: {
-    fontSize: FontSize.fs_16,
+    fontSize: FontSize.fs_14,
     fontFamily: FontFamily.interSemiBold,
     fontWeight: "600",
     color: Color.gOLD3,
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   
   // Reference text styling - gold, right-aligned
   john112: {
-    fontSize: FontSize.fs_16,
+    fontSize: FontSize.fs_14,
     lineHeight: LineHeight.lh_38,
     fontFamily: FontFamily.interSemiBold,
     fontWeight: "600",

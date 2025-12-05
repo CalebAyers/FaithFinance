@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
+import { scale } from "../utils/responsive";
 import Vector4 from "../assets/Vector4.svg";
 import {
   FontFamily,
@@ -49,10 +50,10 @@ const GivingSummaryCards = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: Width.width_360,
+    width: '100%',
     flexDirection: "row",
     gap: Gap.gap_20,
-    height: 120,
+    height: scale(120),
   },
   card: {
     flex: 1,
@@ -64,20 +65,19 @@ const styles = StyleSheet.create({
     borderColor: Color.gOLD3,
     borderWidth: 1,
     overflow: "hidden",
-    paddingVertical: 10,
-    paddingBottom: 10,
+    paddingVertical: Padding.padding_10,
     paddingHorizontal: Padding.padding_8,
     justifyContent: "space-between",
     alignItems: "center",
   },
   iconContainer: {
-    width: 50,
-    height: 50,
+    width: scale(40),
+    height: scale(40),
     justifyContent: "center",
     alignItems: "center",
   },
   label: {
-    fontSize: 14,
+    fontSize: FontSize.fs_12,
     lineHeight: LineHeight.lh_28,
     fontFamily: FontFamily.interSemiBold,
     fontWeight: "600",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     color: Color.gOLD3,
   },
   amount: {
-    fontSize: 18,
+    fontSize: FontSize.fs_14,
     lineHeight: LineHeight.lh_25,
     fontFamily: FontFamily.interSemiBold,
     fontWeight: "700",

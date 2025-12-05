@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { scale, scaleFont } from "../utils/responsive";
 import { Color, FontFamily } from "../GlobalStyles";
 
 type TransactionToggleProps = {
@@ -51,8 +52,8 @@ const TransactionToggle = ({ activeTab, onTabChange }: TransactionToggleProps) =
 const styles = StyleSheet.create({
   toggleContainer: {
     flexDirection: "row",
-    width: 360,
-    height: 43,
+    width: '100%',
+    height: scale(43),
     borderRadius: 8,
     overflow: "hidden",
     marginBottom: 20,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   toggleText: {
-    fontSize: 16,
+    fontSize: scaleFont(14),
     fontFamily: FontFamily.interSemiBold,
     fontWeight: "600",
     color: "#fff",

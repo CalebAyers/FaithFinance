@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { scaleFont } from "../utils/responsive";
 import { Color, FontFamily } from "../GlobalStyles";
 
 interface StatCardProps {
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   statLabel: {
-    fontSize: 14,
+    fontSize: scaleFont(12),
     fontWeight: '600',
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     color: Color.successColor,
   },
   statCategory: {
-    fontSize: 14,
+    fontSize: scaleFont(14),
     fontWeight: '600',
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     color: Color.colorBlack,
   },
   statValue: {
-    fontSize: 18,
+    fontSize: scaleFont(16),
     fontWeight: '700',
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,

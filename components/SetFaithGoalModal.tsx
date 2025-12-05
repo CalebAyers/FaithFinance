@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { scaleFont } from "../utils/responsive";
 import { Color, FontFamily } from "../GlobalStyles";
 
 interface SetFaithGoalModalProps {
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    fontSize: 26,
+    fontSize: scaleFont(22),
     fontWeight: "700",
     fontFamily: FontFamily.interSemiBold,
     color: Color.gOLD3,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: scaleFont(12),
     color: Color.colorBlack,
     marginBottom: 24,
     fontFamily: FontFamily.interMedium,
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   label: {
-    fontSize: 16,
+    fontSize: scaleFont(14),
     fontWeight: "600",
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   dropdownText: {
-    fontSize: 16,
+    fontSize: scaleFont(14),
     color: Color.colorBlack,
     fontFamily: FontFamily.interMedium,
   },
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#e0e0e0",
   },
   dropdownItemText: {
-    fontSize: 16,
+    fontSize: scaleFont(14),
     color: Color.colorBlack,
     fontFamily: FontFamily.interMedium,
   },
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.gOLD3,
     padding: 16,
-    fontSize: 16,
+    fontSize: scaleFont(14),
     color: Color.colorBlack,
     fontFamily: FontFamily.interMedium,
   },
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: scaleFont(16),
     fontWeight: "500",
     fontFamily: FontFamily.interSemiBold,
   },

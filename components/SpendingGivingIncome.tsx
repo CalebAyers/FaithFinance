@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import Money from "./Money";
+import { scale } from "../utils/responsive";
 import VectorMoneyRed from "../assets/VectorMoneyRed.svg";
 import VectorMoneyGreen from "../assets/VectorMoneyGreen.svg";
 import Vector4 from "../assets/Vector4.svg";
@@ -78,16 +78,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: FontFamily.interSemiBold,
     fontWeight: "600",
-    width: Width.width_103,
   },
   spendingGivingIncome: {
-    width: Width.width_360,
+    width: '100%',
     gap: Gap.gap_20,
     flexDirection: "row",
-    height: 120,
+    height: scale(120),
   },
   spending: {
-    width: 107,
+    flex: 1,
     boxShadow: BoxShadow.shadow_drop,
     elevation: 8,
     borderRadius: Border.br_12,
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     paddingVertical: Padding.padding_10,
     paddingHorizontal: Padding.padding_8,
-    height: 120,
+    height: scale(120),
     justifyContent: "space-between",
     alignItems: "center",
     borderWidth: 1,
@@ -111,19 +110,19 @@ const styles = StyleSheet.create({
     borderColor: Color.successColor,
   },
   iconMoney2Wrapper: {
-    width: 50,
-    height: 50,
+    width: scale(40),
+    height: scale(40),
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
   },
   spending2: {
-    fontSize: 14,
+    fontSize: FontSize.fs_12,
     lineHeight: LineHeight.lh_28,
     color: Color.colorDarkslategray,
   },
   text: {
-    fontSize: 16,
+    fontSize: FontSize.fs_14,
     lineHeight: LineHeight.lh_25,
     fontWeight: "700",
   },

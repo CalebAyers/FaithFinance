@@ -1,5 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { scale, scaleFont } from "../utils/responsive";
 import { Color, FontFamily, FontSize } from "../GlobalStyles";
 
 // Three-way toggle for filtering transactions (Incoming | Spending | Giving)
@@ -77,8 +78,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.componentsBackgrounf,
     borderRadius: 8,
     overflow: "hidden",
-    width: 360,
-    height: 43,
+    width: '100%',
+    height: scale(43),
     marginBottom: 20,
     borderWidth: 2,
     borderColor: Color.mainRed,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   tabText: {
     color: Color.mainRed,
     fontFamily: FontFamily.interSemiBold,
-    fontSize: 16,
+    fontSize: scaleFont(14),
     fontWeight: "600",
   },
   activeTabText: {
