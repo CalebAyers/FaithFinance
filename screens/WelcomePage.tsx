@@ -18,9 +18,24 @@ const WelcomePage = ({ navigation }: WelcomePageProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { loadMockData } = useData();
 
-  const handleSignIn = () => {
-    // TODO: Implement log in logic
-    console.log("Log In:", username, password);
+  const handleSignIn = async () => {
+    // Save username to profile
+    const nameToSave = username.trim() || 'User';
+    try {
+      await AsyncStorage.setItem('@ff:profileName', nameToSave);
+      console.log("Log In - Username saved:", nameToSave);
+    } catch (error) {
+      console.error("Error saving username:", error);
+    }
+    
+    // Show loading screen
+    setIsLoading(true);
+    
+    // Navigate to HomePage after 2 seconds
+    setTimeout(() => {
+      setIsLoading(false);
+      navigation.navigate("HomePage");
+    }, 2000);
   };
 
   const handleSignUp = () => {
@@ -90,6 +105,7 @@ const WelcomePage = ({ navigation }: WelcomePageProps) => {
             value={username}
             onChangeText={setUsername}
             autoCapitalize="none"
+            autoComplete="off"
           />
 
           {/* Password Input */}
@@ -100,6 +116,7 @@ const WelcomePage = ({ navigation }: WelcomePageProps) => {
             onChangeText={setPassword}
             secureTextEntry
             autoCapitalize="none"
+            autoComplete="off"
             isLastField
           />
 

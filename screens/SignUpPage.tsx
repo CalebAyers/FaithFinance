@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scaleFont, scale, verticalScale } from "../utils/responsive";
 import { Color, FontFamily } from "../GlobalStyles";
 import WelcomeActionButton from "../components/WelcomeActionButton";
@@ -16,9 +17,15 @@ const SignUpPage = ({ navigation }: SignUpPageProps) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignUp = () => {
-    // TODO: Implement sign up logic
-    console.log("Sign Up:", username, email, password);
+  const handleSignUp = async () => {
+    // Save username to profile
+    const nameToSave = username.trim() || 'User';
+    try {
+      await AsyncStorage.setItem('@ff:profileName', nameToSave);
+      console.log("Sign Up - Username saved:", nameToSave);
+    } catch (error) {
+      console.error("Error saving username:", error);
+    }
     
     // Show loading screen
     setIsLoading(true);
@@ -81,6 +88,7 @@ const SignUpPage = ({ navigation }: SignUpPageProps) => {
               onChangeText={setPassword}
               secureTextEntry
               autoCapitalize="none"
+              autoComplete="off"
               isLastField
             />
 
