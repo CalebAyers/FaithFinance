@@ -9,6 +9,7 @@ import SectionContainer from "../components/SectionContainer";
 import ProfileActionButton from "../components/ProfileActionButton";
 import ProfileUserCard from "../components/ProfileUserCard";
 import ResetPasswordModal from "../components/ResetPasswordModal";
+import LoadingScreen from "../components/LoadingScreen";
 import { useData } from "../context/DataContext";
 import { formatCurrency } from "../utils/transactionUtils";
 
@@ -20,6 +21,7 @@ import { formatCurrency } from "../utils/transactionUtils";
 const ProfilePage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { loadMockData, getTotalByType } = useData();
   
   // Get actual income and giving totals
@@ -138,9 +140,41 @@ const ProfilePage = () => {
   };
 
   const handleLogout = () => {
-    console.log("Logout");
-    // TODO: implement logout
+    Alert.alert(
+      "Log Out",
+      "Are you sure you want to log out?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Log Out",
+          style: "destructive",
+          onPress: () => {
+            // Show loading screen
+            setIsLoggingOut(true);
+            
+            // Navigate to WelcomePage after 2 seconds
+            setTimeout(() => {
+              setIsLoggingOut(false);
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: 'WelcomePage' as never }],
+                })
+              );
+            }, 2000);
+          }
+        }
+      ]
+    );
   };
+
+  // Show loading screen while logging out
+  if (isLoggingOut) {
+    return <LoadingScreen showSpinner={true} />;
+  }
 
   return (
     <AppLayout 

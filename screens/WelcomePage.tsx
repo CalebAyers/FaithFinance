@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { scaleFont, scale, verticalScale } from "../utils/responsive";
 import { Color, FontFamily } from "../GlobalStyles";
 import WelcomeActionButton from "../components/WelcomeActionButton";
 import WelcomeInputField from "../components/WelcomeInputField";
 import LoadingScreen from "../components/LoadingScreen";
+import { useData } from "../context/DataContext";
 
 interface WelcomePageProps {
   navigation: any;
@@ -14,20 +16,35 @@ const WelcomePage = ({ navigation }: WelcomePageProps) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { loadMockData } = useData();
 
   const handleSignIn = () => {
-    // TODO: Implement sign in logic
-    console.log("Sign In:", username, password);
+    // TODO: Implement log in logic
+    console.log("Log In:", username, password);
   };
 
   const handleSignUp = () => {
-    // TODO: Implement sign up logic
-    console.log("Sign Up");
+    // Navigate to Sign Up page
+    navigation.navigate("SignUpPage");
   };
 
-  const handleContinueAsGuest = () => {
+  const handleContinueAsGuest = async () => {
     // Show loading screen
     setIsLoading(true);
+    
+    try {
+      // Clear all user data and reset to defaults
+      await AsyncStorage.removeItem('@ff:favorites');
+      await AsyncStorage.removeItem('@ff:faithGoal');
+      await AsyncStorage.setItem('@ff:profileName', 'Mock User');
+      
+      // Reset transactions to mock data
+      await loadMockData();
+      
+      console.log("Mock data reset successfully");
+    } catch (error) {
+      console.error("Error resetting mock data:", error);
+    }
     
     // Navigate to HomePage after 2 seconds
     setTimeout(() => {
@@ -86,8 +103,8 @@ const WelcomePage = ({ navigation }: WelcomePageProps) => {
             isLastField
           />
 
-          {/* Sign In Button */}
-          <WelcomeActionButton onPress={handleSignIn} label="Sign In" />
+          {/* Log In Button */}
+          <WelcomeActionButton onPress={handleSignIn} label="Log In" />
 
           {/* Sign Up Button */}
           <WelcomeActionButton onPress={handleSignUp} label="Sign Up" />
@@ -109,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.mainRed,
     paddingTop: verticalScale(60),
     paddingBottom: verticalScale(32),
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(24),
     justifyContent: "center",
     alignItems: "center",
     minHeight: "25%",
@@ -120,7 +137,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(24),
     paddingTop: verticalScale(12),
     paddingBottom: verticalScale(40),
     alignItems: "center",

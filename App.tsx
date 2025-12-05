@@ -3,6 +3,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import WelcomePage from "./screens/WelcomePage";
+import SignUpPage from "./screens/SignUpPage";
 import HomePage from "./screens/HomePage";
 import InsightPage from "./screens/InsightPage";
 import TransactionPage from "./screens/TransactionPage";
@@ -55,6 +56,11 @@ const App = () => {
             <Stack.Screen
               name="WelcomePage"
               component={WelcomePage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUpPage"
+              component={SignUpPage}
               options={{ headerShown: false }}
             />
             <Stack.Screen

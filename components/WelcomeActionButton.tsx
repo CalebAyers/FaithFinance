@@ -6,12 +6,13 @@ import { Color, FontFamily } from "../GlobalStyles";
 interface WelcomeActionButtonProps {
   onPress: () => void;
   label: string;
+  backgroundColor?: string;
 }
 
 // Solid red action button for Welcome page
-const WelcomeActionButton = ({ onPress, label }: WelcomeActionButtonProps) => {
+const WelcomeActionButton = ({ onPress, label, backgroundColor }: WelcomeActionButtonProps) => {
   return (
-    <TouchableOpacity style={styles.actionButton} onPress={onPress}>
+    <TouchableOpacity style={[styles.actionButton, backgroundColor ? { backgroundColor } : {}]} onPress={onPress}>
       <Text style={styles.actionButtonText}>{label}</Text>
     </TouchableOpacity>
   );
