@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { scaleFont } from "../utils/responsive";
 import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
 // Profile user card with avatar, name, and stats
