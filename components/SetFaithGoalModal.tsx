@@ -16,7 +16,6 @@ interface SetFaithGoalModalProps {
   onClose: () => void;
   onSave: (goal: {
     amount: number;
-    period: string;
     description: string;
   }) => void;
 }
@@ -32,7 +31,6 @@ const PERIOD_OPTIONS = [
 
 const SetFaithGoalModal = ({ visible, onClose, onSave }: SetFaithGoalModalProps) => {
   const [amount, setAmount] = useState("");
-  const [period, setPeriod] = useState("");
   const [description, setDescription] = useState("");
   
   const [periodDropdownOpen, setPeriodDropdownOpen] = useState(false);
@@ -65,20 +63,18 @@ const SetFaithGoalModal = ({ visible, onClose, onSave }: SetFaithGoalModalProps)
   };
 
   const handleSave = () => {
-    if (!amount || !period) {
+    if (!amount) {
       alert("Please fill in all required fields");
       return;
     }
 
     onSave({
       amount: parseFloat(amount),
-      period,
       description,
     });
 
     // Reset form
     setAmount("");
-    setPeriod("");
     setDescription("");
     setPeriodDropdownOpen(false);
     onClose();
@@ -119,40 +115,7 @@ const SetFaithGoalModal = ({ visible, onClose, onSave }: SetFaithGoalModalProps)
               />
             </View>
 
-            {/* Period Dropdown */}
-            <View style={styles.fieldContainer}>
-              <Text style={styles.label}>Period:</Text>
-              <TouchableOpacity
-                style={styles.dropdown}
-                onPress={() => setPeriodDropdownOpen(!periodDropdownOpen)}
-              >
-                <Text style={styles.dropdownText}>
-                  {period || "Select period"}
-                </Text>
-                <Ionicons
-                  name={periodDropdownOpen ? "chevron-up" : "chevron-down"}
-                  size={20}
-                  color={Color.gOLD3}
-                />
-              </TouchableOpacity>
-
-              {periodDropdownOpen && (
-                <ScrollView style={styles.dropdownMenu}>
-                  {PERIOD_OPTIONS.map((item) => (
-                    <TouchableOpacity
-                      key={item}
-                      style={styles.dropdownItem}
-                      onPress={() => {
-                        setPeriod(item);
-                        setPeriodDropdownOpen(false);
-                      }}
-                    >
-                      <Text style={styles.dropdownItemText}>{item}</Text>
-                    </TouchableOpacity>
-                  ))}
-                </ScrollView>
-              )}
-            </View>
+                      {/* Period removed — goal is cumulative total */}
 
             {/* Description Input */}
             <View style={styles.fieldContainer}>

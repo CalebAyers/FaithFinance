@@ -17,7 +17,7 @@ const ReflectionPage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   // Faith goal state
-  type FaithGoal = { amount: number; period: string; description?: string; createdAt?: string } | null;
+  type FaithGoal = { amount: number; description?: string; createdAt?: string } | null;
   const FAITH_GOAL_KEY = '@ff:faithGoal';
   const [faithGoal, setFaithGoal] = useState<FaithGoal>(null);
 
@@ -73,9 +73,10 @@ const ReflectionPage = () => {
       return;
     }
 
+    // cumulative: if a faith goal already exists, add the new amount to it
+    const existingAmount = faithGoal?.amount ?? 0;
     const toSave = {
-      amount: goal.amount,
-      period: goal.period || '',
+      amount: existingAmount + goal.amount,
       description: goal.description || '',
       createdAt: new Date().toISOString(),
     };
