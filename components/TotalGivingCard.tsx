@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Color, FontFamily } from "../GlobalStyles";
+import { Color, FontFamily, Border, Padding, Gap, FontSize } from "../GlobalStyles";
+import { formatCurrency } from "../utils/transactionUtils";
 
 interface TotalGivingCardProps {
   amount: number;
@@ -16,7 +17,7 @@ const TotalGivingCard = ({ amount }: TotalGivingCardProps) => {
           <Ionicons name="trending-up" size={24} color={Color.gOLD3} />
           <Text style={styles.givingLabel}>Total Giving</Text>
         </View>
-        <Text style={styles.givingValue}>${amount.toFixed(2)}</Text>
+        <Text style={styles.givingValue}>{formatCurrency(amount)}</Text>
       </View>
     </View>
   );
@@ -25,13 +26,13 @@ const TotalGivingCard = ({ amount }: TotalGivingCardProps) => {
 const styles = StyleSheet.create({
   givingCard: {
     backgroundColor: Color.componentsBackgrounf,
-    borderRadius: 12,
+    borderRadius: Border.br_12,
     borderWidth: 1,
     borderColor: Color.gOLD3,
-    marginBottom: 12,
+    marginBottom: Gap.gap_10,
   },
   givingContent: {
-    padding: 14,
+    padding: Padding.padding_14,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -39,16 +40,16 @@ const styles = StyleSheet.create({
   givingHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: Gap.gap_10,
   },
   givingLabel: {
-    fontSize: 18,
+    fontSize: FontSize.fs_18,
     fontWeight: '600',
     fontFamily: FontFamily.interSemiBold,
     color: Color.gOLD3,
   },
   givingValue: {
-    fontSize: 18,
+    fontSize: FontSize.fs_18,
     fontWeight: '700',
     fontFamily: FontFamily.interSemiBold,
     color: Color.gOLD3,

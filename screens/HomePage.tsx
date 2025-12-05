@@ -8,14 +8,30 @@ import BibleVerses from "../components/BibleVerses";
 import AddTransaction from "../components/AddTransaction";
 import AddTransactionModal from "../components/AddTransactionModal";
 import Transaction from "../components/Transaction";
+import { useData } from "../context/DataContext";
+import { sortTransactionsByDate, formatCurrency } from "../utils/transactionUtils";
 
-// Main home screen - shows summary cards, Bible verse, and recent transactions
+/**
+ * HomePage - Main dashboard screen
+ * Displays: Financial summary cards (income/spending/giving), daily Bible verse, 6 most recent transactions
+ * Features: Quick add transaction button, view all transactions link
+ */
 const HomePage = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { transactions, addTransaction } = useData();
 
-  const handleSaveTransaction = (transaction: any) => {
-    console.log("New transaction:", transaction);
-    // TODO: Save transaction to database/API
+  // Get 6 most recent transactions
+  const recentTransactions = sortTransactionsByDate(transactions).slice(0, 6);
+
+  const handleSaveTransaction = async (transaction: any) => {
+    await addTransaction(
+      transaction.type,
+      transaction.amount,
+      transaction.category,
+      transaction.description,
+      transaction.date
+    );
+    setModalVisible(false);
   };
 
   return (
@@ -39,12 +55,17 @@ const HomePage = ({ navigation }: any) => {
       <View style={styles.transactionsSection}>
         <SectionTitle>Recent Transactions</SectionTitle>
         
-        {/* Transaction List - Replace with real data from your backend */}
+        {/* Transaction List - Displays real data from storage */}
         <View style={styles.transactionsList}>
-          <Transaction category="Giving" prop="-$100.00" />
-          <Transaction category="Spending" prop="-$50.00" />
-          <Transaction category="Income" prop="+$500.00" />
-          <Transaction category="Giving" prop="-$25.00" />
+          {recentTransactions.map((txn) => (
+            <Transaction
+              key={txn.id}
+              state={txn.type === 'income' ? 'Income' : txn.type === 'spending' ? 'Spending' : 'Giving'}
+              category={txn.category}
+              prop={`${txn.type === 'income' ? '+' : '-'}${formatCurrency(txn.amount)}`}
+              date={new Date(txn.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            />
+          ))}
         </View>
       </View>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Color, FontFamily } from "../GlobalStyles";
+import { Color, FontFamily, Border, Padding, Gap, FontSize, Height } from "../GlobalStyles";
+import { formatCurrency } from "../utils/transactionUtils";
 
 interface CategoryItem {
   name: string;
@@ -20,7 +21,7 @@ const CategoryBreakdownCard = ({ categories }: CategoryBreakdownCardProps) => {
         <React.Fragment key={index}>
           <View style={styles.categoryItem}>
             <Text style={styles.categoryLabel}>{category.name}</Text>
-            <Text style={styles.categoryValue}>${category.value.toFixed(2)}</Text>
+            <Text style={styles.categoryValue}>{formatCurrency(category.value)}</Text>
           </View>
           <View style={styles.progressBarContainer}>
             <View 
@@ -42,34 +43,34 @@ const CategoryBreakdownCard = ({ categories }: CategoryBreakdownCardProps) => {
 const styles = StyleSheet.create({
   categoryCard: {
     backgroundColor: Color.componentsBackgrounf,
-    borderRadius: 12,    
+    borderRadius: Border.br_12,    
     borderWidth: 1,
     borderColor: Color.gOLD3,
-    padding: 20,
-    marginBottom: 16,
+    padding: Padding.padding_16,
+    marginBottom: Gap.gap_16,
   },
   categoryItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    marginBottom: Gap.gap_4,
   },
   categoryLabel: {
-    fontSize: 16,
+    fontSize: FontSize.fs_16,
     fontWeight: '600',
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
   },
   categoryValue: {
-    fontSize: 16,
+    fontSize: FontSize.fs_16,
     fontWeight: '600',
     fontFamily: FontFamily.interSemiBold,
     color: Color.colorBlack,
   },
   progressBarContainer: {
-    height: 8,
+    height: Height.height_8,
     backgroundColor: '#e0e0e0',
-    borderRadius: 4,
-    marginBottom: 12,
+    borderRadius: Border.br_4,
+    marginBottom: Gap.gap_10,
     overflow: 'hidden',
   },
   progressBar: {

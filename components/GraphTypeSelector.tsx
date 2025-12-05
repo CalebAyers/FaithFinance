@@ -4,15 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { Color, FontFamily } from "../GlobalStyles";
 
 interface GraphTypeSelectorProps {
-  selectedType: 'Pie Chart' | 'Line Chart' | 'Bar Chart';
-  onTypeChange: (type: 'Pie Chart' | 'Line Chart' | 'Bar Chart') => void;
+  selectedType: 'Pie Chart' | 'Bar Chart';
+  onTypeChange: (type: 'Pie Chart' | 'Bar Chart') => void;
 }
 
 // Dropdown selector for choosing graph type
 const GraphTypeSelector = ({ selectedType, onTypeChange }: GraphTypeSelectorProps) => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-  const handleSelect = (type: 'Pie Chart' | 'Line Chart' | 'Bar Chart') => {
+  const handleSelect = (type: 'Pie Chart' | 'Bar Chart') => {
     onTypeChange(type);
     setDropdownOpen(false);
   };
@@ -40,15 +40,6 @@ const GraphTypeSelector = ({ selectedType, onTypeChange }: GraphTypeSelectorProp
           >
             <Text style={[styles.dropdownText, selectedType === 'Pie Chart' && styles.dropdownTextActive]}>
               Pie Chart
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.dropdownItem}
-            onPress={() => handleSelect('Line Chart')}
-          >
-            <Text style={[styles.dropdownText, selectedType === 'Line Chart' && styles.dropdownTextActive]}>
-              Line Chart
             </Text>
           </TouchableOpacity>
           

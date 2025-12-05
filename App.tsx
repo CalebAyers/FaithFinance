@@ -10,6 +10,7 @@ import ReflectionPage from "./screens/ReflectionPage";
 import ProfilePage from "./screens/ProfilePage";
 import FavoriteVersesPage from "./screens/FavoriteVersesPage";
 import LoadingScreen from "./components/LoadingScreen";
+import { DataProvider } from "./context/DataContext";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
@@ -43,7 +44,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <DataProvider>
       <NavigationContainer>
         {hideSplashScreen ? (
           <Stack.Navigator
@@ -88,7 +89,7 @@ const App = () => {
           </Stack.Navigator>
         ) : null}
       </NavigationContainer>
-    </>
+    </DataProvider>
   );
 };
 export default App;

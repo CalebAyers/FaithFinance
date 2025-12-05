@@ -1,35 +1,95 @@
 import * as React from "react";
-import { useState } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { useState, useMemo } from "react";
+import { StyleSheet } from "react-native";
 import AppLayout from "../components/AppLayout";
 import SearchBar from "../components/SearchBar";
-import TwoWayToggle from "../components/TwoWayToggle";
 import AddTransactionModal from "../components/AddTransactionModal";
-import Transaction from "../components/Transaction";
-import { Color, FontFamily } from "../GlobalStyles";
+import FilterDropdown from "../components/FilterDropdown";
+import TransactionList from "../components/TransactionList";
+import ActionButtonRow from "../components/ActionButtonRow";
+import { useData } from "../context/DataContext";
+import { sortTransactionsByDate } from "../utils/transactionUtils";
 
-// Transaction detail list page with search, filtering, and sorting
+/**
+ * TransactionDetailPage - Full transaction history with advanced filtering
+ * Features: Search bar, type filter, category filter, add/edit actions
+ */
 const TransactionDetailPage = ({ navigation }: any) => {
+  // Search and filter state
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("Date");
-  const [addTransPressed, setAddTransPressed] = useState(false);
-  const [editPressed, setEditPressed] = useState(false);
+  const [selectedType, setSelectedType] = useState<"all" | "income" | "spending" | "giving">("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [typeDropdownOpen, setTypeDropdownOpen] = useState(false);
+  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  
+  const { transactions, addTransaction } = useData();
 
-  const handleSaveTransaction = (transaction: any) => {
-    console.log("New transaction:", transaction);
-    // TODO: Save transaction to database/API
+  // Get categories based on selected type
+  const categories = useMemo(() => {
+    if (selectedType === "all") {
+      const allCategories = new Set(transactions.map(t => t.category));
+      return ["all", ...Array.from(allCategories)];
+    }
+    const typeTransactions = transactions.filter(t => t.type === selectedType);
+    const typeCategories = new Set(typeTransactions.map(t => t.category));
+    return ["all", ...Array.from(typeCategories)];
+  }, [selectedType, transactions]);
+
+  // Filter transactions based on type, category, and search
+  const filteredTransactions = useMemo(() => {
+    let filtered = transactions;
+    
+    // Filter by type
+    if (selectedType !== "all") {
+      filtered = filtered.filter(t => t.type === selectedType);
+    }
+    
+    // Filter by category
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter(t => t.category === selectedCategory);
+    }
+    
+    // Filter by search query - works with just 1 character
+    if (searchQuery.trim().length > 0) {
+      const searchLower = searchQuery.trim().toLowerCase();
+      filtered = filtered.filter(t => 
+        t.category.toLowerCase().includes(searchLower) ||
+        t.description.toLowerCase().includes(searchLower)
+      );
+    }
+    
+    return sortTransactionsByDate(filtered);
+  }, [transactions, selectedType, selectedCategory, searchQuery]);
+
+  const handleSaveTransaction = async (transaction: any) => {
+    await addTransaction(
+      transaction.type,
+      transaction.amount,
+      transaction.category,
+      transaction.description,
+      transaction.date
+    );
+    setModalVisible(false);
   };
 
-  // Sample transaction data - replace with real data
-  const transactions = [
-    { category: "Income", prop: "+$100.00", date: "Nov 28, 2025" },
-    { category: "Spending", prop: "-$50.00", date: "Nov 27, 2025" },
-    { category: "Giving", prop: "-$25.00", date: "Nov 26, 2025" },
-    { category: "Income", prop: "+$200.00", date: "Nov 25, 2025" },
-    { category: "Spending", prop: "-$75.00", date: "Nov 24, 2025" },
-    { category: "Giving", prop: "-$30.00", date: "Nov 23, 2025" },
-  ];
+  const handleTypeSelect = (type: string) => {
+    setSelectedType(type as "all" | "income" | "spending" | "giving");
+    setSelectedCategory("all"); // Reset category when type changes
+    setTypeDropdownOpen(false);
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setCategoryDropdownOpen(false);
+  };
+
+  // Format option labels for dropdowns
+  const formatTypeOption = (type: string) => 
+    type === "all" ? "All Types" : type.charAt(0).toUpperCase() + type.slice(1);
+  
+  const formatCategoryOption = (category: string) =>
+    category === "all" ? "All Categories" : category;
 
   return (
     <AppLayout 
@@ -46,51 +106,48 @@ const TransactionDetailPage = ({ navigation }: any) => {
             onChangeText={setSearchQuery}
           />
 
-          {/* Sorted By Section */}
-          <Text style={styles.sortedByTitle}>Sorted By</Text>
-          
-          {/* Sort Toggle */}
-          <TwoWayToggle 
-            leftLabel="Date"
-            rightLabel="Category"
-            activeTab={sortBy}
-            onTabChange={setSortBy}
+          {/* Type Filter Dropdown */}
+          <FilterDropdown
+            label="Type"
+            value={formatTypeOption(selectedType)}
+            options={["all", "income", "spending", "giving"]}
+            isOpen={typeDropdownOpen}
+            onToggle={() => {
+              setTypeDropdownOpen(!typeDropdownOpen);
+              setCategoryDropdownOpen(false);
+            }}
+            onSelect={handleTypeSelect}
+            selectedValue={selectedType}
+            formatOption={formatTypeOption}
+          />
+
+          {/* Category Filter Dropdown */}
+          <FilterDropdown
+            label="Category"
+            value={formatCategoryOption(selectedCategory)}
+            options={categories}
+            isOpen={categoryDropdownOpen}
+            onToggle={() => {
+              setCategoryDropdownOpen(!categoryDropdownOpen);
+              setTypeDropdownOpen(false);
+            }}
+            onSelect={handleCategorySelect}
+            selectedValue={selectedCategory}
+            formatOption={formatCategoryOption}
           />
         </>
       }
     >
-      {/* Transaction List */}
-      <View style={styles.transactionsList}>
-        {transactions.map((transaction, index) => (
-          <Transaction
-            key={index}
-            category={transaction.category}
-            prop={transaction.prop}
-            date={transaction.date}
-          />
-        ))}
-      </View>
+      {/* Filtered Transaction List */}
+      <TransactionList transactions={filteredTransactions} />
 
-      {/* Action Buttons at bottom */}
-      <View style={styles.buttonRow}>
-        <TouchableOpacity 
-          style={[styles.button, addTransPressed && styles.buttonPressed]}
-          onPressIn={() => setAddTransPressed(true)}
-          onPressOut={() => setAddTransPressed(false)}
-          onPress={() => setModalVisible(true)}
-          activeOpacity={1}
-        >
-          <Text style={styles.buttonText}>Add Transaction</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.button, editPressed && styles.buttonPressed]}
-          onPressIn={() => setEditPressed(true)}
-          onPressOut={() => setEditPressed(false)}
-          activeOpacity={1}
-        >
-          <Text style={styles.buttonText}>Edit</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Action Buttons */}
+      <ActionButtonRow
+        buttons={[
+          { label: "Add Transaction", onPress: () => setModalVisible(true) },
+          { label: "Edit", onPress: () => console.log("Edit mode") },
+        ]}
+      />
 
       {/* Add Transaction Modal */}
       <AddTransactionModal
@@ -102,42 +159,7 @@ const TransactionDetailPage = ({ navigation }: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-    gap: 12,
-  },
-  button: {
-    flex: 1,
-    backgroundColor: Color.componentsBackgrounf,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Color.gOLD3,
-    alignItems: "center",
-  },
-  buttonPressed: {
-    backgroundColor: 'rgba(225,173,1,0.2)',
-  },
-  buttonText: {
-    color: Color.gOLD3,
-    fontSize: 16,
-    fontWeight: "600",
-    fontFamily: FontFamily.interMedium,
-  },
-  sortedByTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    fontFamily: FontFamily.interSemiBold,
-    color: Color.colorBlack,
-    marginBottom: 12,
-  },
-  transactionsList: {
-    gap: 12,
-    marginBottom: 20,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default TransactionDetailPage;
+

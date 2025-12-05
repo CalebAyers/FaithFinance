@@ -7,59 +7,73 @@ import PeriodToggleThreeWay from "../components/PeriodToggleThreeWay";
 import BibleVerses from "../components/BibleVerses";
 import StatCard from "../components/StatCard";
 import PieChart from "../components/PieChart";
-import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
 import CategoryBreakdownCard from "../components/CategoryBreakdownCard";
 import TotalGivingCard from "../components/TotalGivingCard";
 import GraphTypeSelector from "../components/GraphTypeSelector";
 import { Color, FontFamily } from "../GlobalStyles";
+import { useData } from "../context/DataContext";
+import { groupTransactionsByCategory, formatDate, formatCurrency } from "../utils/transactionUtils";
 
-// Insight page - displays financial insights, charts, and trends
+/**
+ * InsightPage - Financial analytics and visualization screen
+ * Displays: Remaining balance, pie/bar charts, category breakdown, giving totals
+ * Features: Weekly/Monthly/Yearly toggle, chart type selector, Bible verse
+ */
 const InsightPage = () => {
   const navigation = useNavigation();
   const [selectedPeriod, setSelectedPeriod] = useState<'Weekly' | 'Monthly' | 'Yearly'>('Monthly');
-  const [graphType, setGraphType] = useState<'Pie Chart' | 'Line Chart' | 'Bar Chart'>('Pie Chart');
-
-  // Mock data - replace with real data from your API/database
-  const mockData = {
-    totalIncome: 1000,
-    incomeDate: "Nov 15, 2025", // Last income date
-    totalGiving: 150,
-    spendingCategories: [
-      { name: "Transportation", value: 320 },
-      { name: "Food", value: 240 },
-      { name: "Entertainment", value: 100 },
-    ],
-  };
+  const [graphType, setGraphType] = useState<'Pie Chart' | 'Bar Chart'>('Pie Chart');
   
-  // Calculate dynamic values from the data
-  const totalSpending = mockData.spendingCategories.reduce((sum, cat) => sum + cat.value, 0);
-  const totalRemaining = mockData.totalIncome - totalSpending - mockData.totalGiving;
-  const grandTotal = mockData.totalIncome + totalSpending + mockData.totalGiving;
+  const { transactions, getTotalByType, getTransactionsByType } = useData();
+  
+  // Calculate totals by type
+  const totalIncome = getTotalByType('income');
+  const totalSpending = getTotalByType('spending');
+  const totalGiving = getTotalByType('giving');
+  const totalRemaining = totalIncome - totalSpending - totalGiving;
+  const grandTotal = totalIncome + totalSpending + totalGiving;
+  
+  // Get last income date
+  const incomeTransactions = getTransactionsByType('income');
+  const lastIncomeDate = incomeTransactions.length > 0 
+    ? formatDate(new Date(incomeTransactions[0].date))
+    : "No income yet";
+  
+  // Group spending by category
+  const spendingTransactions = getTransactionsByType('spending');
+  const spendingByCategory = groupTransactionsByCategory(spendingTransactions);
+  const spendingCategories = Object.entries(spendingByCategory).map(([name, txns]) => ({
+    name,
+    value: txns.reduce((sum, t) => sum + t.amount, 0)
+  }));
   
   // Find top spending category
-  const topSpendingCategory = mockData.spendingCategories.reduce((max, cat) => 
-    cat.value > max.value ? cat : max
-  , mockData.spendingCategories[0]);
+  const topSpendingCategory = spendingCategories.length > 0
+    ? spendingCategories.reduce((max, cat) => cat.value > max.value ? cat : max, spendingCategories[0])
+    : { name: "None", value: 0 };
   
   // Calculate pie chart percentages
   const pieChartData = {
-    spent: Math.round((totalSpending / grandTotal) * 100),
-    giving: Math.round((mockData.totalGiving / grandTotal) * 100),
-    income: Math.round((totalRemaining / grandTotal) * 100),
+    spent: grandTotal > 0 ? Math.round((totalSpending / grandTotal) * 100) : 0,
+    giving: grandTotal > 0 ? Math.round((totalGiving / grandTotal) * 100) : 0,
+    income: grandTotal > 0 ? Math.round((totalRemaining / grandTotal) * 100) : 0,
   };
   
-  // Prepare categories for breakdown (spending categories, giving, and remaining money)
+  // Prepare categories for breakdown (spending categories, giving, and remaining)
   const allCategories = [
-    ...mockData.spendingCategories.map(cat => ({ ...cat, color: "red" as const })),
-    { name: "Giving", value: mockData.totalGiving, color: "gold" as const },
+    ...spendingCategories.map(cat => ({ ...cat, color: "red" as const })),
+    { name: "Giving", value: totalGiving, color: "gold" as const },
     { name: "Remaining", value: totalRemaining, color: "green" as const },
   ];
   
-  // Calculate percentages for category progress bars (based on total income as 100%)
+  // Calculate total of all categories (spending + giving + remaining = income)
+  const totalAllCategories = allCategories.reduce((sum, cat) => sum + cat.value, 0);
+  
+  // Calculate percentages for category progress bars (based on total of all categories)
   const categoryPercentages = allCategories.map(cat => ({
     ...cat,
-    percentage: (cat.value / mockData.totalIncome) * 100
+    percentage: totalAllCategories > 0 ? (cat.value / totalAllCategories) * 100 : 0
   }));
 
   return (
@@ -74,26 +88,26 @@ const InsightPage = () => {
         />
       }
     >
-      {/* Top Stats - Spending and Income */}
+      {/* Top Stats - Spending and Remaining Income */}
       <View style={styles.statsRow}>
         <StatCard
           icon="trending-up"
           label="Top Spending"
           category={topSpendingCategory.name}
-          value={`$${topSpendingCategory.value.toFixed(2)}`}
+          value={formatCurrency(topSpendingCategory.value)}
           type="spending"
         />
         <StatCard
           icon="trending-up"
-          label="Total Income"
-          category={mockData.incomeDate}
-          value={`$${mockData.totalIncome.toFixed(2)}`}
+          label="By Today"
+          category="Remaining"
+          value={formatCurrency(totalRemaining)}
           type="income"
         />
       </View>
 
       {/* Total Giving Card */}
-      <TotalGivingCard amount={mockData.totalGiving} />
+      <TotalGivingCard amount={totalGiving} />
 
       {/* Graph Type Selector - Dropdown */}
       <GraphTypeSelector 
@@ -113,13 +127,11 @@ const InsightPage = () => {
           />
         )}
         
-        {graphType === 'Line Chart' && <LineChart />}
-        
         {graphType === 'Bar Chart' && (
           <BarChart
-            incomeValue={mockData.totalIncome}
+            incomeValue={totalIncome}
             spendsValue={totalSpending}
-            givingValue={mockData.totalGiving}
+            givingValue={totalGiving}
           />
         )}
       </View>

@@ -16,9 +16,10 @@ import {
   FontSize,
   LineHeight,
 } from "../GlobalStyles";
+import { useData } from "../context/DataContext";
+import { formatCurrency } from "../utils/transactionUtils";
 
 // Three summary cards showing total Spending (red), Giving (gold), and Income (green)
-// TODO: Replace hardcoded amounts with real data
 export type SpendingGivingIncomeType = {
   iconMoney2State?: string;
   iconMoney2State1?: string;
@@ -30,6 +31,12 @@ const SpendingGivingIncome = ({
   iconMoney2State1,
   iconMoney2State2,
 }: SpendingGivingIncomeType) => {
+  const { getTotalByType } = useData();
+  
+  const totalSpending = getTotalByType('spending');
+  const totalGiving = getTotalByType('giving');
+  const totalIncome = getTotalByType('income');
+  
   return (
     <View style={styles.spendingGivingIncome}>
       <View style={[styles.spending, styles.spendingBorder]}>
@@ -37,21 +44,27 @@ const SpendingGivingIncome = ({
           <VectorMoneyRed width={35} height={35} />
         </View>
         <Text style={[styles.spending2, styles.textFlexBox]}>Spending</Text>
-        <Text style={[styles.text, styles.textFlexBox, styles.spendingAmount]}>$1,230.00</Text>
+        <Text style={[styles.text, styles.textFlexBox, styles.spendingAmount]}>
+          {formatCurrency(totalSpending)}
+        </Text>
       </View>
       <View style={[styles.spending, styles.givingBorder]}>
         <View style={styles.iconMoney2Wrapper}>
           <Vector4 width={35} height={35} />
         </View>
         <Text style={[styles.spending2, styles.textFlexBox]}>Giving</Text>
-        <Text style={[styles.text, styles.textFlexBox, styles.givingAmount]}>$200.00</Text>
+        <Text style={[styles.text, styles.textFlexBox, styles.givingAmount]}>
+          {formatCurrency(totalGiving)}
+        </Text>
       </View>
       <View style={[styles.spending, styles.incomeBorder]}>
         <View style={styles.iconMoney2Wrapper}>
           <VectorMoneyGreen width={35} height={35} />
         </View>
         <Text style={[styles.spending2, styles.textFlexBox]}>Income</Text>
-        <Text style={[styles.text, styles.textFlexBox, styles.incomeAmount]}>$2,245.00</Text>
+        <Text style={[styles.text, styles.textFlexBox, styles.incomeAmount]}>
+          {formatCurrency(totalIncome)}
+        </Text>
       </View>
     </View>
   );

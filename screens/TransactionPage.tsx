@@ -6,45 +6,36 @@ import TransactionToggleThreeWay from "../components/TransactionToggleThreeWay";
 import AddTransaction from "../components/AddTransaction";
 import AddTransactionModal from "../components/AddTransactionModal";
 import Transaction from "../components/Transaction";
+import { useData } from "../context/DataContext";
+import { sortTransactionsByDate, formatCurrency } from "../utils/transactionUtils";
 
-// Transaction history page with filtering (Incoming/Spending/Giving)
+/**
+ * TransactionPage - Transaction history with simple type filtering
+ * Displays: All transactions filtered by type (Incoming/Spending/Giving)
+ * Features: 3-way toggle for transaction types, add transaction button
+ * Note: For advanced filtering, see TransactionDetailPage
+ */
 const TransactionPage = ({ navigation }: any) => {
-  // State to track which tab is active (incoming, spending, or giving)
   const [activeTab, setActiveTab] = useState<"incoming" | "spending" | "giving">("incoming");
   const [modalVisible, setModalVisible] = useState(false);
+  
+  const { getTransactionsByType, addTransaction } = useData();
 
-  const handleSaveTransaction = (transaction: any) => {
-    console.log("New transaction:", transaction);
-    // TODO: Save transaction to database/API
+  const handleSaveTransaction = async (transaction: any) => {
+    await addTransaction(
+      transaction.type,
+      transaction.amount,
+      transaction.category,
+      transaction.description,
+      transaction.date
+    );
+    setModalVisible(false);
   };
 
-  // Sample transaction data - REPLACE WITH REAL DATA
-  // TO CONNECT DATA: Replace these arrays with data from your API/database
-  const incomingTransactions = [
-    { category: "Income", prop: "+$100.00" },
-    { category: "Income", prop: "+$100.00" },
-    { category: "Income", prop: "+$100.00" },
-  ];
-
-  const spendingTransactions = [
-    { category: "Spending", prop: "-$100.00" },
-    { category: "Spending", prop: "-$100.00" },
-    { category: "Spending", prop: "-$50.00" },
-    { category: "Spending", prop: "-$25.00" },
-  ];
-
-  const givingTransactions = [
-    { category: "Giving", prop: "-$100.00" },
-    { category: "Giving", prop: "-$50.00" },
-  ];
-
-  // Determine which transactions to show based on active tab
-  const currentTransactions = 
-    activeTab === "incoming" 
-      ? incomingTransactions 
-      : activeTab === "spending" 
-      ? spendingTransactions 
-      : givingTransactions;
+  // Get transactions by type and sort by date
+  const typeMap = { incoming: 'income', spending: 'spending', giving: 'giving' } as const;
+  const currentType = typeMap[activeTab];
+  const currentTransactions = sortTransactionsByDate(getTransactionsByType(currentType));
 
   return (
     <AppLayout 
@@ -62,11 +53,13 @@ const TransactionPage = ({ navigation }: any) => {
 
       {/* Transaction List - shows filtered transactions based on active tab */}
       <View style={styles.transactionsList}>
-        {currentTransactions.map((transaction, index) => (
+        {currentTransactions.map((transaction) => (
           <Transaction
-            key={index}
+            key={transaction.id}
+            state={transaction.type === 'income' ? 'Income' : transaction.type === 'spending' ? 'Spending' : 'Giving'}
             category={transaction.category}
-            prop={transaction.prop}
+            prop={`${transaction.type === 'income' ? '+' : '-'}${formatCurrency(transaction.amount)}`}
+            date={new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           />
         ))}
       </View>

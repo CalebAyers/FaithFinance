@@ -9,14 +9,24 @@ import BibleVerses from "../components/BibleVerses";
 import PrimaryButton from "../components/PrimaryButton";
 import ActionButton from "../components/ActionButton";
 import SetFaithGoalModal from "../components/SetFaithGoalModal";
-import { Text } from "react-native";
+import { useData } from "../context/DataContext";
+import { formatCurrency } from "../utils/transactionUtils";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Reflection page - shows giving progress, bible verses, and faith goal management
+/**
+ * ReflectionPage - Faith-based giving and reflection screen
+ * Displays: Giving summary, progress toward faith goal, inspirational Bible verses
+ * Features: Set/edit faith goal, view favorite verses, spiritual reflection prompts
+ */
 const ReflectionPage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  // Faith goal state
+  const { getTotalByType } = useData();
+  
+  // Get total giving amount from actual transactions
+  const totalGiving = getTotalByType('giving');
+  
+  // Faith goal state with persistence
   type FaithGoal = { amount: number; description?: string; createdAt?: string } | null;
   const FAITH_GOAL_KEY = '@ff:faithGoal';
   const [faithGoal, setFaithGoal] = useState<FaithGoal>(null);
@@ -32,6 +42,7 @@ const ReflectionPage = () => {
       }
     })();
   }, []);
+  
   // Verse state for the Bible verse shown in this page
   const ALL_VERSES = [
     { verseText: "Honor the Lord with your wealth, with the firstfruits of all your crops; then your barns will be filled to overflowing, and your vats will brim over with new wine.", verseReference: "Proverbs 3:9-10" },
@@ -154,7 +165,7 @@ const ReflectionPage = () => {
       {/* Giving Summary Cards */}
       <SectionContainer>
         <GivingSummaryCards 
-          givenAmount="$200.00"
+          givenAmount={formatCurrency(totalGiving)}
           goalAmount={faithGoal ? `$${faithGoal.amount.toFixed(2)}` : "$2,245.00"}
         />
       </SectionContainer>

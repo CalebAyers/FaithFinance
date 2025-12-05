@@ -40,26 +40,26 @@ const BibleVerses = ({
 }: BibleVersesType) => {
   return (
     <View style={styles.bibleVerses}>
-      {/* Content wrapper - holds icon and verse text in a row */}
-      <View style={styles.contentWrapper}>
-        {/* Book icon - vertically centered with verse text */}
-        <View style={styles.iconBibleWrapper}>
-          <IconBible1
-            style={styles.iconBible}
-            width={Width.width_32}
-            height={Height.height_32}
-          />
-        </View>
-        {/* Verse text container - italic centered text */}
-        <View style={styles.yetToAllWhoDidReceiveHimParent}>
-          <Text style={[styles.yetToAll, styles.john112Typo]}>
-            "{verseText}"
-          </Text>
-        </View>
+      {/* Title with icon - "Bible Verse" text with book icon to the right */}
+      <View style={styles.titleRow}>
+        <Text style={styles.titleText}>Bible Verse</Text>
+        <IconBible1
+          style={styles.iconBible}
+          width={Width.width_32}
+          height={Height.height_32}
+        />
       </View>
+      
+      {/* Verse text container - centered in the box */}
+      <View style={styles.verseTextContainer}>
+        <Text style={styles.verseText}>
+          "{verseText}"
+        </Text>
+      </View>
+      
       {/* Verse reference - positioned at bottom right */}
       <View style={styles.referenceContainer}>
-        <Text style={[styles.john112, styles.john112Typo]}>
+        <Text style={styles.john112}>
           {verseReference}
         </Text>
       </View>
@@ -68,21 +68,10 @@ const BibleVerses = ({
 };
 
 const styles = StyleSheet.create({
-  // Shared typography style for verse text and reference
-  john112Typo: {
-    alignItems: "center",
-    display: "flex",
-    fontFamily: FontFamily.interSemiBold,
-    fontWeight: "600",
-    fontStyle: "italic",
-    width: Width.width_290,
-  },
-  
   // Main container - cream card with gold border and shadow
-  // Uses column layout to stack content (icon+text) and reference
-  // minHeight allows box to grow with longer verses
+  // Fully responsive - uses percentages and flex instead of fixed width
   bibleVerses: {
-    width: Width.width_360,
+    width: '100%', // Responsive width instead of fixed Width.width_360
     minHeight: Height.height_150,
     boxShadow: BoxShadow.shadow_drop2,
     elevation: 20,
@@ -94,59 +83,66 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "column",
     paddingLeft: Padding.padding_22,
-    paddingTop: Padding.padding_28,
+    paddingTop: Padding.padding_16,
     paddingRight: Padding.padding_16,
     paddingBottom: Padding.padding_12,
   },
   
-  // Content wrapper - holds icon and verse text in horizontal row
-  // flex: 1 allows it to take available space
-  contentWrapper: {
+  // Title row - "Bible Verse" text with icon to the right
+  titleRow: {
     flexDirection: "row",
-    gap: 12, // Space between icon and text
-    flex: 1,
+    alignItems: "center",
+    gap: Gap.gap_4,
+    marginBottom: Gap.gap_10,
   },
   
-  // Book icon wrapper - centers icon vertically with verse text
-  iconBibleWrapper: {
-    zIndex: 2,
-    width: Width.width_32,
-    justifyContent: "center",
+  // Title text styling
+  titleText: {
+    fontSize: FontSize.fs_16,
+    fontFamily: FontFamily.interSemiBold,
+    fontWeight: "600",
+    color: Color.gOLD3,
   },
   
-  // Book icon itself
+  // Book icon
   iconBible: {
     height: Height.height_32,
     width: Width.width_32,
   },
   
-  // Verse text container - centers text vertically
-  yetToAllWhoDidReceiveHimParent: {
-    zIndex: 1,
-    width: Width.width_290,
+  // Verse text container - centered in the box
+  verseTextContainer: {
+    flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: Padding.padding_16,
   },
   
   // Verse text styling - italic, centered, black
-  yetToAll: {
-    fontSize: 14,
+  verseText: {
+    fontSize: FontSize.fs_14,
     lineHeight: LineHeight.lh_25,
+    fontFamily: FontFamily.interSemiBold,
+    fontWeight: "600",
+    fontStyle: "italic",
     color: Color.colorBlack,
     textAlign: "center",
-    justifyContent: "center",
   },
   
   // Reference container - positions at bottom right with small margins
   referenceContainer: {
     alignSelf: 'flex-end',
-    marginTop: 4, // Small space between text and reference
-    marginRight: 8, // Space from right edge
+    marginTop: Gap.gap_4,
+    marginRight: Gap.gap_4,
   },
   
   // Reference text styling - gold, right-aligned
   john112: {
-    fontSize: 16,
+    fontSize: FontSize.fs_16,
     lineHeight: LineHeight.lh_38,
+    fontFamily: FontFamily.interSemiBold,
+    fontWeight: "600",
+    fontStyle: "italic",
     color: Color.gOLD3,
     textAlign: "right",
   },

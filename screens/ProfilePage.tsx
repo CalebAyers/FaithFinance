@@ -1,18 +1,32 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Modal, View, TextInput, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, Alert, Modal, View, TextInput, TouchableOpacity, Text } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
 import AppLayout from "../components/AppLayout";
 import SectionContainer from "../components/SectionContainer";
 import ProfileActionButton from "../components/ProfileActionButton";
 import ProfileUserCard from "../components/ProfileUserCard";
 import ResetPasswordModal from "../components/ResetPasswordModal";
+import { useData } from "../context/DataContext";
+import { formatCurrency } from "../utils/transactionUtils";
 
-// Profile page - user info and account settings
+/**
+ * ProfilePage - User profile and account management screen
+ * Displays: User info card with total income/giving, profile picture
+ * Features: Edit profile, favorite verses, reset password, reset mock data (dev tool)
+ */
 const ProfilePage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const { loadMockData, getTotalByType } = useData();
+  
+  // Get actual income and giving totals
+  const totalIncome = getTotalByType('income');
+  const totalGiving = getTotalByType('giving');
+  
+  // Name editing state
   const [userName, setUserName] = useState<string | null>(null);
   const [nameModalVisible, setNameModalVisible] = useState(false);
   const [nameDraft, setNameDraft] = useState("");
@@ -74,9 +88,47 @@ const ProfilePage = () => {
     // TODO: Implement actual password reset logic
   };
 
-  const handleResetMockData = () => {
-    console.log("Reset Mock Data");
-    // TODO: implement reset data
+  // Reset all transactions to mock data (for testing)
+  const handleResetMockData = async () => {
+    try {
+      console.log("Resetting to mock data...");
+      
+      // Clear favorite verses
+      await AsyncStorage.removeItem('@ff:favorites');
+      console.log("Favorite verses cleared");
+      
+      // Clear faith goal
+      await AsyncStorage.removeItem('@ff:faithGoal');
+      console.log("Faith goal cleared");
+      
+      // Reset transactions
+      await loadMockData();
+      console.log("Mock data loaded successfully");
+      
+      // Force a full app refresh to update all screens
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'HomePage' as never }],
+        })
+      );
+      
+      Alert.alert(
+        "Success",
+        "All data has been reset to defaults!",
+        [{ text: "OK" }]
+      );
+    } catch (error) {
+      console.error("Error loading mock data:", error);
+      Alert.alert(
+        "Error",
+        "Failed to reset mock data. Please try again.",
+        [{ text: "OK" }]
+      );
+    }
+  };
+
+  const handleManageAccount = () => {
   };
 
   const handleLogout = () => {
@@ -93,7 +145,13 @@ const ProfilePage = () => {
     >
       {/* User Info Card */}
       <SectionContainer>
-        <ProfileUserCard onEditImage={handleEditImage} onEditName={openEditName} userName={userName ?? undefined} />
+        <ProfileUserCard 
+          onEditImage={handleEditImage}
+          onEditName={openEditName}
+          userName={userName ?? undefined}
+          incomeAmount={formatCurrency(totalIncome)}
+          givingAmount={formatCurrency(totalGiving)}
+        />
       </SectionContainer>
 
       {/* Edit Name Modal */}

@@ -8,7 +8,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback } from "react";
 import { useFocusEffect } from '@react-navigation/native';
 
-// Favorite Verses page - displays saved bible verses
+/**
+ * FavoriteVersesPage - Saved Bible verses collection
+ * Displays: User's curated list of favorite Bible verses for spiritual guidance
+ * Features: Edit mode to add/remove verses, back navigation
+ */
 const FavoriteVersesPage = () => {
   const navigation = useNavigation();
 
@@ -110,10 +114,12 @@ const styles = StyleSheet.create({
   },
   removeButton: {
     position: 'absolute',
-    right: 12,
-    top: 8,
+    right: 16,
+    top: 18,
     backgroundColor: 'rgba(220,220,220,0.9)',
-    paddingVertical: 6,
+    paddingVertical: 4,
+    borderWidth: 0.5, 
+    borderColor: '#b00020',
     paddingHorizontal: 10,
     borderRadius: 6,
   },
