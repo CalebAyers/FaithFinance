@@ -56,7 +56,6 @@ const SetFaithGoalModal = ({ visible, onClose, onSave }: SetFaithGoalModalProps)
   // Reset form when modal closes
   const handleClose = () => {
     setAmount("");
-    setPeriod("");
     setDescription("");
     setPeriodDropdownOpen(false);
     onClose();

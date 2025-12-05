@@ -9,24 +9,14 @@ import BibleVerses from "../components/BibleVerses";
 import PrimaryButton from "../components/PrimaryButton";
 import ActionButton from "../components/ActionButton";
 import SetFaithGoalModal from "../components/SetFaithGoalModal";
-import { useData } from "../context/DataContext";
-import { formatCurrency } from "../utils/transactionUtils";
+import { Text } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-/**
- * ReflectionPage - Faith-based giving and reflection screen
- * Displays: Giving summary, progress toward faith goal, inspirational Bible verses
- * Features: Set/edit faith goal, view favorite verses, spiritual reflection prompts
- */
+// Reflection page - shows giving progress, bible verses, and faith goal management
 const ReflectionPage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const { getTotalByType } = useData();
-  
-  // Get total giving amount from actual transactions
-  const totalGiving = getTotalByType('giving');
-  
-  // Faith goal state with persistence
+  // Faith goal state
   type FaithGoal = { amount: number; description?: string; createdAt?: string } | null;
   const FAITH_GOAL_KEY = '@ff:faithGoal';
   const [faithGoal, setFaithGoal] = useState<FaithGoal>(null);
@@ -42,7 +32,6 @@ const ReflectionPage = () => {
       }
     })();
   }, []);
-  
   // Verse state for the Bible verse shown in this page
   const ALL_VERSES = [
     { verseText: "Honor the Lord with your wealth, with the firstfruits of all your crops; then your barns will be filled to overflowing, and your vats will brim over with new wine.", verseReference: "Proverbs 3:9-10" },
@@ -111,8 +100,9 @@ const ReflectionPage = () => {
         { text: 'Cancel', style: 'cancel' },
         { text: 'Clear', style: 'destructive', onPress: async () => {
             try {
-            await AsyncStorage.removeItem(FAITH_GOAL_KEY);
-            setFaithGoal(null);
+            const zeroGoal = { amount: 0, description: '', createdAt: new Date().toISOString() };
+            await AsyncStorage.setItem(FAITH_GOAL_KEY, JSON.stringify(zeroGoal));
+            setFaithGoal(zeroGoal);
           } catch (e) {
             console.warn('Failed to clear faith goal', e);
             Alert.alert('Error', 'Failed to clear faith goal.');
@@ -165,7 +155,7 @@ const ReflectionPage = () => {
       {/* Giving Summary Cards */}
       <SectionContainer>
         <GivingSummaryCards 
-          givenAmount={formatCurrency(totalGiving)}
+          givenAmount="$200.00"
           goalAmount={faithGoal ? `$${faithGoal.amount.toFixed(2)}` : "$2,245.00"}
         />
       </SectionContainer>
