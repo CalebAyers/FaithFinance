@@ -90,6 +90,8 @@ export const BoxShadow = {
 };
 /* width - Responsive */
 export const Width = {
+  width_12: scale(12),
+  width_16: scale(16),
   width_26: scale(26),
   width_32: scale(32),
   width_32_23: scale(32),
@@ -119,10 +121,13 @@ export const Width = {
 /* height - Responsive */
 export const Height = {
   height_8: verticalScale(8),
+  height_12: verticalScale(12),
+  height_16: verticalScale(16),
   height_19: verticalScale(19),
   height_20_8: verticalScale(21),
   height_23_4: verticalScale(23),
   height_28: verticalScale(28),
+  height_26: verticalScale(26),
   height_32: verticalScale(32),
   height_32_23: verticalScale(32),
   height_38: verticalScale(38),

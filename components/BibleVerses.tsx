@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import IconBible1 from "../assets/Icon-Bible1.svg";
+import { scale, verticalScale } from "../utils/responsive";
 import {
   FontFamily,
   Width,
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
   
   // Book icon
   iconBible: {
-    height: Height.height_32,
-    width: Width.width_32,
+    height: verticalScale(18),
+    width: scale(18),
   },
   
   // Verse text container - centered in the box

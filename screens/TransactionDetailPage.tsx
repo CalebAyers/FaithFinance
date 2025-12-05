@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import AppLayout from "../components/AppLayout";
 import SearchBar from "../components/SearchBar";
 import AddTransactionModal from "../components/AddTransactionModal";
@@ -8,7 +8,7 @@ import FilterDropdown from "../components/FilterDropdown";
 import TransactionList from "../components/TransactionList";
 import ActionButtonRow from "../components/ActionButtonRow";
 import { useData } from "../context/DataContext";
-import { sortTransactionsByDate } from "../utils/transactionUtils";
+import { sortTransactionsByDate, formatCurrency } from "../utils/transactionUtils";
 
 /**
  * TransactionDetailPage - Full transaction history with advanced filtering
@@ -22,8 +22,9 @@ const TransactionDetailPage = ({ navigation }: any) => {
   const [typeDropdownOpen, setTypeDropdownOpen] = useState(false);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   
-  const { transactions, addTransaction } = useData();
+  const { transactions, addTransaction, deleteTransaction } = useData();
 
   // Get categories based on selected type
   const categories = useMemo(() => {
@@ -84,6 +85,32 @@ const TransactionDetailPage = ({ navigation }: any) => {
     setCategoryDropdownOpen(false);
   };
 
+  const handleDeleteTransaction = (transaction: any) => {
+    Alert.alert(
+      'Delete Transaction',
+      `Are you sure you want to delete this ${transaction.type} of ${formatCurrency(transaction.amount)}?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Delete', 
+          style: 'destructive', 
+          onPress: async () => {
+            try {
+              await deleteTransaction(transaction.id);
+            } catch (error) {
+              console.error('Error deleting transaction:', error);
+              Alert.alert('Error', 'Failed to delete transaction');
+            }
+          } 
+        },
+      ]
+    );
+  };
+
+  const handleToggleEditMode = () => {
+    setEditMode(prev => !prev);
+  };
+
   // Format option labels for dropdowns
   const formatTypeOption = (type: string) => 
     type === "all" ? "All Types" : type.charAt(0).toUpperCase() + type.slice(1);
@@ -139,13 +166,17 @@ const TransactionDetailPage = ({ navigation }: any) => {
       }
     >
       {/* Filtered Transaction List */}
-      <TransactionList transactions={filteredTransactions} />
+      <TransactionList 
+        transactions={filteredTransactions} 
+        editMode={editMode}
+        onDelete={handleDeleteTransaction}
+      />
 
       {/* Action Buttons */}
       <ActionButtonRow
         buttons={[
           { label: "Add Transaction", onPress: () => setModalVisible(true) },
-          { label: "Edit", onPress: () => console.log("Edit mode") },
+          { label: editMode ? "Done" : "Edit", onPress: handleToggleEditMode },
         ]}
       />
 

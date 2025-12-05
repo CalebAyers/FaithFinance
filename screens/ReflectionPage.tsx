@@ -11,15 +11,24 @@ import ActionButton from "../components/ActionButton";
 import SetFaithGoalModal from "../components/SetFaithGoalModal";
 import { Text } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useData } from "../context/DataContext";
+import { formatCurrency } from "../utils/transactionUtils";
 
 // Reflection page - shows giving progress, bible verses, and faith goal management
 const ReflectionPage = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const { transactions } = useData();
+  
   // Faith goal state
   type FaithGoal = { amount: number; description?: string; createdAt?: string } | null;
   const FAITH_GOAL_KEY = '@ff:faithGoal';
   const [faithGoal, setFaithGoal] = useState<FaithGoal>(null);
+
+  // Calculate total giving from transactions
+  const totalGiving = transactions
+    .filter(t => t.type === 'giving')
+    .reduce((sum, t) => sum + t.amount, 0);
 
   // load persisted faith goal on mount
   useEffect(() => {
@@ -100,9 +109,8 @@ const ReflectionPage = () => {
         { text: 'Cancel', style: 'cancel' },
         { text: 'Clear', style: 'destructive', onPress: async () => {
             try {
-            const zeroGoal = { amount: 0, description: '', createdAt: new Date().toISOString() };
-            await AsyncStorage.setItem(FAITH_GOAL_KEY, JSON.stringify(zeroGoal));
-            setFaithGoal(zeroGoal);
+            await AsyncStorage.removeItem(FAITH_GOAL_KEY);
+            setFaithGoal(null);
           } catch (e) {
             console.warn('Failed to clear faith goal', e);
             Alert.alert('Error', 'Failed to clear faith goal.');
@@ -155,8 +163,8 @@ const ReflectionPage = () => {
       {/* Giving Summary Cards */}
       <SectionContainer>
         <GivingSummaryCards 
-          givenAmount="$200.00"
-          goalAmount={faithGoal ? `$${faithGoal.amount.toFixed(2)}` : "$2,245.00"}
+          givenAmount={formatCurrency(totalGiving)}
+          goalAmount={faithGoal ? formatCurrency(faithGoal.amount) : "$0.00"}
         />
       </SectionContainer>
 

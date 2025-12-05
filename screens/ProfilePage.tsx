@@ -37,9 +37,10 @@ const ProfilePage = () => {
     (async () => {
       try {
         const raw = await AsyncStorage.getItem(PROFILE_NAME_KEY);
-        if (raw) setUserName(raw);
+        setUserName(raw || 'Mock User');
       } catch (e) {
         console.warn('Failed to load profile name', e);
+        setUserName('Mock User');
       }
     })();
   }, []);
@@ -100,6 +101,11 @@ const ProfilePage = () => {
       // Clear faith goal
       await AsyncStorage.removeItem('@ff:faithGoal');
       console.log("Faith goal cleared");
+      
+      // Reset profile name to default
+      await AsyncStorage.setItem(PROFILE_NAME_KEY, 'Mock User');
+      setUserName('Mock User');
+      console.log("Profile name reset to Mock User");
       
       // Reset transactions
       await loadMockData();
