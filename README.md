@@ -165,10 +165,14 @@ accessibilityRole="adjustable"     // Modal dropdowns
 ---
 
 ## Team
-- Alejandro Marchesini - Developer and Designer
-- Caleb Ayers
-- Jiale Zheng
-- Francesco Pio Centrella
+
+**Lead Developer & Designer**: Alejandro Marchesini  
+GitHub: [@CalebAyers](https://github.com/CalebAyers)
+
+**Team Members**:
+- Caleb Ayers - [Role]
+- Jiale Zheng - [Role]
+- Francesco Pio Centrella - [Role]
 
 ---
 
