@@ -99,22 +99,26 @@ const ReflectionPage = () => {
     );
   };
 
-  const handleAddToFavorite = () => {
+  const handleAddToFavorites = () => {
     (async () => {
       try {
         const FAVORITES_KEY = '@ff:favorites';
         const raw = await AsyncStorage.getItem(FAVORITES_KEY);
-        const existing = raw ? JSON.parse(raw) as { verseText: string; verseReference: string }[] : [];
-        const already = existing.some(v => v.verseReference === currentVerse.verseReference && v.verseText === currentVerse.verseText);
+        const existing = raw ? JSON.parse(raw) : [];
+        const already = existing.some((v: Verse) => v.verseReference === currentVerse.verseReference && v.verseText === currentVerse.verseText);
         if (already) {
-          console.log('Verse already in favorites');
+          Alert.alert('Already saved', 'This verse is already in your favorites.');
           return;
         }
         const next = [currentVerse, ...existing];
         await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
-        console.log('Added to favorites', currentVerse);
+        Alert.alert('Added to Favorites', `${currentVerse.verseReference} has been saved to your favorite verses.`);
+        
+        // Show a new random verse after adding to favorites
+        handleRefreshVerse();
       } catch (e) {
         console.warn('Failed to add favorite', e);
+        Alert.alert('Error', 'Failed to add verse to favorites. Please try again.');
       }
     })();
   };
@@ -170,7 +174,7 @@ const ReflectionPage = () => {
       <SectionContainer>
         <View style={styles.actionButtonsRow}>
           <ActionButton 
-            onPress={handleAddToFavorite}
+            onPress={handleAddToFavorites}
             label="Add to Favorite"
           />
           <ActionButton 
