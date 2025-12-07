@@ -167,7 +167,7 @@ accessibilityRole="adjustable"     // Modal dropdowns
 ## Team
 
 **Lead Developer & Designer**: Alejandro Marchesini  
-GitHub: [@CalebAyers](https://github.com/CalebAyers)
+GitHub: [@AlejandroMarchesini12](https://github.com/AlejandroMarchesini12)
 
 **Team Members**:
 - Caleb Ayers - [Role]
