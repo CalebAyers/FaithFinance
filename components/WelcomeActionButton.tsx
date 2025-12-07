@@ -6,10 +6,16 @@ import { Color, FontFamily } from "../GlobalStyles";
 interface WelcomeActionButtonProps {
   onPress: () => void;
   label: string;
-  backgroundColor?: string;
+  backgroundColor?: string; // Optional custom background color (default: mainRed)
 }
 
-// Solid red action button for Welcome page
+/**
+ * WelcomeActionButton - Reusable red action button for authentication screens
+ * 
+ * Used on: WelcomePage, SignUpPage
+ * Features: Fully responsive dimensions, optional background color override
+ * Design: Solid red button with white text, rounded corners
+ */
 const WelcomeActionButton = ({ onPress, label, backgroundColor }: WelcomeActionButtonProps) => {
   return (
     <TouchableOpacity style={[styles.actionButton, backgroundColor ? { backgroundColor } : {}]} onPress={onPress}>

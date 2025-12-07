@@ -1,64 +1,119 @@
-# FaithFinance - Setup Instructions
+# FaithFinance - Setup Guide
 
-## What You Need
+Quick setup instructions for running FaithFinance.
 
-1. **Node.js** (v18+) - https://nodejs.org/
-2. **Git** - https://git-scm.com/
-3. **Expo Go** app on your phone (App Store or Google Play)
+---
 
-## Getting Started
+## Prerequisites
 
-### 1. Clone the repo
+**Required:**
+- **Node.js** v23+ ([nodejs.org](https://nodejs.org/))
+- **npm** (comes with Node.js)
+
+**For iOS (MacOS only):**
+- **Xcode** 12+
+- Command Line Tools: `xcode-select --install`
+
+**For Android:**
+- **Android Studio** with SDK (API 21+)
+
+**Quick Testing (Optional):**
+- **Expo Go** app (App Store / Google Play)
+
+---
+
+## Installation
+
 ```bash
+# 1. Clone or download project
 git clone https://github.com/CalebAyers/FaithFinance.git
 cd FaithFinance
-```
 
-### 2. Install packages
-```bash
+# 2. Install dependencies (takes 2-5 min)
 npm install
-```
-This takes a few minutes.
 
-### 3. Start the server
+# 3. Start development server
+npx expo start
+```
+
+---
+
+## Key Dependencies
+
+**Framework:**
+- `react-native` - Mobile framework
+- `expo` - Development tools
+- `typescript` - Type safety
+
+**Navigation:**
+- `@react-navigation/native` - Screen navigation
+- `@react-navigation/stack` - Screen transitions
+- `@react-navigation/bottom-tabs` - Bottom nav bar
+
+**Data & UI:**
+- `@react-native-async-storage/async-storage` - Local storage
+- `react-native-chart-kit` - Charts
+- `react-native-svg` - Vector graphics
+- `@expo/vector-icons` - Icons
+- `expo-font` - Custom fonts
+
+See `package.json` for complete list.
+
+---
+
+## Project Structure
+
+```
+FaithFinance/
+├── App.tsx              # Main entry point
+├── screens/             # 9 app screens
+├── components/          # 40+ reusable components
+├── context/             # State management
+├── services/            # AsyncStorage
+├── utils/               # Helper functions
+├── assets/              # Fonts, images, SVGs
+└── GlobalStyles.ts      # Colors, styles
+```
+
+---
+
+## Common Commands
+
 ```bash
-npm start
+npm start                  # Start dev server
+npx expo start --clear     # Clear cache
+npx expo start --ios       # Run iOS
+npx expo start --android   # Run Android
 ```
-
-### 4. Run on your phone
-- Scan the QR code with your Camera app (iOS) or Expo Go app (Android)
-- App will load on your phone
+---
 
 ## Troubleshooting
 
-**"Unable to resolve module" error:**
+**Module errors:**
 ```bash
 npx expo start --clear
 ```
 
-**Metro won't start:**
-```bash
-Stop-Process -Name "node" -Force  # Windows
-npm start
-```
-
-**TypeScript errors about missing files:**
+**TypeScript errors:**
 - VS Code: `Ctrl+Shift+P` → "TypeScript: Restart TS Server"
 
-**Still not working:**
+**Clean reinstall:**
 ```bash
 rm -rf node_modules
+rm package-lock.json
 npm install
 npx expo start --clear
 ```
 
-## Project Structure
-- `assets/` - Images, fonts, icons
-- `components/` - Reusable components
-- `screens/` - App pages
-- `App.tsx` - Entry point
+---
 
-## Commands
-- `npm start` - Start dev server
-- Press `R` in terminal - Reload app
-- Press `D` in terminal - Dev menu
+## Resources
+
+- [React Native Docs](https://reactnative.dev/docs/getting-started)
+- [Expo Docs](https://docs.expo.dev/)
+- [React Navigation](https://reactnavigation.org/docs/getting-started)
+
+---
+
+**See [README.md](README.md) for app overview and accessibility info.**  
+**See [DATA_USAGE.md](DATA_USAGE.md) for working with data.**

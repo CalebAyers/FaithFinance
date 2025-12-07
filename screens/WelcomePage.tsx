@@ -8,6 +8,23 @@ import WelcomeInputField from "../components/WelcomeInputField";
 import LoadingScreen from "../components/LoadingScreen";
 import { useData } from "../context/DataContext";
 
+/**
+ * WelcomePage - Initial authentication screen
+ * 
+ * Layout:
+ * - Red header (25% height) with app logo, title, and mission statement card
+ * - White content area (75% height) with login form
+ * 
+ * Features:
+ * - Log In: Saves username, navigates to HomePage with existing data
+ * - Sign Up: Navigates to SignUpPage for new user registration
+ * - Continue as Mock User: Resets all data to defaults, navigates to HomePage
+ * 
+ * Data Persistence:
+ * - Username saved to AsyncStorage (@ff:profileName)
+ * - Mock User option clears favorites, faith goal, and resets transactions
+ */
+
 interface WelcomePageProps {
   navigation: any;
 }
@@ -88,7 +105,12 @@ const WelcomePage = ({ navigation }: WelcomePageProps) => {
         
         {/* Mission Statement Card */}
         <View style={styles.missionCard}>
-          <Text style={styles.missionTitle}>Mission Statement</Text>
+          <Text style={styles.missionHeading}>Mission</Text>
+          <Text style={styles.missionTitle}>
+            FaithFinance empowers users to manage money with clarity and practice daily stewardship
+            through simple budgeting tools, practical insights, and 
+            Scripture-based encouragement.
+          </Text>
         </View>
       </View>
 
@@ -188,13 +210,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  missionTitle: {
-    fontSize: scaleFont(18),
-    fontWeight: "600",
+  missionHeading: {
+    fontSize: scaleFont(24),
+    fontWeight: "700",
     fontFamily: FontFamily.interSemiBold,
     color: Color.gOLD3,
+    textAlign: "center",
+    marginBottom: verticalScale(8),
+  },
+  missionTitle: {
+    fontSize: scaleFont(16),
+    fontWeight: "600",
+    fontStyle: "italic",
+    fontFamily: FontFamily.interSemiBold,
+    color: Color.colorBlack,
     textAlign: "center",
   },
 });
 
 export default WelcomePage;
+

@@ -5,10 +5,16 @@ import { Color, FontFamily } from "../GlobalStyles";
 
 interface WelcomeInputFieldProps extends TextInputProps {
   label: string;
-  isLastField?: boolean;
+  isLastField?: boolean; // Adds extra bottom margin for spacing before buttons
 }
 
-// Input field with label for Welcome page
+/**
+ * WelcomeInputField - Reusable labeled input field for authentication screens
+ * 
+ * Used on: WelcomePage, SignUpPage
+ * Features: Fully responsive, gold border, cream background
+ * Props: All standard TextInput props plus custom label and spacing
+ */
 const WelcomeInputField = ({ label, isLastField, ...textInputProps }: WelcomeInputFieldProps) => {
   return (
     <View style={[styles.fieldContainer, isLastField && styles.lastFieldContainer]}>

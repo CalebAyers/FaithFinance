@@ -7,6 +7,25 @@ import WelcomeActionButton from "../components/WelcomeActionButton";
 import WelcomeInputField from "../components/WelcomeInputField";
 import LoadingScreen from "../components/LoadingScreen";
 
+/**
+ * SignUpPage - New user registration screen
+ * 
+ * Layout:
+ * - Red background with "Sign Up" title (gold color)
+ * - White rounded card containing signup form
+ * 
+ * Form Fields:
+ * - UserName: Display name for profile
+ * - Email: User email (UI only, not validated)
+ * - Password: User password (UI only, not stored)
+ * 
+ * Actions:
+ * - Sign Up: Saves username to AsyncStorage, shows loading, navigates to HomePage
+ * - Log In: Returns to WelcomePage for existing users
+ * 
+ * Note: This is a UI demonstration - no actual authentication backend
+ */
+
 interface SignUpPageProps {
   navigation: any;
 }

@@ -4,6 +4,8 @@ import { StyleSheet, Alert, Modal, View, TextInput, TouchableOpacity, Text } fro
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 import { CommonActions } from "@react-navigation/native";
+import { scale, scaleFont, verticalScale } from "../utils/responsive";
+import { Color, FontFamily } from "../GlobalStyles";
 import AppLayout from "../components/AppLayout";
 import SectionContainer from "../components/SectionContainer";
 import ProfileActionButton from "../components/ProfileActionButton";
@@ -96,6 +98,9 @@ const ProfilePage = () => {
     try {
       console.log("Resetting to mock data...");
       
+      // Show loading screen
+      setIsLoggingOut(true);
+      
       // Clear favorite verses
       await AsyncStorage.removeItem('@ff:favorites');
       console.log("Favorite verses cleared");
@@ -113,30 +118,25 @@ const ProfilePage = () => {
       await loadMockData();
       console.log("Mock data loaded successfully");
       
-      // Force a full app refresh to update all screens
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'HomePage' as never }],
-        })
-      );
-      
-      Alert.alert(
-        "Success",
-        "All data has been reset to defaults!",
-        [{ text: "OK" }]
-      );
+      // Navigate to WelcomePage after 2 seconds
+      setTimeout(() => {
+        setIsLoggingOut(false);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'WelcomePage' as never }],
+          })
+        );
+      }, 2000);
     } catch (error) {
       console.error("Error loading mock data:", error);
+      setIsLoggingOut(false);
       Alert.alert(
         "Error",
         "Failed to reset mock data. Please try again.",
         [{ text: "OK" }]
       );
     }
-  };
-
-  const handleManageAccount = () => {
   };
 
   const handleLogout = () => {
@@ -196,16 +196,21 @@ const ProfilePage = () => {
 
       {/* Edit Name Modal */}
       <Modal visible={nameModalVisible} animationType="slide" transparent>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.6)' }}>
-          <View style={{ width: '90%', backgroundColor: '#fff', padding: 20, borderRadius: 12 }}>
-            <Text style={{ fontSize: 18, fontWeight: '700', marginBottom: 8 }}>Edit Name</Text>
-            <TextInput value={nameDraft} onChangeText={setNameDraft} placeholder="Your name" style={{ borderWidth: 1, borderColor: '#ddd', padding: 12, borderRadius: 8, marginBottom: 12 }} />
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 8 }}>
-              <TouchableOpacity onPress={handleCancelName} style={{ padding: 10 }}>
-                <Text style={{ color: '#666' }}>Cancel</Text>
+        <View style={modalStyles.overlay}>
+          <View style={modalStyles.container}>
+            <Text style={modalStyles.title}>Edit Name</Text>
+            <TextInput 
+              value={nameDraft} 
+              onChangeText={setNameDraft} 
+              placeholder="Your name" 
+              style={modalStyles.input}
+            />
+            <View style={modalStyles.buttonRow}>
+              <TouchableOpacity onPress={handleCancelName} style={modalStyles.cancelButton}>
+                <Text style={modalStyles.cancelText}>Cancel</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleSaveName} style={{ backgroundColor: '#f0c000', paddingHorizontal: 14, paddingVertical: 10, borderRadius: 8 }}>
-                <Text style={{ color: '#fff', fontWeight: '700' }}>Save</Text>
+              <TouchableOpacity onPress={handleSaveName} style={modalStyles.saveButton}>
+                <Text style={modalStyles.saveText}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -253,5 +258,62 @@ const ProfilePage = () => {
     </AppLayout>
   );
 };
+
+// Styles for Edit Name Modal (responsive)
+const modalStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  container: {
+    width: '90%',
+    backgroundColor: Color.componentsBackgrounf,
+    padding: scale(20),
+    borderRadius: scale(12),
+  },
+  title: {
+    fontSize: scaleFont(18),
+    fontWeight: '700',
+    fontFamily: FontFamily.interSemiBold,
+    color: Color.colorBlack,
+    marginBottom: verticalScale(8),
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: Color.gOLD3,
+    padding: scale(12),
+    borderRadius: scale(8),
+    marginBottom: verticalScale(12),
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.interMedium,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: scale(8),
+  },
+  cancelButton: {
+    padding: scale(10),
+  },
+  cancelText: {
+    color: '#666',
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.interMedium,
+  },
+  saveButton: {
+    backgroundColor: Color.gOLD3,
+    paddingHorizontal: scale(14),
+    paddingVertical: verticalScale(10),
+    borderRadius: scale(8),
+  },
+  saveText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: scaleFont(14),
+    fontFamily: FontFamily.interSemiBold,
+  },
+});
 
 export default ProfilePage;
