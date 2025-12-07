@@ -164,6 +164,14 @@ accessibilityRole="adjustable"     // Modal dropdowns
 
 ---
 
+## Team
+- Alejandro Marchesini - Developer and Designer
+- Caleb Ayers
+- Jiale Zheng
+- Francesco Pio Centrella
+
+---
+
 ## Support
 
 For questions or issues:
