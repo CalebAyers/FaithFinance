@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AppLayout from "../components/AppLayout";
 import PeriodToggleThreeWay from "../components/PeriodToggleThreeWay";
 import BibleVerses from "../components/BibleVerses";
@@ -14,18 +14,27 @@ import GraphTypeSelector from "../components/GraphTypeSelector";
 import { Color, FontFamily } from "../GlobalStyles";
 import { useData } from "../context/DataContext";
 import { groupTransactionsByCategory, formatDate, formatCurrency } from "../utils/transactionUtils";
+import { getRandomVerse, type Verse } from "../data/bibleVerses";
 
 /**
  * InsightPage - Financial analytics and visualization screen
- * Displays: Remaining balance, pie/bar charts, category breakdown, giving totals
- * Features: Weekly/Monthly/Yearly toggle, chart type selector, Bible verse
+ * Displays: Remaining balance, pie/bar charts, category breakdown, giving totals, random Bible verse
+ * Features: Weekly/Monthly/Yearly toggle, chart type selector, verse changes on navigation
  */
 const InsightPage = () => {
   const navigation = useNavigation();
   const [selectedPeriod, setSelectedPeriod] = useState<'Weekly' | 'Monthly' | 'Yearly'>('Monthly');
   const [graphType, setGraphType] = useState<'Pie Chart' | 'Bar Chart'>('Pie Chart');
+  const [currentVerse, setCurrentVerse] = useState<Verse>(getRandomVerse());
   
   const { transactions, getTotalByType, getTransactionsByType } = useData();
+
+  // Change verse every time user navigates to InsightPage
+  useFocusEffect(
+    React.useCallback(() => {
+      setCurrentVerse(getRandomVerse());
+    }, [])
+  );
   
   // Calculate totals by type
   const totalIncome = getTotalByType('income');
@@ -142,8 +151,8 @@ const InsightPage = () => {
       {/* Bible Verse */}
       <View style={styles.bibleVerseContainer}>
         <BibleVerses 
-          verseText="Yet to all who did receive him, to those who believed in his name, he gave the right to become children of God"
-          verseReference="John 1:12"
+          verseText={currentVerse.verseText}
+          verseReference={currentVerse.verseReference}
         />
       </View>
     </AppLayout>

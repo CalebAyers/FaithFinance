@@ -1,6 +1,7 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import AppLayout from "../components/AppLayout";
 import SectionTitle from "../components/SectionTitle";
 import SpendingGivingIncome from "../components/SpendingGivingIncome";
@@ -10,15 +11,24 @@ import AddTransactionModal from "../components/AddTransactionModal";
 import Transaction from "../components/Transaction";
 import { useData } from "../context/DataContext";
 import { sortTransactionsByDate, formatCurrency } from "../utils/transactionUtils";
+import { getRandomVerse, type Verse } from "../data/bibleVerses";
 
 /**
  * HomePage - Main dashboard screen
- * Displays: Financial summary cards (income/spending/giving), daily Bible verse, 6 most recent transactions
- * Features: Quick add transaction button, view all transactions link
+ * Displays: Financial summary cards (income/spending/giving), random daily Bible verse, 6 most recent transactions
+ * Features: Quick add transaction button, Bible verse changes on each navigation
  */
 const HomePage = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [currentVerse, setCurrentVerse] = useState<Verse>(getRandomVerse());
   const { transactions, addTransaction } = useData();
+
+  // Change verse every time user navigates to HomePage
+  useFocusEffect(
+    React.useCallback(() => {
+      setCurrentVerse(getRandomVerse());
+    }, [])
+  );
 
   // Get 6 most recent transactions
   const recentTransactions = sortTransactionsByDate(transactions).slice(0, 6);
@@ -43,7 +53,10 @@ const HomePage = ({ navigation }: any) => {
 
       {/* Daily Bible Verse - Provides spiritual encouragement */}
       <View style={styles.bibleVerseContainer}>
-        <BibleVerses />
+        <BibleVerses 
+          verseText={currentVerse.verseText}
+          verseReference={currentVerse.verseReference}
+        />
       </View>
 
       {/* Add Transaction Button - Quick access to add new transaction */}
