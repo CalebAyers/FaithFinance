@@ -175,7 +175,8 @@ GitHub: [@AlejandroMarchesini12](https://github.com/AlejandroMarchesini12)
 **Team Members**:
 - Caleb Ayers - [Assistant Developer & Designer] 
 Github: [CalebAyers](https://github.com/CalebAyers?tab=repositories)
-- Jiale Zheng - [Role]
+- Jiale Zheng - [UI & UX Designer & Usability Tester]
+Github: [jialezheng][https://github.com/jialezheng]
 - Francesco Pio Centrella - [Role]
 
 ---
