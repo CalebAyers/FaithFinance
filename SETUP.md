@@ -61,22 +61,6 @@ See `package.json` for complete list.
 
 ---
 
-## Project Structure
-
-```
-FaithFinance/
-├── App.tsx              # Main entry point
-├── screens/             # 9 app screens
-├── components/          # 40+ reusable components
-├── context/             # State management
-├── services/            # AsyncStorage
-├── utils/               # Helper functions
-├── assets/              # Fonts, images, SVGs
-└── GlobalStyles.ts      # Colors, styles
-```
-
----
-
 ## Common Commands
 
 ```bash

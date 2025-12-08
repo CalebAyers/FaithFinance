@@ -29,7 +29,7 @@ npx expo start
 - **Transaction Management**: Add, edit, delete income, spending, and giving
 - **Spending Categories**: Comprehensive expense/income/giving categorization
 - **Real-time Analytics**: Pie charts, bar charts, category breakdowns
-- **Period Views**: Weekly, monthly, yearly financial summaries --Not implemented yet
+- **Period Views**: Weekly, monthly, yearly financial summaries --Logic not implemented yet
 
 ### Spiritual Integration
 - **Daily Bible Verses**: Scripture throughout the app --Fixed amount of verses
@@ -89,8 +89,11 @@ faithFinance/
 ├── context/              # DataContext (state management)
 ├── services/             # StorageService (AsyncStorage)
 ├── utils/                # Helper functions
+├── data/                 # Shared data (Bible verses)
 ├── assets/               # Images, fonts, SVGs
-└── docs/                 # Documentation (see below)
+├── README.md             # Project overview & accessibility
+├── SETUP.md              # Installation guide
+└── DATA_USAGE.md         # Data management reference
 ```
 
 ### Data Management
@@ -185,5 +188,5 @@ For questions or issues:
 
 ---
 
-**Last Updated**: December 6, 2025  
+**Last Updated**: December 7, 2025  
 **Version**: 1.0 (Demo Ready)
