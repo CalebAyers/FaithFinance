@@ -169,8 +169,11 @@ accessibilityRole="adjustable"     // Modal dropdowns
 
 ## Team
 
+**Project Repository**: [Faith-Finance-App/FaithFinance](https://github.com/Faith-Finance-App/FaithFinance)
+
 **Lead Developer & Designer**: Alejandro Marchesini  
 GitHub: [@AlejandroMarchesini12](https://github.com/AlejandroMarchesini12)
+
 
 **Team Members**:
 - Caleb Ayers - [Assistant Developer & Designer] 

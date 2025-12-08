@@ -26,7 +26,7 @@ Quick setup instructions for running FaithFinance.
 
 ```bash
 # 1. Clone or download project
-git clone https://github.com/CalebAyers/FaithFinance.git
+git clone https://github.com/Faith-Finance-App/FaithFinance.git
 cd FaithFinance
 
 # 2. Install dependencies (takes 2-5 min)
