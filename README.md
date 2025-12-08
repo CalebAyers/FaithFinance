@@ -180,7 +180,7 @@ GitHub: [@AlejandroMarchesini12](https://github.com/AlejandroMarchesini12)
 Github: [CalebAyers](https://github.com/CalebAyers?tab=repositories)
 - Jiale Zheng - [UI & UX Designer & Usability Tester]
 Github: [jialezheng][https://github.com/jialezheng]
-- Francesco Pio Centrella - [Role]
+- Francesco Pio Centrella - [Content Designer]
 
 ---
 
