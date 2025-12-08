@@ -170,7 +170,8 @@ accessibilityRole="adjustable"     // Modal dropdowns
 GitHub: [@AlejandroMarchesini12](https://github.com/AlejandroMarchesini12)
 
 **Team Members**:
-- Caleb Ayers - [Role]
+- Caleb Ayers - [Assistant Developer & Designer] 
+Github: [CalebAyers](https://github.com/CalebAyers?tab=repositories)
 - Jiale Zheng - [Role]
 - Francesco Pio Centrella - [Role]
 
