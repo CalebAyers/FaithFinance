@@ -104,11 +104,11 @@ For detailed information on working with transactions and user data, see [DATA_U
 ## Accessibility
 
 ### Compatibility
-- ✅ **Platform**: iOS 13.0+
-- ✅ **Devices**: iPhone SE (2nd gen) to iPhone 15 Pro Max
-- ✅ **Screen Sizes**: 375x667 to 430x932 pixels
-- ✅ **Responsive Design**: All dimensions scale proportionally
-- ✅ **Font Scaling**: Supports dynamic type
+-  **Platform**: iOS 13.0+
+-  **Devices**: iPhone SE (2nd gen) to iPhone 15 Pro Max
+-  **Screen Sizes**: 375x667 to 430x932 pixels
+-  **Responsive Design**: All dimensions scale proportionally
+-  **Font Scaling**: Supports dynamic type
 
 ### Accessibility Features
 - **High Contrast**: Red (#8b0000) and gold (#e1ad01) primary colors with sufficient contrast ratios
